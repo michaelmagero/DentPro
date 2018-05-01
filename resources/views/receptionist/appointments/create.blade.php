@@ -17,6 +17,15 @@
                     </h3>
                 </div>
                 <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
 							{{ date('d M Y h:i a') }}
@@ -59,13 +68,7 @@
 						<div class="m-portlet__body">
 							
 							<div class="form-group m-form__group row">
-								<div class="col-lg-4">
-									<label>
-										File Number: &nbsp;<small>(Enter patient file number to search)</small>
-									</label>
-									<input type="text" name="middle_name"  class="form-control m-input" >
-									
-								</div>
+								
 								<div class="col-lg-4">
 									<label class="">
 										First Name:
@@ -75,17 +78,6 @@
 								</div>
 								<div class="col-lg-4">
 									<label>
-										Middle Name:
-									</label>
-									<input type="text" name="middle_name"  class="form-control m-input" >
-									
-								</div>
-							</div>
-
-
-							<div class="form-group m-form__group row">
-								<div class="col-lg-4">
-									<label>
 										Last Name:
 									</label>
 									<input type="text" name="lastname"  class="form-control m-input" >
@@ -93,18 +85,26 @@
 								</div>
 								<div class="col-lg-4">
 									<label>
+										Phone Number:
+									</label>
+									<input type="text" name="phone"  class="form-control m-input" >
+									
+								</div>
+							</div>
+
+
+							<div class="form-group m-form__group row">
+								
+								<div class="col-lg-4">
+									<label>
 										Doctor:
 									</label>
-									<select name="insurance_provider" class="form-control" id="m_notify_state">
-										<option value="">
-											Select Doctor
-										</option>
-										<option value="Pending">
-											Kisia
-										</option>
-										<option value="Complete">
-											Tumaini
-										</option>
+									<select name="doctor" id="input" class="form-control" required="required">
+										@foreach($users as $user)
+											@if($user->role == 'doctor')
+												<option value="">{{ $user->name }}</option>
+											@endif
+										@endforeach
 									</select>
 									
 								</div>
@@ -114,7 +114,7 @@
 										Appointment Date:
 									</label>
 									<div class="input-group date">
-										<input type="text" class="form-control m-input" readonly="" value="05/20/2017" id="m_datepicker_3">
+										<input type="text" class="form-control m-input" readonly="" value="" id="m_datepicker_3">
 										<div class="input-group-append">
 											<span class="input-group-text">
 												<i class="la la-calendar"></i>
@@ -123,10 +123,7 @@
 									</div>
 									
 								</div>
-							</div>
 
-
-							<div class="form-group m-form__group row">
 								<div class="col-lg-4">
 									<label>
 										Appointment Status:
@@ -143,6 +140,11 @@
 										</option>
 									</select>
 								</div>
+							</div>
+
+
+							<div class="form-group m-form__group row">
+								
 
 								
 							</div>

@@ -5,7 +5,7 @@ var Inputmask = function () {
     //== Private functions
     var demos = function () {
         // date format
-        $("#m_inputmask_1").inputmask("mm/dd/yyyy", {
+        $("#m_inputmask_1").inputmask("yyyy/mm/dd", {
             autoUnmask: true
         });
 

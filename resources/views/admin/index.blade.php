@@ -16,9 +16,18 @@
                     </h3>
                 </div>
                 <div>
-                    <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                    <span class="m-subheader__daterange" >
                         <span class="m-subheader__daterange-label">
-                        	<strong> {{ date('M d Y h:i a') }} </strong>
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> {{ date('M d Y h:i a') }} </strong>
                             <span class="m-subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
@@ -41,22 +50,16 @@
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Users
+													Patients
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-brand">
-													18M
+													{{ $patients->count() }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-brand" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-												<span class="m-widget24__change">
-													Change
-												</span>
-												<span class="m-widget24__number">
-													78%
-												</span>
 											</div>
 										</div>
 										<!--end::Total Profit-->
@@ -68,22 +71,16 @@
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Patients
+													Payments
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-info">
-													1349
+													{{ $payments->count() }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-info" role="progressbar" style="width: 84%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-info" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-												<span class="m-widget24__change">
-													Change
-												</span>
-												<span class="m-widget24__number">
-													84%
-												</span>
 											</div>
 										</div>
 										<!--end::New Feedbacks-->
@@ -99,18 +96,12 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-danger">
-													567
+													{{ $appointments->count()  }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-danger" role="progressbar" style="width: 69%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-												<span class="m-widget24__change">
-													Change
-												</span>
-												<span class="m-widget24__number">
-													69%
-												</span>
 											</div>
 										</div>
 										<!--end::New Orders-->
@@ -120,21 +111,21 @@
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Payments
+													Waiting List
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-success">
-													276
+													{{ $waitings->count() }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-success" role="progressbar" style="width: 90%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-success" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 												<span class="m-widget24__change">
-													Change
+													
 												</span>
 												<span class="m-widget24__number">
-													90%
+													
 												</span>
 											</div>
 										</div>
@@ -142,6 +133,8 @@
 									</div>
 								</div>
 							</div>
+
+
 						</div>
 						<!--end:: Widgets/Stats--> 
 

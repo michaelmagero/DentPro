@@ -12,4 +12,6 @@ class Appointment extends Model
      * @var string
      */
     protected $table = 'dms_appointments';
+
+    
 }

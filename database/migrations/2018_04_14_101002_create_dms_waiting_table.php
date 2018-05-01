@@ -16,13 +16,15 @@ class CreateDmsWaitingTable extends Migration
         Schema::create('dms_waiting', function (Blueprint $table) {
             $table->increments('id');
 
-            $table -> integer('file_no');
-            $table->foreign('file_no')
-                    ->references('id')->on('patients')
+            $table -> integer('patient_id')->nullable()->unsigned()->default(0);
+            $table->foreign('patient_id')
+                    ->references('id')->on('dms_patients')
                     ->onDelete('cascade');
 
-            $table->string('patient_name');
-            $table->string('payment_type'); //cash or insurance
+            $table->string('firstname');
+            $table->string('middlename');
+            $table->string('lastname');
+            $table->string('payment_mode'); //cash or insurance
             $table->string('amount_allocated');
             $table->timestamps();
         });

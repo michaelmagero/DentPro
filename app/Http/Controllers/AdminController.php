@@ -8,7 +8,10 @@ use App\Patient;
 use App\Payment;
 use App\Appointment;
 use App\Invoice;
+use App\Waiting;
 use Hash;
+use Alert;
+use DB;
 
 
 class AdminController extends Controller
@@ -22,14 +25,16 @@ class AdminController extends Controller
         ->with('users', User::orderBy('created_at','desc')->paginate(5))
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
 
       } elseif ($user->role == 'receptionist') {
         return View('receptionist.receptionist_index')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
         ->with('invoices', Invoice::orderBy('created_at','desc')->paginate(5))
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5));
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
 
       } elseif ($user->role == 'doctor') {
         return View('doctor.doctor_index')
@@ -37,7 +42,8 @@ class AdminController extends Controller
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
         ->with('invoices', Invoice::orderBy('created_at','desc')->paginate(5))
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5));
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
       }
     }
 
@@ -53,11 +59,13 @@ class AdminController extends Controller
         $user = $request->user();
 
         if ($user->role == 'admin') {
+          Alert::success('Login Successfully', 'Success')->autoclose(2000);
           return View('admin.users.show')
               ->with('users', User::orderBy('created_at','desc')->paginate(5));
         } else {
+          Alert::error('Login Failed, Check credential before Login', 'Error')->autoclose(2000);
           return View('admin.users.show')
-              ->with('users', User::where('id',$user->id)->orderBy('created_at','desc')->paginate(5));
+              ->with('users', User::where('id',$user->id)->orderBy('created_at','desc')->paginate(10));
         }
         
     }
@@ -84,9 +92,20 @@ class AdminController extends Controller
        $user->password = Hash::make($request->get('password'));
        $user->role = $request->get('role');
 
-       $user->save();
-       \Session::flash('flash_message','User Created Successfully.');
-       return back();
+       $mail = DB::select( DB::raw("SELECT * FROM users WHERE email = '$user->email'") );
+
+       if ($mail) {
+         Alert::error('User Exists', 'Error')->autoclose(2000);
+          return back();
+       } else {
+          $user->save();
+          
+          Alert::success('User Creted Successfully', 'Success')->autoclose(2000);
+          return back();
+       }
+
+       
+       
     }
 
     /**

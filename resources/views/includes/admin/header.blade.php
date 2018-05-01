@@ -22,6 +22,12 @@
 		<link href="../admin/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
 		<link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+		<link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+    	<script src="https://unpkg.com/flatpickr"></script>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -72,9 +78,9 @@
 								<i class="la la-close"></i>
 							</button>
 							<div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
-								<ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+								<!-- <ul class="m-menu__nav  m-menu__nav--submenu-arrow" >
 									<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
-										<a  href="#" class="m-menu__link m-menu__toggle">
+										<a  href="#" class="m-menu__link m-menu__toggle disabled" >
 											<i class="m-menu__link-icon flaticon-add"></i>
 											<span class="m-menu__link-text">
 												Actions
@@ -655,15 +661,13 @@
 											</ul>
 										</div>
 									</li>
-								</ul>
+								</ul> -->
 							</div>
 							<!-- END: Horizontal Menu -->								<!-- BEGIN: Topbar -->
 							<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
 								<div class="m-stack__item m-topbar__nav-wrapper">
 									<ul class="m-topbar__nav m-nav m-nav--inline">
-										<li class="
-	m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light" 
-	data-dropdown-toggle="click" data-dropdown-persistent="true" id="m_quicksearch" data-search-type="dropdown">
+										<!-- <li class="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light" data-dropdown-toggle="click" data-dropdown-persistent="true" id="m_quicksearch" data-search-type="dropdown" disabled="disabled">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-nav__link-icon">
 													<i class="flaticon-search-1"></i>
@@ -691,8 +695,8 @@
 													</div>
 												</div>
 											</div>
-										</li>
-										<li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width" data-dropdown-toggle="click" data-dropdown-persistent="true">
+										</li> -->
+										<!-- <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width" data-dropdown-toggle="click" data-dropdown-persistent="true">
 											<a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
 												<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>
 												<span class="m-nav__link-icon">
@@ -900,8 +904,8 @@
 													</div>
 												</div>
 											</div>
-										</li>
-										<li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light"  data-dropdown-toggle="click">
+										</li> -->
+										<!-- <li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light"  data-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-nav__link-badge m-badge m-badge--dot m-badge--info m--hide"></span>
 												<span class="m-nav__link-icon">
@@ -957,7 +961,7 @@
 													</div>
 												</div>
 											</div>
-										</li>
+										</li> -->
 										<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
@@ -1007,7 +1011,7 @@
 																		</span>
 																	</a>
 																</li>
-																<li class="m-nav__item">
+																<!-- <li class="m-nav__item">
 																	<a href="#" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-share"></i>
 																		<span class="m-nav__link-text">
@@ -1039,7 +1043,7 @@
 																			Support
 																		</span>
 																	</a>
-																</li>
+																</li> -->
 																<li class="m-nav__separator m-nav__separator--fit"></li>
 																<li class="m-nav__item">
 																	<a href="{{ url('/logout') }}" class="m-nav__link"
@@ -1061,13 +1065,14 @@
 												</div>
 											</div>
 										</li>
-										<li id="m_quick_sidebar_toggle" class="m-nav__item">
+										<li id="m_quick_sidebar_toggle" class="m-nav__item"></li>
+										<!-- <li id="m_quick_sidebar_toggle" class="m-nav__item">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-nav__link-icon">
 													<i class="flaticon-grid-menu"></i>
 												</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</div>

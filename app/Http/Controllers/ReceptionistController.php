@@ -7,8 +7,13 @@ use App\User;
 use App\Patient;
 use App\Payment;
 use App\Appointment;
+use App\Waiting;
 use Hash;
 use DB;
+use Alert;
+use DateTime;
+use Carbon\Carbon;
+
 
 class ReceptionistController extends Controller
 {
@@ -19,18 +24,19 @@ class ReceptionistController extends Controller
     }
 
     public function create() {
-        return view('receptionist.patients.create');
+        return view('receptionist.patients.create')
+        ->with('users', User::orderBy('created_at','desc')->get());
     }
 
     public function create_patient(Request $request) {
-        $patient = new Patient();
-
+        $patient = new Patient;
         $patient->firstname = $request->get('firstname');
         $patient->middlename = $request->get('middlename');
         $patient->lastname = $request->get('lastname');
         $patient->sex = $request->get('sex');
         $patient->dob = $request->get('dob');
-        $patient->insurance_provider = $request->get('insurance_provider');
+        $patient->payment_mode = $request->get('payment_mode');
+        $patient->amount_allocated = $request->get('amount_allocated');
         $patient->occupation = $request->get('occupation');
         $patient->postal_address = $request->get('postal_address');
         $patient->email = $request->get('email');
@@ -38,9 +44,11 @@ class ReceptionistController extends Controller
         $patient->emergency_contact_name = $request->get('emergency_contact_name');
         $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
         $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        $patient->doctor = $request->get('doctor');
 
         $patient->save();
-        \Session::flash('flash_message','Patient Added Successfully.');
+
+        Alert::success('Patient Added Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -61,7 +69,9 @@ class ReceptionistController extends Controller
         if($patient)
         {
             return view('receptionist.patients.edit')
-            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));   
+            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
+            ->with('users', User::orderBy('created_at','desc')->get())
+            ->with('payments', Payment::orderBy('created_at','desc')->get());   
         }
         else 
         {
@@ -77,37 +87,38 @@ class ReceptionistController extends Controller
     //PAYMENTS
     public function allpayments() {
         return view('receptionist.payments.show')
-        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(10));
     }
 
-    public function new_payment() {
+    public function new_payment($id) {
+        $patient = Patient::findorFail($id);
         return view('receptionist.payments.create')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
 
 
-    //$orders = DB::table('job_titles')->where('title', '=', '$title')->get();
-    public function create_payment(Request $request) {
-
+    
+    public function create_payment($patient_id, Request $request) {
         $payment = new Payment();
 
-        $payment->firstname = $request->get('firstname');
-        $payment->middle_name = $request->get('middle_name');
-        $payment->lastname = $request->get('lastname');
-        $payment->sex = $request->get('sex');
-        $payment->dob = $request->get('dob');
-        $payment->insurance_provider = $request->get('insurance_provider');
-        $payment->occupation = $request->get('occupation');
-        $payment->postal_address = $request->get('postal_address');
-        $payment->email = $request->get('email');
-        $payment->phone_number = $request->get('phone_number');
-        $payment->emergency_contact_name = $request->get('emergency_contact_name');
-        $payment->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
-        $payment->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        $payment->next_appointment = $request->get('next_appointment');
 
-        $payment->save();
-        \Session::flash('flash_message','Patient Added Successfully.');
+        //dd($payment->next_appointment);
+        $payment->amount_paid = $request->get('amount_paid');
+        $balance = $request->get('balance');
+
+        $patient = Patient::findorFail($patient_id);
+        $payment->amount_due = $patient->amount_due;
+        $payment->balance = $payment->amount_due - $payment->amount_paid;
+
+        $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = $payment->next_appointment, amount_paid = $payment->amount_paid WHERE patient_id = '$patient_id'") );
+
+        Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
         return back();
+
+
+
     }
 
     public function edit_payment($id) {
@@ -142,7 +153,8 @@ class ReceptionistController extends Controller
 
     public function new_appointment() {
         return view('receptionist.appointments.create')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
     }
 
     public function create_appointment(Request $request) {
@@ -193,7 +205,8 @@ class ReceptionistController extends Controller
     //WAITING LIST
     public function allwaiting() {
         return view('receptionist.waitinglist.show')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
     }
 
     public function new_waiting() {

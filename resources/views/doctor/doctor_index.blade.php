@@ -18,6 +18,15 @@
                 <div>
                     <span class="m-subheader__daterange" >
                         <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
 							<strong>{{ date('d M Y   h:i a') }}</strong>
                             <span class="m-subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
@@ -45,18 +54,16 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-brand">
-													18M
+													@foreach($patients as $patient)
+														@if($patient->doctor == Auth::user()->email)
+															{{ $patient->count() }}
+														@endif
+													@endforeach
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-brand" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-												<span class="m-widget24__change">
-													Change
-												</span>
-												<span class="m-widget24__number">
-													78%
-												</span>
 											</div>
 										</div>
 										<!--end::Total Profit-->
@@ -72,18 +79,12 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-info">
-													1349
+													{{ $payments->count() }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-info" role="progressbar" style="width: 84%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-info" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-												<span class="m-widget24__change">
-													Change
-												</span>
-												<span class="m-widget24__number">
-													84%
-												</span>
 											</div>
 										</div>
 										<!--end::New Feedbacks-->
@@ -99,18 +100,12 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-danger">
-													567
+													{{ $appointments->count()  }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-danger" role="progressbar" style="width: 69%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-												<span class="m-widget24__change">
-													Change
-												</span>
-												<span class="m-widget24__number">
-													69%
-												</span>
 											</div>
 										</div>
 										<!--end::New Orders-->
@@ -124,17 +119,21 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-success">
-													276
+													@foreach($patients as $patient)
+														@if($patient->doctor == Auth::user()->name)
+															{{ $patient->count() }}
+														@endif
+													@endforeach
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
-													<div class="progress-bar m--bg-success" role="progressbar" style="width: 90%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar m--bg-success" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 												<span class="m-widget24__change">
-													Change
+													
 												</span>
 												<span class="m-widget24__number">
-													90%
+													
 												</span>
 											</div>
 										</div>
@@ -213,7 +212,7 @@
 									<tbody>
 										@foreach($patients as $patient)
 											<tr>
-												<td>{{ $patient->id }}</td>
+												<td>{{ $patient->patient_id }}</td>
 												<td>{{ $patient->firstname }}</td>
 												<td>{{ $patient->lastname }}</td>
 												<td>{{ $patient->doctor }}</td>

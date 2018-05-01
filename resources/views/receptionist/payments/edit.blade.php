@@ -1,4 +1,4 @@
-
+  
 @extends('layouts.receptionist')
 
 @section('header')
@@ -16,6 +16,15 @@
                         My Profile
                     </h3>
                 </div>
+                <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+                            <strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
                 <div>
                     <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
                         <span class="m-subheader__daterange-label">

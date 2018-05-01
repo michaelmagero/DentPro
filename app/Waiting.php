@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Patient extends Model
+class Waiting extends Model
 {
     //
     /**
@@ -12,17 +12,19 @@ class Patient extends Model
      *
      * @var string
      */
-    protected $table = 'dms_patients';    
+    protected $table = 'dms_waiting';
+    
 
     public function payments() {
-    	return $this->hasMany('App\Payment');
+    	return $this->hasMany('App\Patient');
     }
 
     public function appointments() {
         return $this->hasMany('App\Appointment');
     }
 
-    public function waiting() {
-        return $this->hasOne('App\Waiting');
+    public function patient()
+    {
+      return $this->belongsTo('App\Patient');
     }
 }

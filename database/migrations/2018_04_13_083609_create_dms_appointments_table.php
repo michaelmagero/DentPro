@@ -14,23 +14,19 @@ class CreateDmsAppointmentsTable extends Migration
     public function up()
     {
         Schema::create('dms_appointments', function (Blueprint $table) {
-            $table->increments('appointment_id');
+            $table->increments('id');
 
-            $table -> integer('file_no');
-            $table->foreign('file_no')
-                    ->references('id')->on('patients')
-                    ->onDelete('cascade');
-
-            $table -> integer('patient_id');
+            $table -> integer('patient_id')->unsigned();
             $table->foreign('patient_id')
-                    ->references('id')->on('patients')
+                    ->references('id')->on('dms_patients')
                     ->onDelete('cascade');
                     
-            $table->string('patient_name');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('phone_number');
             $table->string('doctor');
-            $table->string('appointment_date');
+            $table->date('appointment_date');
             $table->string('appointment_status');
-            $table->string('account_balance'); //account balance for patient
             $table->timestamps();
         });
     }

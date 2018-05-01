@@ -16,6 +16,15 @@
                         Add Patient
                     </h3>
 				</div>
+				<div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
 				
                 <div>
                     <span class="m-subheader__daterange">
@@ -42,13 +51,24 @@
 								<span class="m-portlet__head-icon m--hide">
 									<i class="la la-gear"></i>
 								</span>
+
+								<!-- <button type="button" class="btn btn-success m-btn m-btn--custom" id="m_sweetalert_demo_6">
+									Show me
+								</button> -->
+
+
 								
 								<span class="text-center">
 									<br>
 									<div class="col-md-12 ">
-										@if(Session::has('flash_message'))
-											<div class="alert alert-success" role="alert"><em> {!! session('flash_message') !!}</em></div>
-										@endif
+										<!-- @if(Session::has('flash_message'))
+											<div class="alert alert-success" role="alert" ><em> {!! session('flash_message') !!}</em></div>
+										@endif -->
+
+										<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+
+                                        <!-- Include this after the sweet alert js file -->
+                                        @include('sweet::alert')
 									</div>
 								</span>
 							</div>
@@ -109,7 +129,7 @@
 										<span class="m-form__help">
 											Custom date format:
 											<code>
-												yyyy/mm/dd
+												Year/Month/Date
 											</code>
 										</span>
 									</div>
@@ -117,41 +137,89 @@
 								</div>
 								<div class="col-lg-4">
 									<label>
-										Insurance Provider:
+										Payment Mode:
 									</label>
-									<select name="insurance_provider" class="form-control" id="m_notify_state">
-										<option value="">
-											Select One
-										</option>
-										<option value="Jubilee">
-											Jubilee
-										</option>
-										<option value="UAP">
-											UAP
-										</option>
-										<option value="Madison">
-											Madison
-										</option>
-										<option value="AON">
-											AON
-										</option>
-										<option value="Britam">
-											Britam
-										</option>
-										<option value="Sanlam">
-											Sanlam
-										</option>
-										<option value="Pacific">
-											Pacific
-										</option>
-										<option value="Saham">
-											Saham
-										</option>
+									
+
+									<select class="form-control m-select2" id="m_select2_4" name="payment_mode">
+										<option></option>
+										<optgroup>
+											<option value="Cash">
+												Cash
+											</option>
+										</optgroup>
+
+										<optgroup label="Insurance Providers">
+											<option value="Jubilee">
+												Jubilee
+											</option>
+											<option value="UAP">
+												UAP
+											</option>
+											<option value="Madison">
+												Madison
+											</option>
+											<option value="AON">
+												AON
+											</option>
+											<option value="Britam">
+												Britam
+											</option>
+											<option value="Sanlam">
+												Sanlam
+											</option>
+											<option value="Pacific">
+												Pacific
+											</option>
+											<option value="Saham">
+												Saham
+											</option>
+											<option value="Resolution">
+												Resolution
+											</option>
+											<option value="AAR">
+												AAR
+											</option>
+											<option value="APA">
+												APA
+											</option>
+											<option value="Liaison">
+												Liaison
+											</option>
+											<option value="KCB">
+												KCB
+											</option>
+											<option value="Co-operative">
+												Co-operative
+											</option>
+											<option value="First Assurance">
+												First Assurance
+											</option>
+											<option value="Eagle Africa">
+												Eagle Africa
+											</option>
+											<option value="Sedwick">
+												Sedwick
+											</option>
+
+										</optgroup>
+										
 									</select>
 									
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
+								<div class="col-lg-4">
+									<label class="">
+										Amount Allocated: (for insurance holders)
+									</label>
+									<div class="m-input-icon m-input-icon--right">
+										<input type="text" name="amount_allocated" class="form-control m-input" >
+										
+									</div>
+									
+								</div>
+
 								<div class="col-lg-4">
 									<label class="">
 										Occupation:
@@ -174,6 +242,10 @@
 									
 								</div>
 
+								
+							</div>
+
+							<div class="form-group m-form__group row">
 								<div class="col-lg-4">
 									<label class="">
 										Email:
@@ -184,9 +256,7 @@
 									</div>
 									
 								</div>
-							</div>
 
-							<div class="form-group m-form__group row">
 								<div class="col-lg-4">
 									<label class="">
 										Phone No:
@@ -208,7 +278,9 @@
 									</div>
 									
 								</div>
+							</div>
 
+							<div class="form-group m-form__group row">
 								<div class="col-lg-4">
 									<label class="">
 										Emergency Contact Phone No:
@@ -219,15 +291,32 @@
 									</div>
 									
 								</div>
-							</div>
 
-							<div class="form-group m-form__group row">
 								<div class="col-lg-4">
 									<label class="">
 										Emergency Contact Relationship:
 									</label>
 									<div class="m-input-icon m-input-icon--right">
 										<input type="text" name="emergency_contact_relationship"  class="form-control m-input" >
+										
+									</div>
+									
+								</div>
+
+								<div class="col-lg-4">
+									<label class="">
+										Preferred Doctor:
+									</label>
+									<div class="m-input-icon m-input-icon--right">
+										<select name="doctor" id="input" class="form-control">
+												
+											@foreach($users as $user)
+												@if($user->role == 'doctor')
+													<option value="{{ $user->id }}" > {{ $user->name }} </option>
+												@endif
+											@endforeach
+
+										</select>
 										
 									</div>
 									
@@ -241,7 +330,7 @@
 								<div class="row">
 									<div class="col-lg-4"></div>
 									<div class="col-lg-8">
-										<button type="submit" class="btn btn-primary">
+										<button type="submit" class="btn btn-primary m-btn m-btn--custom" >
 											Submit
 										</button>
 										<button type="reset" class="btn btn-secondary">

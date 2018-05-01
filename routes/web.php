@@ -59,16 +59,16 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('update-patient','ReceptionistController@update');
 
-	Route::get('/delete-patient/{id}','ReceptionistController@delete');
+	Route::get('/delete-patient/{patient_id}','ReceptionistController@delete');
 
 
 
 	//PAYMENT ROUTES (RECEPTIONIST)
 	Route::get('all-payments','ReceptionistController@allpayments');
 
-	Route::get('new-payment','ReceptionistController@new_payment');
+	Route::get('new-payment/{id}','ReceptionistController@new_payment');
 
-	Route::post('new-payment','ReceptionistController@create_payment');
+	Route::post('new-payment/{id}','ReceptionistController@create_payment');
 
 	Route::get('all-invoices','ReceptionistController@invoices');
 
@@ -125,34 +125,34 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	//PATIENT ROUTES (LOGIC FROM DOCTOR CONTROLLER)
 	Route::get('all-patients-doc','DoctorsController@allpatients_doc');
 
-	// Route::get('new-doc-patient','DoctorController@create');
+	Route::get('new-doc-patient','DoctorsController@create');
 
-	// Route::post('new-doc-patient','DoctorController@insert');
+	Route::post('new-doc-patient','DoctorsController@insert');
 
-	// Route::get('/show-patient/{id}','DoctorController@show');
+	Route::get('/show-doc-patient/{id}','DoctorsController@show');
 
-	// Route::get('/edit-patient/{id}','DoctorController@edit');
+	Route::get('/edit-doc-patient/{id}','DoctorsController@edit');
 
-	// Route::post('update-patient','DoctorController@update');
+	Route::post('update-patient','DoctorsController@update');
 
-	// Route::get('/delete-patient/{id}','DoctorController@delete');
+	Route::get('/delete-patient/{patient_id}','DoctorsController@delete');
 
 
 
 	//PAYMENTS ROUTES (LOGIC FROM DOCTOR CONTROLLER)
 	Route::get('all-payments-doc','DoctorsController@allpayments');
 
-	// Route::get('new-doc-appointment','DoctorsController@create_appointment');
+	Route::get('new-doc-payment','DoctorsController@create_payment');
 
-	// Route::post('new-doc-appointment','DoctorsController@insert_appointment');
+	Route::post('new-doc-payment','DoctorsController@insert_payment');
 
-	// Route::get('/show-appointment/{id}','DoctorsController@show_appointment');
+	Route::get('/show-payment/{id}','DoctorsController@show_payment');
 
-	// Route::get('/edit-appointment/{id}','DoctorsController@edit_appointment');
+	Route::get('/edit-payment/{id}','DoctorsController@edit_payment');
 
-	// Route::post('update-appointment','DoctorsController@update_appointment');
+	Route::post('update-payment','DoctorsController@update_payment');
 
-	// Route::get('/delete-appointment/{id}','DoctorsController@delete_appointment');
+	Route::get('/delete-payment/{id}','DoctorsController@delete_payment');
 
 
 

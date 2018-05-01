@@ -17,6 +17,15 @@
                     </h3>
                 </div>
                 <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
 							<strong> {{ date('M d Y h:i a') }} </strong>
@@ -39,9 +48,14 @@
 										<div class="m-portlet__head-caption" style="margin: 0 0 0 300px !important;">
 											<div class="col-lg-6 col-lg-offset-3">
                                                 <span class="text-center">
-                                                        @if(Session::has('flash_message'))
+                                                        <!-- @if(Session::has('flash_message'))
                                                             <div class="alert alert-success"><em> {!! session('flash_message') !!}</em></div>
-                                                        @endif
+                                                        @endif -->
+
+                                                        <script src="js/sweetalert.min.js"></script>
+
+                                                            <!-- Include this after the sweet alert js file -->
+                                                        @include('sweet::alert')
                                                 </span>
 											</div>
 										</div>
@@ -55,14 +69,14 @@
 													Firstname:
 												</label>
 												<div class="col-lg-3">
-													<input type="text" name="name"  class="form-control m-input" placeholder="">
+													<input type="text" name="name"  class="form-control m-input" placeholder="" required="required">
                                                 </div>
                                                 
 												<label class="col-lg-2 col-form-label">
 													Lastname:
 												</label>
 												<div class="col-lg-3">
-													<input type="text" name="lastname" class="form-control m-input" placeholder="">
+													<input type="text" name="lastname" class="form-control m-input" placeholder="" required="required">
                                                 </div>
                                                 
 											</div>
@@ -72,7 +86,7 @@
 												</label>
 												<div class="col-lg-3">
 													<div class="m-input-icon m-input-icon--right">
-														<input type="email" name="email" class="form-control m-input" placeholder="">
+														<input type="email" name="email" class="form-control m-input" placeholder="" required="required">
 														
 													</div>
                                                 </div>
@@ -82,7 +96,7 @@
 												</label>
 												<div class="col-lg-3">
 													<div class="m-input-icon m-input-icon--right">
-														<input type="password" name="password" class="form-control m-input" placeholder="">
+														<input type="password" name="password" class="form-control m-input" placeholder="" required="required">
 														
 													</div>
                                                 </div>
@@ -105,7 +119,7 @@
                                                         <option value="receptionist">
                                                             Receptionist
                                                         </option>
-                                                        <option value="marketing_manager">
+                                                        <!-- <option value="marketing_manager">
                                                             Marketing Manager
                                                         </option>
                                                         <option value="ass_marketing_manager">
@@ -119,7 +133,7 @@
                                                         </option>
                                                         <option value="shopping_nurse">
                                                             Nurse (Shoopping)
-                                                        </option>
+                                                        </option> -->
 											        </select>
                                                 </div>
                                                 
@@ -128,9 +142,9 @@
 										<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 											<div class="m-form__actions m-form__actions--solid">
 												<div class="row">
-													<div class="col-lg-2"></div>
-													<div class="col-lg-10">
-														<button type="submit" class="btn btn-primary">
+													<div class="col-lg-5"></div>
+													<div class="col-lg-7">
+														<button type="submit" class="btn btn-primary m-btn m-btn--custom">
 															Submit
 														</button>
 														<button type="reset" class="btn btn-secondary">

@@ -19,7 +19,12 @@ var Select2 = function() {
 
         // basic
         $('#m_select2_4').select2({
-            placeholder: "Select a state",
+            placeholder: "Select preferred payment method",
+            allowClear: true
+        });
+
+        $('#m_select2_procedure').select2({
+            placeholder: "Select Procedure",
             allowClear: true
         });
 

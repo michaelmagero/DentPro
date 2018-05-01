@@ -17,6 +17,15 @@
                     </h3>
                 </div>
                 <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
 							{{ date('d M Y h:i a') }}
@@ -81,19 +90,19 @@
 										<tr class="m_datatable__row">
 											
 											<th title="Field #2">
-												Appointment No
-											</th>
-											<th title="Field #3">
 												File No
 											</th>
+											<th title="Field #3">
+												First Name
+											</th>
 											<th title="Field #4">
-												Firstname
+												Last Name
 											</th>
 											<th title="Field #5">
-												Lastname
+												Phone Number
 											</th>
 											<th title="Field #6">
-												Appointment Status
+												Time
 											</th>
 											<th title="Field #7">
 												Doctor

@@ -14,7 +14,7 @@
 		>
 						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-								<a  href="{{ url('/') }}" class="m-menu__link ">
+								<a  href="{{ url('/admin-dash') }}" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-line-graph"></i>
 									<span class="m-menu__link-title">
 										<span class="m-menu__link-wrap">
@@ -73,7 +73,7 @@
 								</div>
 							</li>
 							
-							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+							<!-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 								<a  href="#" class="m-menu__link m-menu__toggle">
 									<i class="m-menu__link-icon flaticon-users"></i>
 									<span class="m-menu__link-text">
@@ -278,7 +278,7 @@
 										</li>
 									</ul>
 								</div>
-							</li>
+							</li> -->
 
 
 							<li class="m-menu__section">
@@ -309,7 +309,7 @@
                 <!-- END: Left Aside -->
             
 <!-- begin::Quick Sidebar -->
-		<div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
+		<!-- <div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light m-disabled">
 			<div class="m-quick-sidebar__content m--hide">
 				<span id="m_quick_sidebar_close" class="m-quick-sidebar__close">
 					<i class="la la-close"></i>
@@ -909,5 +909,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- end::Quick Sidebar -->	

@@ -17,6 +17,15 @@
                     </h3>
                 </div>
                 <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
 							<strong>{{ date('d M Y h:i a') }}</strong>
@@ -34,6 +43,7 @@
 
         <div class="m-content">
 			<!--begin::Portlet-->
+				@foreach($payments as $payment)
 				<div class="m-portlet">
 					<div class="m-portlet__head">
 						<div class="m-portlet__head-caption">
@@ -45,11 +55,11 @@
 								<span class="text-center">
 									<br>
 									<div class="col-md-12 ">
-										@if(Session::has('flash_message'))
+										<!-- @if(Session::has('flash_message'))
 										<button type="button" class="btn btn-success m-btn m-btn--custom" id="m_sweetalert_demo_3_3">
 										{!! session('flash_message') !!}
 										</button>
-										@endif
+										@endif -->
 										
 									</div>
 								</span>
@@ -57,7 +67,7 @@
 						</div>
 					</div>
 					<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-patient') }}">
+					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-payment/'.$payment->patient_id) }}">
 						{{ csrf_field() }}
 						<div class="m-portlet__body">							
 							<div class="form-group m-form__group row">
@@ -65,97 +75,72 @@
 									<label class="">
 										Patient:
 									</label>
-									<select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true">
+									<select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
 										<option>
 											-- Search and select Patient --
 										</option>
-										@foreach($patients as $patient)
-										  <option value='{{ $patient->id }}'>{{ $patient->name }} {{ $patient->lastname }}</option>
-										@endforeach
+										  <option value='{{ $payment->patient_id }}' selected="selected">
+										  	{{ $payment->patient_id }}
+										  </option>
 									</select>
 									<span class="m-form__help">
-										Search user by using names
+										Search user by searching File No.
 									</span>
 								</div>
 
 								<div class="col-lg-4">
 									<label>
-										Payment Type:
+										Amount Due:
 									</label>
-									<select name="insurance_provider" class="form-control" id="m_notify_state">
-										<option value="">
-											Select One
-										</option>
-										<option value="Jubilee">
-											Cash
-										</option>
-										<option value="UAP">
-											Insurance
-										</option>
-										
-									</select>
-									
+
+									<input type="text" name="amount" readonly class="form-control m-input" disabled="disabled" value="{{ $payment->amount_due }}" style="font-weight: 600px !important;">
 								</div>
+
 								<div class="col-lg-4">
 									<label>
-										Payment For
+										Next Appointment:
 									</label>
-									<input type="text" name="amount"  class="form-control m-input" >
-									
+									<div class="input-group date" >
+										<input class="flatpickr flatpickr-input form-control input active" placeholder="Select Date..." tabindex="0" type="text" readonly="readonly" name="next_appointment">
+		       					        <script>
+		       					            flatpickr(".flatpickr", {
+		       					                enableTime: false,
+		       					                altInput: true,
+		       					                altFormat: "YYY-MM-DD",
+		       					            });
+		       					        </script>
+       					    		</div>
 								</div>
 
 
 							</div>
-							
+
 
 							<div class="form-group m-form__group row">
-								<div class="col-lg-4">
+								<div class="col-lg-8">
 									<label>
-										Amount (Cash):
+										Notes
 									</label>
-									<input type="text" name="lastname"  class="form-control m-input" >
-									
-								</div>
-							</div>
-
-							<div class="form-group m-form__group row">
-								<div class="col-lg-4">
-									<label>
-										Invoice To:
-									</label>
-									<input type="text" name="lastname"  class="form-control m-input" >
-									
-								</div>
-								<div class="col-lg-4">
-									<label>
-										Invoice For:
-									</label>
-									<input type="text" name="lastname"  class="form-control m-input" >
-									
-								</div>
-								<div class="col-lg-4">
-									<label>
-										Invoice Amount:
-									</label>
-									<input type="text" name="amount"  class="form-control m-input" >
-									
-								</div>
-							</div>
-
-							<div class="form-group m-form__group row">
-								<div class="col-lg-4">
-									<label>
-										Invoice Date:
-									</label>
-									<div class="input-group date">
-										<input type="text" class="form-control m-input" readonly="" value="05/20/2017" id="m_datepicker_3">
-										<div class="input-group-append">
-											<span class="input-group-text">
-												<i class="la la-calendar"></i>
-											</span>
+										<div>
+											<textarea name="" id="textarea" readonly  class="form-control" cols="15" rows="10" required="required" disabled="disabled" value="">{{ $payment->notes }}</textarea>
 										</div>
-									</div>
+									
 								</div>
+
+								<div class="col-lg-4">
+									<label>
+										Amount Paid:
+									</label>
+									<input type="text" name="amount_paid"  class="form-control m-input" ><br><br>
+
+									<label>
+										Balance:
+									</label>
+									<input type="text" name="balance"  disabled="disabled" class="form-control m-input" >
+									
+								</div>
+
+
 							</div>
 
 						</div>
@@ -164,7 +149,7 @@
 								<div class="row">
 									<div class="col-lg-4"></div>
 									<div class="col-lg-8">
-										<button type="submit" class="btn btn-primary">
+										<button type="submit" class="btn btn-primary m-btn m-btn--custom" id="m_sweetalert_demo_6_2">
 											Add Payment
 										</button>
 										<button type="reset" class="btn btn-secondary">
@@ -182,7 +167,7 @@
 						
 						
 						
-						
+				@endforeach	
 						<!--End::Section-->
                     </div>
                 </div>

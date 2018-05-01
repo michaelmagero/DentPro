@@ -92,7 +92,7 @@
 												</span>
 											</span>
 										</li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+										<!-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 											<a  href="{{ url('all-payments-doc') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -101,9 +101,9 @@
 													All Payments
 												</span>
 											</a>
-										</li>
-										<!-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-											<a  href="{{ url('new-payment') }}" class="m-menu__link m-menu__toggle">
+										</li> -->
+										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+											<a  href="{{ url('new-doc-payment') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -111,7 +111,7 @@
 													 New Payment
 												</span>
 											</a>
-										</li> -->
+										</li>
 									</ul>
 								</div>
 							</li>
@@ -146,7 +146,7 @@
 												</span>
 											</a>
 										</li>
-										<li class="m-menu__item " aria-haspopup="true" >
+										<!-- <li class="m-menu__item " aria-haspopup="true" >
 											<a  href="{{ url('new-appointment-doc') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -155,7 +155,7 @@
 													New Appointment
 												</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</li>

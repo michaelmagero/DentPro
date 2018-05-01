@@ -17,6 +17,15 @@
                     </h3>
                 </div>
                 <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
 							<strong>{{ date('d M Y h:i a') }}</strong>
@@ -59,14 +68,14 @@
 											</div>
 										</div>
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-waiting') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+											<!-- <a href="{{ url('new-waiting') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
 													<span>
 														New Waiting Patient
 													</span>
 												</span>
-											</a>
+											</a> -->
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
 										</div>
 									</div>
@@ -98,20 +107,20 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($patients as $patient)
+										@foreach($waitings as $waiting)
 											<tr>
-												<td>{{ $patient->id }}</td>
-												<td>{{ $patient->firstname }}</td>
-												<td>{{ $patient->lastname }}</td>
-												<td>{{ $patient->doctor }}</td>
-												<td>{{ $patient->doctor }}</td>
+												<td>{{ $waiting->id }}</td>
+												<td>{{ $waiting->firstname }}</td>
+												<td>{{ $waiting->lastname }}</td>
+												<td>{{ $waiting->doctor }}</td>
+												<td>{{ $waiting->doctor }}</td>
 												<td>
 													
-													<a href="{{ url('show-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													<a href="{{ url('show-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a>
 

@@ -17,6 +17,15 @@
                     </h3>
                 </div>
                 <div>
+                    <span class="m-subheader__daterange" >
+                        <span class="m-subheader__daterange-label">
+							<strong> Hello {{ Auth::user()->name }} </strong>
+                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-date  m--font-brand"></span>
+                        </span>
+                    </span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
 							<strong>{{ date('d M Y h:i a') }}</strong>
@@ -81,22 +90,31 @@
 										<tr class="m_datatable__row">
 											
 											<th title="Field #2">
-												File No
+												Payment ID
 											</th>
 											<th title="Field #3">
-												Firstname
+												Patient ID
 											</th>
 											<th title="Field #4">
-												Lastname
-											</th>
-											<th title="Field #5">
 												Procedure
 											</th>
+											<th title="Field #5">
+												Amount Due
+											</th>
 											<th title="Field #6">
-												Amount
+												Amount Paid
 											</th>
 											<th title="Field #7">
-												Date Paid
+												Balance
+											</th>
+											<th title="Field #7">
+												Next Appointment
+											</th>
+											<th title="Field #7">
+												Notes
+											</th>
+											<th title="Field #7">
+												Action
 											</th>
 										</tr>
 									</thead>
@@ -104,17 +122,20 @@
 										@foreach($payments as $payment)
 											<tr>
 												<td>{{ $payment->id }}</td>
-												<td>{{ $payment->firstname }}</td>
-												<td>{{ $payment->lastname }}</td>
-												<td>{{ $payment->sex }}</td>
-												<td>{{ $payment->insurance_provider }}</td>
+												<td>{{ $payment->patient_id }}</td>
+												<td>{{ $payment->procedure }}</td>
+												<td>{{ $payment->amount_due }}</td>
+												<td>{{ $payment->amount_paid }}</td>
+												<td>{{ $payment->balance }}</td>
+												<td>{{ $payment->next_appointment }}</td>
+												<td>{{ $payment->notes }}</td>
 												<td>
 													
-													<a href="{{ url('show-payment/'.$payment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													<a href="{{ url('new-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-payment/'.$payment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a>
 

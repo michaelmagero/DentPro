@@ -19,15 +19,17 @@ class CreateDmsPatientsTable extends Migration
             $table->string('middlename');
             $table->string('lastname');
             $table->string('sex');
-            $table->string('dob');
-            $table->string('insurance_provider');
+            $table->date('dob');
+            $table->string('payment_mode');
+            $table->decimal('amount_allocated', 13, 2)->nullable();
             $table->string('occupation');
             $table->string('postal_address');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone_number');
             $table->string('emergency_contact_name');
             $table->string('emergency_contact_phone_number');
             $table->string('emergency_contact_relationship');
+            $table->string('doctor')->nullable();
             $table->timestamps();
         });
     }

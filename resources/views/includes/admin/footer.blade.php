@@ -45,14 +45,21 @@
 
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/bootstrap-datetimepicker.js" type="text/javascript"></script>
 
-		<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+		<script src="../admin/assets/demo/default/custom/components/base/mike.js" type="text/javascript"></script>
 
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/bootstrap-select.js" type="text/javascript"></script>
+
+		<script src="../admin/assets/demo/default/custom/components/forms/widgets/select2.js" type="text/javascript"></script>
+
+		<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+
 		<!--end::Page Snippets -->
 
 		<script>
 			$('div.alert').not('.alert-important').delay(2000).fadeOut(350);
 		</script>
+
+		
 	</body>
 	<!-- end::Body -->
 </html>

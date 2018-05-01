@@ -14,18 +14,19 @@ class CreateDmsPaymentsTable extends Migration
     public function up()
     {
         Schema::create('dms_payments', function (Blueprint $table) {
-            $table->increments('payment_id');
-            $table -> integer('patient_id');
+            $table->increments('id');
+
+            $table -> integer('patient_id')->unsigned();
             $table->foreign('patient_id')
-                    ->references('id')->on('patients')
+                    ->references('id')->on('dms_patients')
                     ->onDelete('cascade');
-            $table->string('amount');
-            $table->string('payment_type');
-            $table->string('invoice_number');
-            $table->string('invoice_to');
-            $table->string('invoice_date');
-            $table->string('invoice_amount');
-            $table->string('invoiced_procedure');
+        
+            $table->string('procedure')->nullable();
+            $table->decimal('amount_due', 13, 2)->nullable();
+            $table->decimal('amount_paid', 13, 2)->nullable();
+            $table->decimal('balance', 13, 2)->nullable();
+            $table->date('next_appointment')->nullable();
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

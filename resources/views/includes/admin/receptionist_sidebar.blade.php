@@ -100,7 +100,7 @@
 												</span>
 											</a>
 										</li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+										<!-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 											<a  href="{{ url('new-payment') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -109,7 +109,7 @@
 													New Payment
 												</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</li>
@@ -182,7 +182,7 @@
 												</span>
 											</a>
 										</li>
-										<li class="m-menu__item " aria-haspopup="true" >
+										<!-- <li class="m-menu__item " aria-haspopup="true" >
 											<a  href="{{ url('new-waiting') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -191,7 +191,7 @@
 													Add Patient
 												</span>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</li>
@@ -565,7 +565,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane  m-scrollable" id="m_quick_sidebar_tabs_logs" role="tabpanel">
+					<!-- <div class="tab-pane  m-scrollable" id="m_quick_sidebar_tabs_logs" role="tabpanel">
 						<div class="m-list-timeline">
 							<div class="m-list-timeline__group">
 								<div class="m-list-timeline__heading">
@@ -820,7 +820,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

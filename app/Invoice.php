@@ -13,14 +13,11 @@ class Invoice extends Model
      *
      * @var string
      */
-    protected $table = 'dms_appointments';
+    protected $table = 'dms_payments';
 
-
-    
-    
-    public function patient()
+    public function payment()
     {
-        return $this->belongsTo('App\Patient','patient_id');
+        return $this->belongsTo('App\Payment');
     }
 
 

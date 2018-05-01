@@ -85,7 +85,7 @@ var BootstrapDatetimepicker = function () {
         });
 
         $('#m_datetimepicker_6').datetimepicker({
-            format: "yyyy/mm/dd",
+            format: "Y-m-d H:i:s",
             todayHighlight: true,
             autoclose: true,
             startView: 2,
