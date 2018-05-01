@@ -55,11 +55,16 @@
 								<span class="text-center">
 									<br>
 									<div class="col-md-12 ">
-										<!-- @if(Session::has('flash_message'))
+										{{-- <!-- @if(Session::has('flash_message'))
 										<button type="button" class="btn btn-success m-btn m-btn--custom" id="m_sweetalert_demo_3_3">
 										{!! session('flash_message') !!}
 										</button>
-										@endif -->
+										@endif --> --}}
+
+										<script src="js/sweetalert.min.js"></script>
+
+										<!-- Include this after the sweet alert js file -->
+									@include('sweet::alert')
 										
 									</div>
 								</span>
@@ -106,7 +111,7 @@
 		       					            flatpickr(".flatpickr", {
 		       					                enableTime: false,
 		       					                altInput: true,
-		       					                altFormat: "YYY-MM-DD",
+		       					                altFormat: "Y-m-d",
 		       					            });
 		       					        </script>
        					    		</div>

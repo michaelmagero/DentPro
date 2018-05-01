@@ -100,22 +100,28 @@ class ReceptionistController extends Controller
 
     
     public function create_payment($patient_id, Request $request) {
-        $payment = new Payment();
+        
 
-        $payment->next_appointment = $request->get('next_appointment');
+        $date = $request->get('next_appointment');
+        $next_appointment = date_format(date_create($date), 'Y-m-d');
 
-        //dd($payment->next_appointment);
-        $payment->amount_paid = $request->get('amount_paid');
-        $balance = $request->get('balance');
-
+        
+        $amount_paid = $request->get('amount_paid');
+        
+        $amountdue = DB::select( DB::raw("SELECT amount_due FROM dms_payments WHERE patient_id = '$patient_id'") );
         $patient = Patient::findorFail($patient_id);
-        $payment->amount_due = $patient->amount_due;
-        $payment->balance = $payment->amount_due - $payment->amount_paid;
-
-        $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = $payment->next_appointment, amount_paid = $payment->amount_paid WHERE patient_id = '$patient_id'") );
+        // $amountdue = $patient->amount_due;
+        foreach ($amountdue as $patient_due) {
+            $final_due = $patient_due->amount_due;
+            $balance = (float) $final_due - $amount_paid;
+        }
+        
+    
+        $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
 
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        return back();
+            return back();
+        
 
 
 
