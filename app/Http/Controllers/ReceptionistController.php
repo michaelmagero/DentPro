@@ -29,7 +29,7 @@ class ReceptionistController extends Controller
     }
 
     public function create_patient(Request $request) {
-        $patient = new Patient;
+        $patient = new Patient();
         $patient->firstname = $request->get('firstname');
         $patient->middlename = $request->get('middlename');
         $patient->lastname = $request->get('lastname');
@@ -45,6 +45,8 @@ class ReceptionistController extends Controller
         $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
         $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
         $patient->doctor = $request->get('doctor');
+
+        if($patient->email )
 
         $patient->save();
 
@@ -122,9 +124,6 @@ class ReceptionistController extends Controller
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
             return back();
         
-
-
-
     }
 
     public function edit_payment($id) {

@@ -312,7 +312,7 @@
 												
 											@foreach($users as $user)
 												@if($user->role == 'doctor')
-													<option value="{{ $user->id }}" > {{ $user->name }} </option>
+													<option value="{{ $user->name }}" > {{ $user->name }} </option>
 												@endif
 											@endforeach
 

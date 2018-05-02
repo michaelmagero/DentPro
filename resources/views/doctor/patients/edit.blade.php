@@ -2,7 +2,7 @@
 @extends('layouts.doctor')
 
 @section('header')
-    User Profile
+    Patient Profile
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        My Profile
+                        Patient Profile
                     </h3>
                 </div>
                 <div>
@@ -49,7 +49,7 @@
                             <div class="m-portlet__body">
                                 <div class="m-card-profile">
                                     <div class="m-card-profile__title m--hide">
-                                        Your Profile
+                                        Patient Profile
                                     </div>
                                     <div class="m-card-profile__pic">
                                         <div class="m-card-profile__pic-wrapper">
@@ -78,7 +78,7 @@
                                             <span class="m-nav__link-title">
                                                 <span class="m-nav__link-wrap">
                                                     <span class="m-nav__link-text">
-                                                        File No - <span class="text-primary">{{ $patient->patient_id }}</span>
+                                                        File No - <span class="text-primary">{{ $patient->id }}</span>
                                                     </span>
                                                 </span>
                                             </span>
@@ -242,7 +242,66 @@
                                                     Payment Mode
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->payment_mode }}">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
+                                            
+                                                        <option value='{{ $patient->payment_mode }}' selected="selected">
+                                                            {{ $patient->payment_mode }}
+                                                        </option>
+
+                                                        <optgroup label="Insurance Providers">
+                                                            <option value="Jubilee">
+                                                                Jubilee
+                                                            </option>
+                                                            <option value="UAP">
+                                                                UAP
+                                                            </option>
+                                                            <option value="Madison">
+                                                                Madison
+                                                            </option>
+                                                            <option value="AON">
+                                                                AON
+                                                            </option>
+                                                            <option value="Britam">
+                                                                Britam
+                                                            </option>
+                                                            <option value="Sanlam">
+                                                                Sanlam
+                                                            </option>
+                                                            <option value="Pacific">
+                                                                Pacific
+                                                            </option>
+                                                            <option value="Saham">
+                                                                Saham
+                                                            </option>
+                                                            <option value="Resolution">
+                                                                Resolution
+                                                            </option>
+                                                            <option value="AAR">
+                                                                AAR
+                                                            </option>
+                                                            <option value="APA">
+                                                                APA
+                                                            </option>
+                                                            <option value="Liaison">
+                                                                Liaison
+                                                            </option>
+                                                            <option value="KCB">
+                                                                KCB
+                                                            </option>
+                                                            <option value="Co-operative">
+                                                                Co-operative
+                                                            </option>
+                                                            <option value="First Assurance">
+                                                                First Assurance
+                                                            </option>
+                                                            <option value="Eagle Africa">
+                                                                Eagle Africa
+                                                            </option>
+                                                            <option value="Sedwick">
+                                                                Sedwick
+                                                            </option>
+										                </optgroup>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">

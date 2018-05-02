@@ -55,9 +55,7 @@
 												<br>
 												<span class="m-widget24__stats m--font-brand">
 													@foreach($patients as $patient)
-														@if($patient->doctor == Auth::user()->email)
-															{{ $patient->count() }}
-														@endif
+														{{ count(explode(",",$patient->id)) }}
 													@endforeach
 												</span>
 												<div class="m--space-10"></div>
@@ -119,10 +117,8 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-success">
-													@foreach($patients as $patient)
-														@if($patient->doctor == Auth::user()->name)
-															{{ $patient->count() }}
-														@endif
+													@foreach($waitlist as $waiting)
+														 {{ count($waiting->firstname) }}
 													@endforeach
 												</span>
 												<div class="m--space-10"></div>
@@ -210,19 +206,19 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($patients as $patient)
+										@foreach($waitlist as $list)
 											<tr>
-												<td>{{ $patient->patient_id }}</td>
-												<td>{{ $patient->firstname }}</td>
-												<td>{{ $patient->lastname }}</td>
-												<td>{{ $patient->doctor }}</td>
+												<td>{{ $list->id }}</td>
+												<td>{{ $list->firstname }}</td>
+												<td>{{ $list->lastname }}</td>
+												<td>{{ $list->payment_mode }}</td>
 												<td>
 													
-													<a href="{{ url('show-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													<a href="{{ url('show-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a>
 

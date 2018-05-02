@@ -20,6 +20,11 @@ class CreateDmsPaymentsTable extends Migration
             $table->foreign('patient_id')
                     ->references('id')->on('dms_patients')
                     ->onDelete('cascade');
+
+            $table -> integer('doctor_id')->unsigned();
+            $table->foreign('doctor_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade');
         
             $table->string('procedure')->nullable();
             $table->decimal('amount_due', 13, 2)->nullable();

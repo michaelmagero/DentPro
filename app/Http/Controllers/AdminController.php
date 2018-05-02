@@ -12,6 +12,7 @@ use App\Waiting;
 use Hash;
 use Alert;
 use DB;
+use Auth;
 
 
 class AdminController extends Controller
@@ -19,6 +20,16 @@ class AdminController extends Controller
     //
     public function home(Request $request) {
       $user = $request->user();
+
+      //Get the current logged in user(doctor)
+      $cur_user = Auth::user()->name;
+
+      //Get list of patients where preffered doctor is the current logged in user(doctor)
+      $pref_doc = DB::select( DB::raw("SELECT * FROM dms_patients WHERE doctor = '$cur_user' "));
+
+      //Get list of patients where preffered doctor is the current logged in user(doctor) and appointment is today
+      $waitlist = DB::select( DB::raw("SELECT * FROM dms_patients WHERE doctor = '$cur_user' AND DATE(created_at) = '".date('Y-m-d')."'"));
+
 
       if ($user->role == 'admin') {
         return View('admin.index')
@@ -38,8 +49,9 @@ class AdminController extends Controller
 
       } elseif ($user->role == 'doctor') {
         return View('doctor.doctor_index')
+        ->with('waitlist', $waitlist)
+        ->with('patients', $pref_doc)
         ->with('users', User::orderBy('created_at','desc')->paginate(5))
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
         ->with('invoices', Invoice::orderBy('created_at','desc')->paginate(5))
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
