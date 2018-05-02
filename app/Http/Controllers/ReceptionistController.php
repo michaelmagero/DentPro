@@ -58,11 +58,13 @@ class ReceptionistController extends Controller
 
     public function edit($id) {
         //get post data by id
-        $user = User::findorFail($id);
+        $patient = Patient::where('id',$id)->first();
             
         //load form view
         return view('receptionist.patients.edit', compact('patients'))
-        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
+        ->with('payments', Payment::orderBy('created_at','desc')->get())
+        ->with('users', User::orderBy('created_at','desc')->get());
     }
 
     public function show($id) {
@@ -81,9 +83,62 @@ class ReceptionistController extends Controller
         }
     }
 
-    public function update() {
-        //UPDATE `dms_patients` SET `id` = '2029' WHERE `dms_patients`.`id` = 1;
+    public function update_patient() {
+        $firstname = $request->get('firstname');
+        $middlename = $request->get('middlename');
+        $lastname = $request->get('lastname');
+        $sex = $request->get('sex');
+        $dob = $request->get('dob');
+        $payment_mode = $request->get('payment_mode');
+        $amount_allocated = $request->get('amount_allocated');
+        $occupation = $request->get('occupation');
+        $postal_address = $request->get('postal_address');
+        $email = $request->get('email');
+        $phone_number = $request->get('phone_number');
+        $emergency_contact_name = $request->get('emergency_contact_name');
+        $emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
+        $emergency_contact_relationship = $request->get('emergency_contact_relationship');
+
+        $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
+
+        Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
+            return back();
     }
+
+
+    public function medical_history() {
+
+    }
+
+
+
+    public function delete_patient($id) {
+        $patient = Patient::where('id',$id)->first();
+
+        $patient->delete();
+
+        \Session::flash('flash_message','Post Deleted Successfully.');
+        return back();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //PAYMENTS
@@ -163,23 +218,22 @@ class ReceptionistController extends Controller
     }
 
     public function create_appointment(Request $request) {
-        $patient = new Appointment();
-        $patient->firstname = $request->get('firstname');
-        $patient->middle_name = $request->get('middle_name');
-        $patient->lastname = $request->get('lastname');
-        $patient->sex = $request->get('sex');
-        $patient->dob = $request->get('dob');
-        $patient->insurance_provider = $request->get('insurance_provider');
-        $patient->occupation = $request->get('occupation');
-        $patient->postal_address = $request->get('postal_address');
-        $patient->email = $request->get('email');
-        $patient->phone_number = $request->get('phone_number');
-        $patient->emergency_contact_name = $request->get('emergency_contact_name');
-        $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
-        $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        $appointment = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
 
-        $patient->save();
-        \Session::flash('flash_message','Patient Added Successfully.');
+        $appointment = DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle']);
+        
+
+        $appointment = new Appointment();
+
+        $appointment->firstname = $request->get('firstname');
+        $appointment->lastname = $request->get('lastname');
+        $appointment->phone = $request->get('phone');
+        $appointment->doctor = $request->get('doctor');
+        $appointment->appointment_date = $request->get('appointment_date');
+        $appointment->appointment_status = $request->get('appointment_status');
+
+        $appointment->save();
+        \Session::flash('flash_message','Appointment Added Successfully.');
         return back();
     }
 

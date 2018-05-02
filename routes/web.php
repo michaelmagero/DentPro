@@ -55,11 +55,11 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/show-patient/{id}','ReceptionistController@show');
 
-	Route::get('/edit-patient/{id}','ReceptionistController@edit');
+	// Route::get('/edit-patient/{id}','ReceptionistController@edit');
 
-	Route::post('update-patient','ReceptionistController@update');
+	Route::post('update-patient','ReceptionistController@update_patient');
 
-	Route::get('/delete-patient/{patient_id}','ReceptionistController@delete');
+	Route::get('/delete-patient/{id}','ReceptionistController@delete_patient');
 
 
 
@@ -88,7 +88,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('new-appointment','ReceptionistController@new_appointment');
 
-	Route::post('new-appointment','ReceptionistController@insert_appointment');
+	Route::post('new-appointment','ReceptionistController@create_appointment');
 
 	Route::get('/show-appointment/{id}','ReceptionistController@show_appointment');
 

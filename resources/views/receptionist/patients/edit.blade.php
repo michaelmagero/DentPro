@@ -193,7 +193,7 @@
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right">
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient') }}">
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
                                                 <div class="alert m-alert m-alert--default" role="alert">
@@ -212,7 +212,7 @@
                                                     First Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->firstname }}">
+                                                    <input class="form-control m-input" name="firstname"  type="text" value="{{ $patient->firstname }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -220,7 +220,7 @@
                                                     Middle Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->middlename }}">
+                                                    <input class="form-control m-input" name="middlename"  type="text" value="{{ $patient->middlename }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -228,7 +228,7 @@
                                                     Last Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->lastname }}">
+                                                    <input class="form-control m-input" name="lastname"  type="text" value="{{ $patient->lastname }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -236,7 +236,7 @@
                                                     Sex
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->sex }}">
+                                                    <input class="form-control m-input" name="sex"  type="text" value="{{ $patient->sex }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -244,13 +244,16 @@
                                                     Payment Mode
                                                 </label>
                                                 <div class="col-7">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="payment_mode">
                                             
                                                         <option value='{{ $patient->payment_mode }}' selected="selected">
                                                             {{ $patient->payment_mode }}
                                                         </option>
 
                                                         <optgroup label="Insurance Providers">
+                                                            <option value="Cash">
+                                                                Cash
+                                                            </option>
                                                             <option value="Jubilee">
                                                                 Jubilee
                                                             </option>
@@ -311,7 +314,7 @@
                                                     Occupation
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->occupation }}">
+                                                    <input class="form-control m-input" name="occupation"  type="text" value="{{ $patient->occupation }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -333,7 +336,7 @@
                                                     Phone No.
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->phone_number }}">
+                                                    <input class="form-control m-input" name="phone_number" type="text" value="{{ $patient->phone_number }}">
                                                 </div>
                                             </div>
 
@@ -342,7 +345,7 @@
                                                     Email
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->email }}">
+                                                    <input class="form-control m-input" name="email"  type="text" value="{{ $patient->email }}">
                                                 </div>
                                             </div>
 
@@ -351,7 +354,7 @@
                                                     Preferred Doctor
                                                 </label>
                                                 <div class="col-7">
-                                                    <select name="" id="input" class="form-control" required="required">
+                                                    <select name="doctor" id="input" class="form-control" required="required">
                                                         @foreach($users as $user)
                                                             @if($user->role == 'doctor')
                                                                 <option value="">{{ $user->name }}</option>
@@ -375,7 +378,7 @@
                                                     Address
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->postal_address }}">
+                                                    <input class="form-control m-input" name="postal_address"  type="text" value="{{ $patient->postal_address }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -383,7 +386,7 @@
                                                     Emergency Contact Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->emergency_contact_name }}">
+                                                    <input class="form-control m-input" name="emergency_contact_name"  type="text" value="{{ $patient->emergency_contact_name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -391,7 +394,7 @@
                                                     Emergency Contact Phone Number
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->emergency_contact_phone_number }}">
+                                                    <input class="form-control m-input" name="emergency_contact_phone_number"  type="text" value="{{ $patient->emergency_contact_phone_number }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -399,7 +402,7 @@
                                                     Emergency Contact Relationship
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->emergency_contact_relationship }}">
+                                                    <input class="form-control m-input" name="emergency_contact_relationship"   type="text" value="{{ $patient->emergency_contact_relationship }}">
                                                 </div>
                                             </div>
                                             
@@ -436,11 +439,7 @@
                                                     </div>
                                                     <div class="m-widget3__info">
                                                         <span class="m-widget3__username">
-                                                            Dr @foreach($users as $user)
-                                                                    @if($user->role == 'doctor')
-                                                                        <option value="{{ $user->name }}" > {{ $user->name }} </option>
-                                                                    @endif
-											                    @endforeach
+                                                            Dr 
                                                         </span>
                                                         <br>
                                                         <span class="m-widget3__time">
@@ -449,54 +448,6 @@
                                                     </div>
                                                     <span class="m-widget3__status m--font-info">
                                                         Pending
-                                                    </span>
-                                                </div>
-                                                <div class="m-widget3__body">
-                                                    <p class="m-widget3__text">
-                                                        Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="m-widget3__item">
-                                                <div class="m-widget3__header">
-                                                    <div class="m-widget3__user-img">
-                                                        <img class="m-widget3__img" src="../admin/assets/app/media/img/users/user4.jpg" alt="">
-                                                    </div>
-                                                    <div class="m-widget3__info">
-                                                        <span class="m-widget3__username">
-                                                            Dr {{ $patient->doctor }}
-                                                        </span>
-                                                        <br>
-                                                        <span class="m-widget3__time">
-                                                            {{ $patient->created_at }}
-                                                        </span>
-                                                    </div>
-                                                    <span class="m-widget3__status m--font-info">
-                                                        Pending
-                                                    </span>
-                                                </div>
-                                                <div class="m-widget3__body">
-                                                    <p class="m-widget3__text">
-                                                        Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud exerci tation ullamcorper.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="m-widget3__item">
-                                                <div class="m-widget3__header">
-                                                    <div class="m-widget3__user-img">
-                                                        <img class="m-widget3__img" src="../admin/assets/app/media/img/users/user5.jpg" alt="">
-                                                    </div>
-                                                    <div class="m-widget3__info">
-                                                        <span class="m-widget3__username">
-                                                            Dr {{ $patient->doctor }}
-                                                        </span>
-                                                        <br>
-                                                        <span class="m-widget3__time">
-                                                            {{ $patient->created_at }}
-                                                        </span>
-                                                    </div>
-                                                    <span class="m-widget3__status m--font-success">
-                                                        Complete
                                                     </span>
                                                 </div>
                                                 <div class="m-widget3__body">

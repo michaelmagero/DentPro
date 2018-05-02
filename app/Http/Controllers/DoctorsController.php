@@ -82,22 +82,16 @@ class DoctorsController extends Controller
     }
 
     public function create_appointment_doc(Request $request) {
-        $patient = new Appointment();
-        $patient->firstname = $request->get('firstname');
-        $patient->middle_name = $request->get('middle_name');
-        $patient->lastname = $request->get('lastname');
-        $patient->sex = $request->get('sex');
-        $patient->dob = $request->get('dob');
-        $patient->insurance_provider = $request->get('insurance_provider');
-        $patient->occupation = $request->get('occupation');
-        $patient->postal_address = $request->get('postal_address');
-        $patient->email = $request->get('email');
-        $patient->phone_number = $request->get('phone_number');
-        $patient->emergency_contact_name = $request->get('emergency_contact_name');
-        $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
-        $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        $appointment = new Appointment();
 
-        $patient->save();
+        $appointment->firstname = $request->get('firstname');
+        $appointment->lastname = $request->get('lastname');
+        $appointment->phone = $request->get('phone');
+        $appointment->doctor = $request->get('doctor');
+        $appointment->appointment_date = $request->get('appointment_date');
+        $appointment->appointment_status = $request->get('appointment_status');
+
+        $appointment->save();
         \Session::flash('flash_message','Patient Added Successfully.');
         return back();
     }

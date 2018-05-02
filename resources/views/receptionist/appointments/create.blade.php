@@ -87,7 +87,7 @@
 									<label>
 										Phone Number:
 									</label>
-									<input type="text" name="phone"  class="form-control m-input" >
+									<input type="text" name="phone_number"  class="form-control m-input" >
 									
 								</div>
 							</div>
@@ -113,14 +113,16 @@
 									<label>
 										Appointment Date:
 									</label>
-									<div class="input-group date">
-										<input type="text" class="form-control m-input" readonly="" value="" id="m_datepicker_3">
-										<div class="input-group-append">
-											<span class="input-group-text">
-												<i class="la la-calendar"></i>
-											</span>
-										</div>
-									</div>
+									<div class="input-group date" >
+										<input class="flatpickr flatpickr-input form-control input active" placeholder="Select Date..." tabindex="0" type="text" readonly="readonly" name="appointment_date">
+		       					        <script>
+		       					            flatpickr(".flatpickr", {
+		       					                enableTime: false,
+		       					                altInput: true,
+		       					                altFormat: "Y-m-d",
+		       					            });
+		       					        </script>
+       					    		</div>
 									
 								</div>
 
@@ -128,7 +130,7 @@
 									<label>
 										Appointment Status:
 									</label>
-									<select name="insurance_provider" class="form-control" id="m_notify_state">
+									<select name="appointment_status" class="form-control" id="m_notify_state">
 										<option value="">
 											Select Status
 										</option>
