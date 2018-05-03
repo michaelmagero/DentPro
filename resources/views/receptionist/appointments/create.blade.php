@@ -63,7 +63,7 @@
 						</div>
 					</div>
 					<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-patient') }}">
+					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-appointment') }}">
 						{{ csrf_field() }}
 						<div class="m-portlet__body">
 							
@@ -102,7 +102,7 @@
 									<select name="doctor" id="input" class="form-control" required="required">
 										@foreach($users as $user)
 											@if($user->role == 'doctor')
-												<option value="">{{ $user->name }}</option>
+												<option value="{{ $user->name }}">{{ $user->name }}</option>
 											@endif
 										@endforeach
 									</select>

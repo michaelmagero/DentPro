@@ -218,21 +218,19 @@ class ReceptionistController extends Controller
     }
 
     public function create_appointment(Request $request) {
-        $appointment = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
 
-        $appointment = DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle']);
-        
+        $firstname = $request->get('firstname');
+        $lastname = $request->get('lastname');
+        $phone_number = $request->get('phone_number');
+        $doctor = $request->get('doctor');
 
-        $appointment = new Appointment();
+        $date = $request->get('appointment_date');
+        $appointment_date = date_format(date_create($date), 'Y-m-d');
 
-        $appointment->firstname = $request->get('firstname');
-        $appointment->lastname = $request->get('lastname');
-        $appointment->phone = $request->get('phone');
-        $appointment->doctor = $request->get('doctor');
-        $appointment->appointment_date = $request->get('appointment_date');
-        $appointment->appointment_status = $request->get('appointment_status');
+        $appointment_status = $request->get('appointment_status');
 
-        $appointment->save();
+        $appointment = DB::insert('insert into dms_appointments (firstname, lastname, phone_number, doctor, appointment_date, appointment_status) values (?, ?, ?, ?, ?, ?)', [$firstname, $lastname, $phone_number, $doctor, $appointment_date, $appointment_status ]);
+
         \Session::flash('flash_message','Appointment Added Successfully.');
         return back();
     }

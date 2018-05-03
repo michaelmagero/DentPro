@@ -13,5 +13,9 @@ class Appointment extends Model
      */
     protected $table = 'dms_appointments';
 
+    public function patient() {
+        return $this->hasOne('App\Patient');
+    }
+
     
 }
