@@ -178,8 +178,9 @@ class AdminController extends Controller
                 $user->lastname = $request->get('lastname');
                 $user->email = $request->get('email');
                 $user->role = $request->get('role');
+                $user->password = bcrypt($request->get('password'));
 
-                
+
                 $user->role = $request->get('role');
                 $user->save();
 
@@ -188,7 +189,6 @@ class AdminController extends Controller
                 return back();
             }
         
-
     }
 
 

@@ -236,7 +236,33 @@
                                                 </div>
                                             </div> --}}
 
+                                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Password
+                                                </label>
+
+                                                <div class="col-md-7">
+                                                    <input id="password" type="password" class="form-control" name="password" required>
+
+                                                    @if ($errors->has('password'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('password') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+
                                             <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Confirm Password
+                                                </label>
+
+                                                <div class="col-md-7">
+                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                                </div>
+                                            </div>
+
+                                            {{-- <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
                                                     New Password
                                                 </label>
@@ -252,7 +278,7 @@
                                                 <div class="col-7">
                                                     <input class="form-control m-input"  name="password"  type="text" value="">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             
                                             
                                         </div>
