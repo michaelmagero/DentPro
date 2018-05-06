@@ -122,7 +122,7 @@
 												<td>{{ $user->lastname }}</td>
 												<td>{{ $user->email }}</td>
 												<td>{{ $user->role }}</td>
-												<td>{{ $user->created_at }}</td>
+												<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</td>
 												<td>
 													
 													<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
@@ -133,13 +133,13 @@
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-user/'.$user->id)  }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 														<i class="fa fa-trash"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
+													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
 														<i class="fa fa-plus text-primary"></i>
-													</a>
+													</a> --}}
 													
 												</button>
 												</td>

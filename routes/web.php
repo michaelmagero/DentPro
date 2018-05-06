@@ -34,9 +34,11 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('new-user','AdminController@create_user');
 
+	Route::get('/show-user/{id}','AdminController@show');
+
 	Route::get('/edit-user/{id}','AdminController@edit');
 
-	Route::post('update-user','AdminController@update');
+	Route::post('/update-user/{id}','AdminController@update');
 
 	Route::get('/delete-user/{id}','AdminController@destroy');
 

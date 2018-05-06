@@ -13,6 +13,9 @@ use Hash;
 use Alert;
 use DB;
 use Auth;
+use Validator;
+use Illuminate\Support\Facades\Input;
+use Redirect;
 
 
 class AdminController extends Controller
@@ -77,7 +80,7 @@ class AdminController extends Controller
         } else {
           Alert::error('Login Failed, Check credential before Login', 'Error')->autoclose(2000);
           return View('admin.users.show')
-              ->with('users', User::where('id',$user->id)->orderBy('created_at','desc')->paginate(10));
+              ->with('users', User::where('id',$user->id)->orderBy('created_at','asc')->paginate(10));
         }
         
     }
@@ -120,6 +123,22 @@ class AdminController extends Controller
        
     }
 
+    public function show($id) {
+        $user = User::where('id',$id)->first();
+
+        if($user)
+        {
+            return view('admin.users.read')
+            ->with('users', User::where('id', $user->id)->orderBy('created_at','desc')->paginate(10))
+            ->with('patients', Patient::orderBy('created_at','desc')->get())
+            ->with('payments', Payment::orderBy('created_at','desc')->get());   
+        }
+        else 
+        {
+            return view('admin.users.read');
+        }
+    }   
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -127,58 +146,50 @@ class AdminController extends Controller
      * @return Response
      */
     public function edit($id){
-            //get post data by id
-            $user = User::findorFail($id);
-            
-            //load form view
-            return view('admin.users.edit')
-               ->with('users', User::where('role', 'author')->paginate(3));
-        }
+        //get post data by id
+        $user = User::find($id);
+        
+        //load form view
+        return view('admin.users.edit')
+            ->with('users', User::where('id', $id)->get());
+    }
 
-    public function update(Request $request)
-      {
-           $rules = [
-           'name_first'            =>  'required',
-           'name_last'             =>  'required',
-           'email'                 =>  'unique:users,email,'.$id.'|required|email',
-           'username'              =>  'unique:users,username,'.$id.'|required'
-       ];
+    public function update(Request $request, $id) {  
+        
+            // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'name'       => 'required',
+                'lastname'      => 'required',
+                'email'      => 'required',
+                'role'      => 'required'
+            );
+            $validator = Validator::make(Input::all(), $rules);
 
-       $messages = [
-           'name_first.required'   =>  'Your first name is required.',
-           'name_last.required'    =>  'Your last name is required.',
-           'email.required'        =>  'Your emails address is required.',
-           'email.unique'          =>  'That email address is already in use.',
-           'username.required'     =>  'Your username is required.',
-           'username.unique'       =>  'That username is already in use.'
-       ];
+            // process the login
+            if ($validator->fails()) {
+                return Redirect::to('edit-user/' . $id)
+                    ->withErrors($validator)
+                    ->withInput(Input::except('password'));
+            } else {
+                // store
+                $user = User::find($id);
+                $user->name = $request->get('name');
+                $user->lastname = $request->get('lastname');
+                $user->email = $request->get('email');
+                $user->role = $request->get('role');
 
-       $validator = Validator::make($request->all(), $rules, $messages);
+                
+                $user->role = $request->get('role');
+                $user->save();
 
-       if($validator->fails())
-       {
-           return Redirect::to('admin/profile')
-               ->withErrors($validator)
-               ->withInput();
-       }else{
-           $user = User::find($id);
-           $user->name_first = $request->input('name_first');
-           $user->name_last = $request->input('name_last');
-           if($user->email !== $request->input('email'))
-           {
-               $user->email = $request->input('email');
-           }
-           if($user->username !== $request->input('username'))
-           {
-               $user->username = $request->input('username');
-           }
-           $user->save();
+                // redirect
+                \Session::flash('message', 'Successfully updated!');
+                return back();
+            }
+        
 
-           Session::flash('success', 'Your profile was updated.');
-           return Redirect::to('admin/profile');
-       }
-       
-      }
+    }
 
 
 
@@ -188,20 +199,13 @@ class AdminController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request, $id)
-    {
+    public function destroy(Request $request, $id) {
         //
-        $user = User::find($id);
-        if($user->role == 'author')
-        {
-            $user->delete();
-            \Session::flash('flash_message','User Deleted Successfully.');
-        }
-        else 
-        {
-            \Session::flash('flash_message','Ensure you are admin to Delete Users.');
-        }
+        $user = User::where('id',$id)->first();
 
-        return redirect('/all-users');
+        $user->delete();
+
+        \Session::flash('flash_message','User Deleted Successfully.');
+        return back();
     }
 }
