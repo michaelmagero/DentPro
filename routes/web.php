@@ -57,7 +57,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/show-patient/{id}','ReceptionistController@show');
 
-	// Route::get('/edit-patient/{id}','ReceptionistController@edit');
+	Route::get('/edit-patient/{id}','ReceptionistController@edit');
 
 	Route::post('update-patient','ReceptionistController@update_patient');
 

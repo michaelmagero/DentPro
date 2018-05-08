@@ -131,6 +131,10 @@
 												<i class="fa fa-eye"></i>
 											</a>
 
+											<a href="{{ url('edit-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+												<i class="fa fa-edit"></i>
+											</a>
+
 											<a href="{{ url('new-payment/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
 												<i class="fa fa-plus text-primary"></i>
 											</a>

@@ -169,8 +169,8 @@
                         <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-tools">
-                                    {{--  <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                                        <li class="nav-item m-tabs__item">
+                                    <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                        {{--  <li class="nav-item m-tabs__item">
                                             <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
                                                 <i class="flaticon-share m--hide"></i>
                                                 Update Profile
@@ -186,8 +186,8 @@
                                             <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_3" role="tab">
                                                 Payment History
                                             </a>
-                                        </li>
-                                    </ul>  --}}
+                                        </li>  --}}
+                                    </ul>
                                 </div>
                                 
                             </div>
@@ -212,7 +212,7 @@
                                                     First Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="firstname"  type="text" value="{{ $patient->firstname }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="firstname"  type="text" value="{{ $patient->firstname }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -220,7 +220,7 @@
                                                     Middle Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="middlename"  type="text" value="{{ $patient->middlename }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="middlename"  type="text" value="{{ $patient->middlename }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -228,7 +228,7 @@
                                                     Last Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="lastname"  type="text" value="{{ $patient->lastname }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $patient->lastname }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -236,7 +236,7 @@
                                                     Sex
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="sex"  type="text" value="{{ $patient->sex }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->sex }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -244,7 +244,7 @@
                                                     Payment Mode
                                                 </label>
                                                 <div class="col-7">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="payment_mode">
+                                                    {{--  <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" disabled="disabled"  name="payment_mode">
                                             
                                                         <option value='{{ $patient->payment_mode }}' selected="selected">
                                                             {{ $patient->payment_mode }}
@@ -306,7 +306,9 @@
                                                                 Sedwick
                                                             </option>
 										                </optgroup>
-                                                    </select>
+                                                    </select>  --}}
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->payment_mode }}">
+
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -314,7 +316,7 @@
                                                     Occupation
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="occupation"  type="text" value="{{ $patient->occupation }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="occupation"  type="text" value="{{ $patient->occupation }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -322,7 +324,7 @@
                                                     Date of Birth
                                                 </label>
                                                 <div class="col-7">
-                                                    <input type="text" name="dob"  class="form-control" id="m_inputmask_1" value="{{ $patient->dob }}">
+                                                    <input type="text" disabled="disabled"  name="dob"  class="form-control" id="m_inputmask_1" value="{{ $patient->dob }}">
                                                     <span class="m-form__help">
                                                         Custom date format:
                                                         <code>
@@ -336,7 +338,7 @@
                                                     Phone No.
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="phone_number" type="text" value="{{ $patient->phone_number }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="phone_number" type="text" value="{{ $patient->phone_number }}">
                                                 </div>
                                             </div>
 
@@ -345,7 +347,7 @@
                                                     Email
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="email"  type="text" value="{{ $patient->email }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->email }}">
                                                 </div>
                                             </div>
 
@@ -354,13 +356,15 @@
                                                     Preferred Doctor
                                                 </label>
                                                 <div class="col-7">
-                                                    <select name="doctor" id="input" class="form-control" required="required">
+                                                    {{--  <select disabled="disabled"  name="doctor" id="input" class="form-control" required="required">
                                                         @foreach($users as $user)
                                                             @if($user->role == 'doctor')
                                                                 <option value="">{{ $user->name }}</option>
                                                             @endif
                                                         @endforeach
-                                                    </select>
+                                                    </select>  --}}
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->doctor }}">
+
                                                 </div>
                                             </div>
 
@@ -378,7 +382,7 @@
                                                     Address
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="postal_address"  type="text" value="{{ $patient->postal_address }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="postal_address"  type="text" value="{{ $patient->postal_address }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -386,7 +390,7 @@
                                                     Emergency Contact Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="emergency_contact_name"  type="text" value="{{ $patient->emergency_contact_name }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_name"  type="text" value="{{ $patient->emergency_contact_name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -394,7 +398,7 @@
                                                     Emergency Contact Phone Number
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="emergency_contact_phone_number"  type="text" value="{{ $patient->emergency_contact_phone_number }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_phone_number"  type="text" value="{{ $patient->emergency_contact_phone_number }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -402,7 +406,7 @@
                                                     Emergency Contact Relationship
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="emergency_contact_relationship"   type="text" value="{{ $patient->emergency_contact_relationship }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_relationship"   type="text" value="{{ $patient->emergency_contact_relationship }}">
                                                 </div>
                                             </div>
                                             
@@ -413,13 +417,13 @@
                                                 <div class="row">
                                                     <div class="col-2"></div>
                                                     <div class="col-7">
-                                                        <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
-                                                            Save changes
-                                                        </button>
+                                                        <a href="{{ url('/edit-patient/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
+                                                            Edit Patient
+                                                        </a>
                                                         &nbsp;&nbsp;
-                                                        <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                        {{--  <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
                                                             Cancel
-                                                        </button>
+                                                        </button>  --}}
                                                     </div>
                                                 </div>
                                             </div>

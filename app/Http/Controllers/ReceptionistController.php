@@ -72,7 +72,7 @@ class ReceptionistController extends Controller
 
         if($patient)
         {
-            return view('receptionist.patients.edit')
+            return view('receptionist.patients.read')
             ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
             ->with('users', User::orderBy('created_at','desc')->get())
             ->with('payments', Payment::orderBy('created_at','desc')->get());   
@@ -84,31 +84,44 @@ class ReceptionistController extends Controller
     }
 
     public function update_patient() {
-        $firstname = $request->get('firstname');
-        $middlename = $request->get('middlename');
-        $lastname = $request->get('lastname');
-        $sex = $request->get('sex');
-        $dob = $request->get('dob');
-        $payment_mode = $request->get('payment_mode');
-        $amount_allocated = $request->get('amount_allocated');
-        $occupation = $request->get('occupation');
-        $postal_address = $request->get('postal_address');
-        $email = $request->get('email');
-        $phone_number = $request->get('phone_number');
-        $emergency_contact_name = $request->get('emergency_contact_name');
-        $emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
-        $emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'firstname'       => 'required',
+                'middlename'      => 'required',
+                'lastname'      => 'required',
+                'role'      => 'required'
+            );
+            $validator = Validator::make(Input::all(), $rules);
 
-        $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
+            // process the login
+            if ($validator->fails()) {
+                return Redirect::to('edit-user/' . $id)
+                    ->withErrors($validator)
+                    ->withInput(Input::except('password'));
+            } else {
+                // store
+                $user = User::find($id);
+                $user->name = $request->get('name');
+                $user->lastname = $request->get('lastname');
+                $user->email = $request->get('email');
+                $user->role = $request->get('role');
+                $user->password = bcrypt($request->get('password'));
 
-        Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-            return back();
+
+                $user->role = $request->get('role');
+                $user->save();
+
+                // redirect
+                \Session::flash('message', 'Successfully updated!');
+                return back();
+            }
     }
 
 
-    public function medical_history() {
+    // public function medical_history() {
 
-    }
+    // }
 
 
 
