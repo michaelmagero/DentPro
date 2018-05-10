@@ -2,7 +2,7 @@
 @extends('layouts.receptionist')
 
 @section('header')
-    Edit Payments
+    Payments
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Edit Payments
+                        Payments
                     </h3>
                 </div>
                 <div>
@@ -208,8 +208,7 @@
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="/update-payment/{{ $patient->id }}">
-                                        {{ csrf_field() }}
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient') }}">
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
                                                 <div class="alert m-alert m-alert--default" role="alert">
@@ -231,56 +230,7 @@
                                                     Procedure
                                                 </label>
                                                 <div class="col-7">
-                                                    <select class="form-control m-select2" id="m_select2_procedure" name="procedure" multiple="multiple">
-                                                        <option value='{{ $payment->procedure }}' selected="selected">
-                                                            {{ $payment->procedure }}
-                                                        </option>
-                                                        <optgroup >
-                                                            
-                                                            <option value="Consultation">
-                                                                Consultation
-                                                            </option>
-                                                            <option value="Full Mouth Scaling and Polishing">
-                                                                Full Mouth Scaling and Polishing
-                                                            </option>
-                                                            <option value="Root Canal">
-                                                                Root Canal
-                                                            </option>
-                                                            <option value="Permanent Filling">
-                                                                Permanent Filling
-                                                            </option>
-                                                            <option value="Open Surgical Disimpaction">
-                                                                Open Surgical Disimpaction
-                                                            </option>
-                                                            <option value="Closed Surgical Disimpaction">
-                                                                Closed Surgical Disimpaction
-                                                            </option>
-                                                            <option value="Operculectomy">
-                                                                Operculectomy
-                                                            </option>
-                                                            <option value="Curettage">
-                                                                Curettage
-                                                            </option>
-                                                            <option value="Whitening">
-                                                                Whitening
-                                                            </option>
-                                                            <option value="Masking">
-                                                                Masking
-                                                            </option>
-                                                            <option value="Dental Bridges">
-                                                                Dental Bridges
-                                                            </option>
-                                                            <option value="Dental Implants">
-                                                                Dental Implants
-                                                            </option>
-                                                            <option value="Dentures">
-                                                                Dentures
-                                                            </option>
-                                                            <option value="Braces">
-                                                                Braces
-                                                            </option>
-                                                        </optgroup>
-									                </select>
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $payment->procedure }}">
                                                 </div>
                                             </div>
 
@@ -289,7 +239,7 @@
                                                     Amount Due
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->amount_due }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $payment->amount_due }}">
                                                 </div>
                                             </div>
 
@@ -298,7 +248,7 @@
                                                     Amount Paid
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_paid"  type="text" value="{{ $payment->amount_paid }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $payment->amount_paid }}">
                                                 </div>
                                             </div>
 
@@ -307,36 +257,25 @@
                                                     Balance
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="balance"  type="text" value="{{ $payment->balance }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $payment->balance }}">
                                                 </div>
                                             </div>
-
 
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
                                                     Next Appointment
                                                 </label>
                                                 <div class="col-7">
-                                                    <div class="input-group date" >
-										                <input class="flatpickr flatpickr-input form-control input active" value="{{ $payment->next_appointment }}" tabindex="0" type="text" readonly="readonly" name="next_appointment">
-                                                        <script>
-                                                            flatpickr(".flatpickr", {
-                                                                enableTime: false,
-                                                                altInput: true,
-                                                                altFormat: "Y-m-d",
-                                                            });
-                                                        </script>
-       					    		                </div>
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $payment->next_appointment }}">
                                                 </div>
                                             </div>
-
 
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
                                                     Notes
                                                 </label>
                                                 <div class="col-7">
-                                                    <textarea name="notes" id="textarea"   readonly  class="form-control" cols="15" rows="10" required="required"  value="">{{ $payment->notes }}</textarea>
+                                                    <textarea name="" id="textarea" disabled="disabled"  readonly  class="form-control" cols="15" rows="10" required="required" disabled="disabled" value="">{{ $payment->notes }}</textarea>
 
                                                 </div>
                                             </div>
@@ -352,9 +291,9 @@
                                                 <div class="row">
                                                     <div class="col-2"></div>
                                                     <div class="col-7">
-                                                        <button type="submit" class="btn btn-primary m-btn m-btn--custom">
-                                                            Save Changes
-                                                        </button>
+                                                        <a href="{{ url('edit-payment/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
+                                                            Edit Payment
+                                                        </a>
                                                         &nbsp;&nbsp;
                                                         {{--  <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
                                                             Cancel

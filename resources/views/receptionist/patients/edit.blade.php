@@ -193,7 +193,8 @@
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient') }}">
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="/update-patient/{{ $patient->id }}">
+                                        {{ csrf_field() }}
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
                                                 <div class="alert m-alert m-alert--default" role="alert">
@@ -319,6 +320,14 @@
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
+                                                    Amount Allocated
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" name="amount_allocated"  type="text" value="{{ $patient->amount_allocated }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
                                                     Date of Birth
                                                 </label>
                                                 <div class="col-7">
@@ -354,13 +363,27 @@
                                                     Preferred Doctor
                                                 </label>
                                                 <div class="col-7">
-                                                    <select name="doctor" id="input" class="form-control" required="required">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="doctor">
+                                            
+                                                        <option value='{{ $patient->doctor }}' selected="selected">
+                                                            {{ $patient->doctor }}
+                                                        </option>
+
+                                                        <optgroup label="Doctors">
+                                                            @foreach($users as $user)
+                                                                @if($user->role == 'doctor')
+                                                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                                @endif
+                                                            @endforeach
+										                </optgroup>
+                                                    </select>
+                                                    {{--  <select name="doctor" id="input" class="form-control">
                                                         @foreach($users as $user)
                                                             @if($user->role == 'doctor')
-                                                                <option value="">{{ $user->name }}</option>
+                                                                <option value="" selected="selected">{{ $user->name }}</option>
                                                             @endif
                                                         @endforeach
-                                                    </select>
+                                                    </select>  --}}
                                                 </div>
                                             </div>
 
@@ -413,7 +436,7 @@
                                                 <div class="row">
                                                     <div class="col-2"></div>
                                                     <div class="col-7">
-                                                        <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                                        <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
                                                             Save changes
                                                         </button>
                                                         &nbsp;&nbsp;

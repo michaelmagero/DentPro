@@ -16,7 +16,7 @@ class CreateDmsAppointmentsTable extends Migration
         Schema::create('dms_appointments', function (Blueprint $table) {
             $table->increments('id');
 
-            $table -> integer('patient_id')->unsigned();
+            $table -> integer('patient_id')->unsigned()->nullable();
             $table->foreign('patient_id')
                     ->references('id')->on('dms_patients')
                     ->onDelete('cascade');

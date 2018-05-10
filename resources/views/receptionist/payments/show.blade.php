@@ -89,11 +89,8 @@
 									<thead>
 										<tr class="m_datatable__row">
 											
-											<th title="Field #2">
-												Payment ID
-											</th>
 											<th title="Field #3">
-												Patient ID
+												File No
 											</th>
 											<th title="Field #4">
 												Procedure
@@ -108,10 +105,7 @@
 												Balance
 											</th>
 											<th title="Field #7">
-												Next Appointment
-											</th>
-											<th title="Field #7">
-												Notes
+												Paid On
 											</th>
 											<th title="Field #7">
 												Action
@@ -121,17 +115,19 @@
 									<tbody>
 										@foreach($payments as $payment)
 											<tr>
-												<td>{{ $payment->id }}</td>
 												<td>{{ $payment->patient_id }}</td>
 												<td>{{ $payment->procedure }}</td>
 												<td>{{ $payment->amount_due }}</td>
 												<td>{{ $payment->amount_paid }}</td>
 												<td>{{ $payment->balance }}</td>
-												<td>{{ $payment->next_appointment }}</td>
-												<td>{{ $payment->notes }}</td>
+												<td>{{ $payment->created_at }}</td>
 												<td>
 													
-													<a href="{{ url('new-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													<a href="{{ url('new-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
+														<i class="fa fa-plus text-primary"></i>
+													</a>
+
+													<a href="{{ url('show-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
@@ -139,12 +135,8 @@
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 														<i class="fa fa-trash"></i>
-													</a>
-
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
-														<i class="fa fa-plus text-primary"></i>
 													</a>
 													
 												</button>

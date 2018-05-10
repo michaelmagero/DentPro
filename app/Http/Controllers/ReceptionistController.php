@@ -13,6 +13,9 @@ use DB;
 use Alert;
 use DateTime;
 use Carbon\Carbon;
+use Validator;
+use Illuminate\Support\Facades\Input;
+use Redirect;
 
 
 class ReceptionistController extends Controller
@@ -83,47 +86,48 @@ class ReceptionistController extends Controller
         }
     }
 
-    public function update_patient() {
+    public function update_patient(Request $request, $id) {
         // validate
             // read more on validation at http://laravel.com/docs/validation
             $rules = array(
                 'firstname'       => 'required',
                 'middlename'      => 'required',
                 'lastname'      => 'required',
-                'role'      => 'required'
+                'email'      => 'required'
             );
             $validator = Validator::make(Input::all(), $rules);
 
             // process the login
             if ($validator->fails()) {
-                return Redirect::to('edit-user/' . $id)
+                return Redirect::to('edit-patient/' . $id)
                     ->withErrors($validator)
                     ->withInput(Input::except('password'));
             } else {
                 // store
-                $user = User::find($id);
-                $user->name = $request->get('name');
-                $user->lastname = $request->get('lastname');
-                $user->email = $request->get('email');
-                $user->role = $request->get('role');
-                $user->password = bcrypt($request->get('password'));
-
-
-                $user->role = $request->get('role');
-                $user->save();
+                $patient = Patient::find($id);
+                $patient->firstname = $request->get('firstname');
+                $patient->middlename = $request->get('middlename');
+                $patient->lastname = $request->get('lastname');
+                $patient->sex = $request->get('sex');
+                $patient->dob = $request->get('dob');
+                $patient->payment_mode = $request->get('payment_mode');
+                $patient->amount_allocated = $request->get('amount_allocated');
+                $patient->occupation = $request->get('occupation');
+                $patient->postal_address = $request->get('postal_address');
+                $patient->email = $request->get('email');
+                $patient->phone_number = $request->get('phone_number');
+                $patient->emergency_contact_name = $request->get('emergency_contact_name');
+                $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
+                $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+                $patient->doctor = $request->get('doctor');
+                $patient->save();
+                
 
                 // redirect
                 \Session::flash('message', 'Successfully updated!');
                 return back();
             }
     }
-
-
-    // public function medical_history() {
-
-    // }
-
-
 
     public function delete_patient($id) {
         $patient = Patient::where('id',$id)->first();
@@ -133,15 +137,6 @@ class ReceptionistController extends Controller
         \Session::flash('flash_message','Post Deleted Successfully.');
         return back();
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -194,13 +189,14 @@ class ReceptionistController extends Controller
         
     }
 
-    public function edit_payment($id) {
+    public function edit_payment($patient_id) {
         //get post data by id
-        $user = User::findorFail($id);
+        $payment = Payment::where('id',$patient_id)->first();
             
         //load form view
-        return view('receptionist.patients.edit', compact('patients'))
-        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));
+        return view('receptionist.payments.edit', compact('payments'))
+        ->with('patients', Patient::where('id', $patient_id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $patient_id)->orderBy('created_at','desc')->get());
     }
 
     public function show_payment($id) {
@@ -208,14 +204,71 @@ class ReceptionistController extends Controller
 
         if($patient)
         {
-            return view('receptionist.patients.edit')
-            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));   
+            return view('receptionist.payments.read')
+            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5)) 
+            ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get()); 
         }
         else 
         {
-            return view('receptionist.patients.edit');
+            return view('receptionist.payments.read');
         }
     }
+
+
+    public function update_payment(Request $request, $id) {
+
+
+        
+        $procedure = $request->get('procedure');
+        $amount_due = $request->get('amount_due');
+        $amount_paid = $request->get('amount_paid');
+        
+        $balance = (float) $amount_due - $amount_paid;
+
+        $next_appointment = $request->get('next_appointment');
+        $notes = $request->get('notes');
+
+        Payment::where('patient_id', $id)->update(array('procedure' => $procedure, 'amount_due' => $amount_due,'amount_paid' => $amount_paid, 'balance' => $balance, 'next_appointment' => $next_appointment, 'notes' => $notes ));
+
+        // redirect
+        \Session::flash('message', 'Successfully updated!');
+        return back();
+    }
+
+
+
+    public function delete_payment($id) {
+        $payment = Payment::where('id',$id)->first();
+
+        $payment->delete();
+
+        \Session::flash('flash_message','Payment Deleted Successfully.');
+        return back();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //APPOINTMENTS

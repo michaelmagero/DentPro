@@ -59,7 +59,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/edit-patient/{id}','ReceptionistController@edit');
 
-	Route::post('update-patient','ReceptionistController@update_patient');
+	Route::post('update-patient/{id}','ReceptionistController@update_patient');
 
 	Route::get('/delete-patient/{id}','ReceptionistController@delete_patient');
 
@@ -72,17 +72,15 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('new-payment/{id}','ReceptionistController@create_payment');
 
-	Route::get('all-invoices','ReceptionistController@invoices');
+	Route::get('show-payment/{id}','ReceptionistController@show_payment');
 
-	Route::get('new-invoice','ReceptionistController@create_invoice');
+	Route::get('edit-payment/{id}','ReceptionistController@edit_payment');
 
-	Route::post('new-invoice','ReceptionistController@insert_invoice');
+	Route::post('update-payment/{id}','ReceptionistController@update_payment');
 
-	Route::get('/show-payment/{id}','ReceptionistController@show_payment');
+	Route::get('/delete-payment/{id}','ReceptionistController@delete_payment');
 
-	Route::get('/show-invoice/{id}','ReceptionistController@show_invoice');
-
-	Route::get('/delete-invoice/{id}','ReceptionistController@delete_invoice');
+	
 
 
 	//APPOINTMENT ROUTES (RECEPTIONIST)
@@ -148,9 +146,9 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('new-doc-payment','DoctorsController@insert_payment');
 
-	Route::get('/show-payment/{id}','DoctorsController@show_payment');
+	Route::get('/show-doc-payment/{id}','DoctorsController@show_payment');
 
-	Route::get('/edit-payment/{id}','DoctorsController@edit_payment');
+	Route::get('/edit-doc-payment/{id}','DoctorsController@edit_payment');
 
 	Route::post('update-payment','DoctorsController@update_payment');
 
