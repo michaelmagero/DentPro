@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
@@ -11,7 +12,11 @@ class Appointment extends Model
      *
      * @var string
      */
+
+    use SoftDeletes;
+    
     protected $table = 'dms_appointments';
+    
 
     public function patient() {
         return $this->hasOne('App\Patient');

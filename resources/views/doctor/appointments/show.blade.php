@@ -84,7 +84,7 @@
 									</div>
 								</div>
 								<!--end: Search Form -->
-		<!--begin: Datatable -->
+								<!--begin: Datatable -->
 								<table class="m-datatable" id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
@@ -93,54 +93,65 @@
 												File No
 											</th>
 											<th title="Field #3">
-												First Name
+												Patient
 											</th>
 											<th title="Field #4">
-												Last Name
+												Doctor
 											</th>
 											<th title="Field #5">
-												Phone Number
+												Appointment Date
 											</th>
 											<th title="Field #6">
-												Time
+												Last Remarks
 											</th>
-											<th title="Field #8">
-												Balance
-											</th>
-											<th>
+											<th title="Field #6">
 												Action
 											</th>
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($users as $user)
+										@foreach($appointments as $appointment)
 											<tr>
-												<td>{{ $user->id }}</td>
-												<td>{{ $user->firstname }}</td>
-												<td>{{ $user->lastname }}</td>
-												<td>{{ $user->phone }}</td>
-												<td>{{ $user->insurance_provider }}</td>
-												<td>{{ $user->phone_number }}</td>
+												<td>{{ $appointment->patient_id }}</td>
+												<td>{{ $appointment->firstname . " ". $appointment->lastname }}</td>
+												<td>{{ $appointment->doctor }}</td>
+												<td>{{ $appointment->appointment_date }}</td>
 												<td>
-													
-													<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-														<i class="fa fa-eye"></i>
-													</a>
-
-													<a href="{{ url('edit-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
-														<i class="fa fa-edit"></i>
-													</a>
-
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
-														<i class="fa fa-trash"></i>
-													</a>
-
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
-														<i class="fa fa-plus text-primary"></i>
-													</a>
-													
-												</button>
+													@foreach($payments as $payment)
+														@if($payment->patient_id == $appointment->patient_id)
+															<td>{{ $payment->notes }}</td>
+														@endif
+													@endforeach
 												</td>
+													@foreach($patients as $patient)
+														@if($patient->id == $appointment->patient_id)
+															<td>
+																<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+																	<i class="fa fa-eye"></i>
+																</a>
+
+																<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+																	<i class="fa fa-user-md"></i>
+																</a>
+
+																<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
+																	<i class="fa fa-credit-card"></i>
+																</a>
+
+																<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Appointments ">
+																	<i class="fa fa-trash"></i>
+																</a>
+															</td>
+														@else
+															<td>
+																<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Appointments ">
+																	<i class="fa fa-trash"></i>
+																</a>
+															</td>
+														@endif
+													@endforeach
+
+
 											</tr>
                                    		@endforeach
 									</tbody>

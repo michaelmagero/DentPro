@@ -32,27 +32,37 @@ class ReceptionistController extends Controller
     }
 
     public function create_patient(Request $request) {
-        $patient = new Patient();
-        $patient->firstname = $request->get('firstname');
-        $patient->middlename = $request->get('middlename');
-        $patient->lastname = $request->get('lastname');
-        $patient->sex = $request->get('sex');
-        $patient->dob = $request->get('dob');
-        $patient->payment_mode = $request->get('payment_mode');
-        $patient->amount_allocated = $request->get('amount_allocated');
-        $patient->occupation = $request->get('occupation');
-        $patient->postal_address = $request->get('postal_address');
-        $patient->email = $request->get('email');
-        $patient->phone_number = $request->get('phone_number');
-        $patient->emergency_contact_name = $request->get('emergency_contact_name');
-        $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
-        $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
-        $patient->doctor = $request->get('doctor');
 
-        if($patient->email )
+        $patient = Patient::create([
 
-        $patient->save();
+        'firstname' => $request->get('firstname'),
+        'middlename' => $request->get('middlename'),
+        'lastname' => $request->get('lastname'),
+        'sex' => $request->get('sex'),
+        'dob' => $request->get('dob'),
+        'payment_mode' => $request->get('payment_mode'),
+        'amount_allocated' => $request->get('amount_allocated'),
+        'occupation' => $request->get('occupation'),
+        'postal_address' => $request->get('postal_address'),
+        'email' => $request->get('email'),
+        'phone_number' => $request->get('phone_number'),
+        'emergency_contact_name' => $request->get('emergency_contact_name'),
+        'emergency_contact_phone_number' => $request->get('emergency_contact_phone_number'),
+        'emergency_contact_relationship' => $request->get('emergency_contact_relationship'),
+        'doctor' => $request->get('doctor'),
+            
+        ]);
 
+        Waiting::create([
+            'patient_id' => $patient->id,
+            'firstname' => $request->get('firstname'),
+            'middlename' => $request->get('middlename'),
+            'lastname' => $request->get('lastname'),
+            'payment_mode' => $request->get('payment_mode'),
+            'amount_allocated' => $request->get('amount_allocated'),
+            'doctor' => $request->get('doctor'),
+        ]);
+        
         Alert::success('Patient Added Successfully', 'Success')->autoclose(2000);
         return back();
     }
@@ -285,44 +295,86 @@ class ReceptionistController extends Controller
 
     public function create_appointment(Request $request) {
 
-        $firstname = $request->get('firstname');
-        $lastname = $request->get('lastname');
-        $phone_number = $request->get('phone_number');
-        $doctor = $request->get('doctor');
+        $appointment = new Appointment();
+
+        $appointment->firstname = $request->get('firstname');
+        $appointment->lastname = $request->get('lastname');
+        $appointment->phone_number = $request->get('phone_number');
+        $appointment->doctor = $request->get('doctor');
 
         $date = $request->get('appointment_date');
-        $appointment_date = date_format(date_create($date), 'Y-m-d');
+        $appointment->appointment_date = date_format(date_create($date), 'Y-m-d');
 
-        $appointment_status = $request->get('appointment_status');
+        $appointment->appointment_status = $request->get('appointment_status');
 
-        $appointment = DB::insert('insert into dms_appointments (firstname, lastname, phone_number, doctor, appointment_date, appointment_status) values (?, ?, ?, ?, ?, ?)', [$firstname, $lastname, $phone_number, $doctor, $appointment_date, $appointment_status ]);
+        $appointment->save();
 
         \Session::flash('flash_message','Appointment Added Successfully.');
         return back();
     }
 
     public function edit_appointment($id) {
-        //get post data by id
-        $user = User::findorFail($id);
             
         //load form view
-        return view('receptionist.appointments.edit', compact('patients'))
-        ->with('appointments', Appointment::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));
+        return view('receptionist.appointments.edit', compact('appointments'))
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::orderBy('created_at','desc')->get())
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
     }
 
     public function show_appointment($id) {
-        $patient = Appointment::where('id',$id)->first();
 
-        if($patient)
-        {
-            return view('receptionist.appointments.edit')
-            ->with('appointments', Appointment::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));   
-        }
-        else 
-        {
-            return view('receptionist.patients.edit');
-        }
+            return view('receptionist.appointments.read')
+            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+            ->with('payments', Payment::orderBy('created_at','desc')->get());   
     }
+
+    public function update_appointment(Request $request, $id) {
+        // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'firstname'       => 'required',
+                'lastname'      => 'required'
+            );
+            $validator = Validator::make(Input::all(), $rules);
+
+            // process the login
+            if ($validator->fails()) {
+                return Redirect::to('edit-appointment/' . $id)
+                    ->withErrors($validator);
+            } else {
+                // store
+                $appointment = Appointment::find($id);
+                $appointment->firstname = $request->get('firstname');
+                $appointment->lastname = $request->get('lastname');
+                $appointment->phone_number = $request->get('phone_number');
+                $appointment->doctor = $request->get('doctor');
+                $appointment->appointment_date = $request->get('appointment_date');
+                $appointment->appointment_status = $request->get('appointment_status');
+                $appointment->save();
+
+                // redirect
+                \Session::flash('message', 'Successfully updated!');
+                return back();
+            }
+    }
+
+
+
+    public function delete_appointment($id) {
+        $appointment = Appointment::where('id',$id)->first();
+
+        $appointment->delete();
+
+        \Session::flash('flash_message','Appointment Deleted Successfully.');
+        return back();
+    }
+
+
+
+    
 
 
     //WAITING LIST
@@ -332,54 +384,17 @@ class ReceptionistController extends Controller
         ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
     }
 
-    public function new_waiting() {
-        return view('receptionist.waitinglist.create')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
-    }
+    public function delete_waiting($id) {
 
-    public function create_waiting(Request $request) {
-        $patient = new Waiting();
-        $patient->firstname = $request->get('firstname');
-        $patient->middle_name = $request->get('middle_name');
-        $patient->lastname = $request->get('lastname');
-        $patient->sex = $request->get('sex');
-        $patient->dob = $request->get('dob');
-        $patient->insurance_provider = $request->get('insurance_provider');
-        $patient->occupation = $request->get('occupation');
-        $patient->postal_address = $request->get('postal_address');
-        $patient->email = $request->get('email');
-        $patient->phone_number = $request->get('phone_number');
-        $patient->emergency_contact_name = $request->get('emergency_contact_name');
-        $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
-        $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        $waiting = Waiting::find( $id );
+        
+        $waiting->delete();
 
-        $patient->save();
-        \Session::flash('flash_message','Patient Added Successfully.');
+        \Session::flash('flash_message','Appointment Deleted Successfully.');
         return back();
     }
 
-    public function edit_waiting($id) {
-        //get post data by id
-        $user = User::findorFail($id);
-            
-        //load form view
-        return view('receptionist.waitinglist.edit', compact('patients'))
-        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));
-    }
-
-    public function show_waiting($id) {
-        $patient = Patient::where('id',$id)->first();
-
-        if($patient)
-        {
-            return view('receptionist.waitinglist.edit')
-            ->with('appointments', Appointment::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5));   
-        }
-        else 
-        {
-            return view('receptionist.patients.edit');
-        }
-    }
+    
 
 
 

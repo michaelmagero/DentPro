@@ -40,9 +40,6 @@
 
 		<!-- END: Subheader -->
 					<div class="m-content">
-
-						
-						
 						<div class="m-portlet m-portlet--mobile">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
@@ -70,17 +67,17 @@
 												</div>
 											</div>
 										</div>
-										<!-- <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-waiting-doc') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
+											<!-- <a href="{{ url('new-waiting') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
 													<span>
 														New Waiting Patient
 													</span>
 												</span>
-											</a>
+											</a> -->
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
-										</div> -->
+										</div>
 									</div>
 								</div>
 								<!--end: Search Form -->
@@ -99,37 +96,41 @@
 												Lastname
 											</th>
 											<th title="Field #5">
-												Insurance Provider
+												Payment Mode
 											</th>
-											<th title="Field #8">
+											<th title="Field #6">
+												Amount Allocated
+											</th>
+											<th title="Field #7">
 												Action
 											</th>
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($waitlist as $list)
+										@foreach($waitings as $waiting)
 											<tr>
-												<td>{{ $list->id }}</td>
-												<td>{{ $list->firstname }}</td>
-												<td>{{ $list->lastname }}</td>
-												<td>{{ $list->payment_mode }}</td>
+												<td>{{ $waiting->patient_id }}</td>
+												<td>{{ $waiting->firstname }}</td>
+												<td>{{ $waiting->lastname }}</td>
+												<td>{{ $waiting->payment_mode }}</td>
+												<td>{{ $waiting->amount_allocated }}</td>
 												<td>
 													
-													<a href="{{ url('show-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													{{-- <a href="{{ url('show-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
-													</a>
+													</a> --}}
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Remove from List ">
 														<i class="fa fa-trash"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
+													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
 														<i class="fa fa-plus text-primary"></i>
-													</a>
+													</a> --}}
 													
 												</button>
 												</td>

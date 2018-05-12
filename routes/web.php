@@ -94,7 +94,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/edit-appointment/{id}','ReceptionistController@edit_appointment');
 
-	Route::post('update-appointment','ReceptionistController@update_appointment');
+	Route::post('update-appointment/{id}','ReceptionistController@update_appointment');
 
 	Route::get('/delete-appointment/{id}','ReceptionistController@delete_appointment');
 
@@ -125,17 +125,21 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	//PATIENT ROUTES (LOGIC FROM DOCTOR CONTROLLER)
 	Route::get('all-patients-doc','DoctorsController@allpatients_doc');
 
-	Route::get('new-doc-patient','DoctorsController@create');
+	// Route::get('new-doc-patient','DoctorsController@create');
 
-	Route::post('new-doc-patient','DoctorsController@insert');
+	// Route::post('new-doc-patient','DoctorsController@insert');
 
 	Route::get('/show-doc-patient/{id}','DoctorsController@show');
 
-	Route::get('/edit-doc-patient/{id}','DoctorsController@edit');
+	Route::get('/patient-history-doc/{id}','DoctorsController@medical_history');
 
-	Route::post('update-patient','DoctorsController@update');
+	Route::get('/payment-history-doc/{id}','DoctorsController@payment_history');
 
-	Route::get('/delete-patient/{patient_id}','DoctorsController@delete');
+	// Route::get('/edit-doc-patient/{id}','DoctorsController@edit');
+
+	// Route::post('update-patient','DoctorsController@update');
+
+	// Route::get('/delete-patient/{patient_id}','DoctorsController@delete');
 
 
 
@@ -145,6 +149,8 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::get('new-doc-payment','DoctorsController@create_payment');
 
 	Route::post('new-doc-payment','DoctorsController@insert_payment');
+
+	Route::get('new-doc-payment/{id}','DoctorsController@create_payment_id');
 
 	Route::get('/show-doc-payment/{id}','DoctorsController@show_payment');
 
@@ -157,7 +163,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 
 	//APPOINTMENTS ROUTES (LOGIC FROM DOCTOR CONTROLLER)
-	Route::get('all-appointments-doc','DoctorsController@allappointments');
+	Route::get('all-appointments-doc','DoctorsController@allappointments_doc');
 
 	Route::get('new-appointment-doc','DoctorsController@new_appointment_doc');
 
@@ -169,7 +175,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	// Route::post('update-appointment','DoctorsController@update_appointment');
 
-	// Route::get('/delete-appointment/{id}','DoctorsController@delete_appointment');
+	Route::get('/delete-appointment/{id}','DoctorsController@delete_appointment');
 
 
 

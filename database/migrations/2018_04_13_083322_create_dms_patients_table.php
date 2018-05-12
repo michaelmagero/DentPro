@@ -24,13 +24,14 @@ class CreateDmsPatientsTable extends Migration
             $table->decimal('amount_allocated', 13, 2)->nullable();
             $table->string('occupation');
             $table->string('postal_address');
-            $table->string('email')->unique();
-            $table->string('phone_number')->unique();
+            $table->string('email');
+            $table->string('phone_number');
             $table->string('emergency_contact_name');
             $table->string('emergency_contact_phone_number');
             $table->string('emergency_contact_relationship');
             $table->string('doctor')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

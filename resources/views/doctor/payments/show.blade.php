@@ -70,7 +70,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
+										{{-- <div class="col-xl-4 order-1 order-xl-2 m--align-right">
 											<a href="{{ url('new-doc-payment') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
@@ -80,7 +80,7 @@
 												</span>
 											</a>
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
-										</div>
+										</div> --}}
 									</div>
 								</div>
 								<!--end: Search Form -->
@@ -91,6 +91,9 @@
 											
 											<th title="Field #2">
 												File No
+											</th>
+											<th title="Field #3">
+												Patient
 											</th>
 											<th title="Field #3">
 												Procedure
@@ -105,19 +108,26 @@
 												Balance
 											</th>
 											<th title="Field #8">
-												Action
+												Date Paid
 											</th>
+											
 										</tr>
 									</thead>
 									<tbody>
 										@foreach($payments as $payment)
 											<tr>
-												<td>{{ $payment->id }}</td>
+												<td>{{ $payment->patient_id }}</td>
+												@foreach($patients as $patient)
+													@if($patient->id == $payment->patient_id)
+														<td>{{ $patient->firstname . " " . $patient->lastname }} </td>
+													@endif
+												@endforeach
 												<td>{{ $payment->procedure }}</td>
 												<td>{{ $payment->amount_due }}</td>
 												<td>{{ $payment->amount_paid }}</td>
 												<td>{{ $payment->balance }}</td>
-												<td>
+												<td>{{ $payment->created_at }}</td>
+												{{-- <td>
 													
 													<a href="{{ url('show-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
@@ -136,7 +146,7 @@
 													</a>
 													
 												</button>
-												</td>
+												</td> --}}
 											</tr>
                                    		@endforeach
 									</tbody>

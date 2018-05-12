@@ -30,7 +30,7 @@ class CreateDmsPaymentsTable extends Migration
             $table->decimal('amount_due', 13, 2)->nullable();
             $table->decimal('amount_paid', 13, 2)->nullable();
             $table->decimal('balance', 13, 2)->nullable();
-            $table->date('next_appointment');
+            $table->date('next_appointment')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

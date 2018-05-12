@@ -54,9 +54,7 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-brand">
-													@foreach($patients as $patient)
-														{{ count(explode(",",$patient->id)) }}
-													@endforeach
+													{{ count($patients) }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
@@ -117,9 +115,7 @@
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-success">
-													@foreach($waitlist as $waiting)
-														 {{ count($waiting->firstname) }}
-													@endforeach
+													{{ $waitings->count() }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
@@ -198,7 +194,10 @@
 												Lastname
 											</th>
 											<th title="Field #5">
-												Doctor
+												Payment Mode
+											</th>
+											<th title="Field #8">
+												Amount Allocated
 											</th>
 											<th title="Field #8">
 												Action
@@ -206,29 +205,30 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($waitlist as $list)
+										@foreach($waitings as $waiting)
 											<tr>
-												<td>{{ $list->id }}</td>
-												<td>{{ $list->firstname }}</td>
-												<td>{{ $list->lastname }}</td>
-												<td>{{ $list->payment_mode }}</td>
+												<td>{{ $waiting->patient_id }}</td>
+												<td>{{ $waiting->firstname }}</td>
+												<td>{{ $waiting->lastname }}</td>
+												<td>{{ $waiting->payment_mode }}</td>
+												<td>{{ $waiting->amount_allocated }}</td>
 												<td>
 													
-													<a href="{{ url('show-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													{{-- <a href="{{ url('show-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
-													</a>
+													</a> --}}
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Remove from List ">
 														<i class="fa fa-trash"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
+													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
 														<i class="fa fa-plus text-primary"></i>
-													</a>
+													</a> --}}
 													
 												</button>
 												</td>

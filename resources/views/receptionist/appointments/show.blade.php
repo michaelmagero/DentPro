@@ -98,17 +98,17 @@
 											<th title="Field #4">
 												Last Name
 											</th>
-											<th title="Field #5">
-												Phone Number
-											</th>
 											<th title="Field #6">
-												Time
+												Doctor
 											</th>
 											<th title="Field #7">
-												Doctor
+												Date
 											</th>
 											<th title="Field #8">
 												Balance
+											</th>
+											<th title="Field #8">
+												Action
 											</th>
 										</tr>
 									</thead>
@@ -118,9 +118,9 @@
 												<td>{{ $appointment->id }}</td>
 												<td>{{ $appointment->firstname }}</td>
 												<td>{{ $appointment->lastname }}</td>
-												<td>{{ $appointment->sex }}</td>
-												<td>{{ $appointment->insurance_provider }}</td>
-												<td>{{ $appointment->phone_number }}</td>
+												<td>{{ $appointment->doctor }}</td>
+												<td>{{ $appointment->appointment_date }}</td>
+												<td></td>
 												<td>
 													
 													<a href="{{ url('show-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
@@ -131,12 +131,8 @@
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 														<i class="fa fa-trash"></i>
-													</a>
-
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
-														<i class="fa fa-plus text-primary"></i>
 													</a>
 													
 												</button>

@@ -32,7 +32,7 @@
 								<i class="m-menu__section-icon flaticon-more-v3"></i>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-								<a  href="#" class="m-menu__link m-menu__toggle">
+								<a  class="m-menu__link m-menu__toggle">
 									<i class="m-menu__link-icon flaticon-users"></i>
 									<span class="m-menu__link-text">
 										Patients
@@ -59,13 +59,23 @@
 												</span>
 											</a>
 										</li>
-										{{--  <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-											<a  href="{{ url('new-patient') }}" class="m-menu__link m-menu__toggle">
+										 {{-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+											<a  href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Add New
+													Medical History
+												</span>
+											</a>
+										</li> 
+										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+											<a  href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-menu__link m-menu__toggle">
+												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="m-menu__link-text">
+													Payment History
 												</span>
 											</a>
 										</li>  --}}
@@ -75,7 +85,7 @@
 
 
 							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-								<a  href="#" class="m-menu__link m-menu__toggle">
+								<a  class="m-menu__link m-menu__toggle">
 									<i class="m-menu__link-icon flaticon-suitcase"></i>
 									<span class="m-menu__link-text">
 										Payments
@@ -102,7 +112,7 @@
 												</span>
 											</a>
 										</li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+										{{-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 											<a  href="{{ url('new-doc-payment') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -111,7 +121,7 @@
 													 New Payment
 												</span>
 											</a>
-										</li>
+										</li> --}}
 									</ul>
 								</div>
 							</li>
@@ -119,8 +129,8 @@
 
 
 							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-								<a  href="#" class="m-menu__link m-menu__toggle">
-									<i class="m-menu__link-icon flaticon-interface-1"></i>
+								<a  class="m-menu__link m-menu__toggle">
+									<i class="m-menu__link-icon flaticon-calendar-2"></i>
 									<span class="m-menu__link-text">
 										Appointments
 									</span>
@@ -160,8 +170,8 @@
 								</div>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-								<a  href="#" class="m-menu__link m-menu__toggle">
-									<i class="m-menu__link-icon flaticon-interface-1"></i>
+								<a class="m-menu__link m-menu__toggle">
+									<i class="m-menu__link-icon flaticon-clock-1"></i>
 									<span class="m-menu__link-text">
 										Waiting List
 									</span>

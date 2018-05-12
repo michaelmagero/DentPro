@@ -13,7 +13,7 @@ class CreateDmsInventoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('dms_inventory', function (Blueprint $table) {
+        Schema::create('dms_inventories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('product_name');
             $table->string('quantity');

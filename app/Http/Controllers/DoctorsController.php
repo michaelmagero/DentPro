@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\Payment;
 use App\User;
+use App\Appointment;
+use App\Waiting;
 use Alert;
 use DB;
 use Auth;
@@ -27,16 +29,43 @@ class DoctorsController extends Controller
 
         if($patient)
         {
-            return view('doctor.patients.edit')
+            return view('doctor.patients.read')
             ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
             ->with('users', User::orderBy('created_at','desc')->get())
             ->with('payments', Payment::orderBy('created_at','desc')->get());   
         }
         else 
         {
-            return view('doctor.patients.edit');
+            return view('doctor.patients.read');
         }
     }
+
+    public function medical_history($id) {
+        //get post data by id
+        $patient = Patient::where('id',$id)->first();
+            
+        //load form view
+        return view('doctor.patients.medical_history', compact('payments'))
+        ->with('users', User::orderBy('created_at','desc')->get())
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->get());
+    }
+
+    public function payment_history($id) {
+        //get post data by id
+        $patient = Patient::where('id',$id)->first();
+            
+        //load form view
+        return view('doctor.patients.payment_history', compact('payments'))
+        ->with('users', User::orderBy('created_at','desc')->get())
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->get());
+    }
+
+    
+
+
+
 
 
 
@@ -46,13 +75,22 @@ class DoctorsController extends Controller
 
         $payments = DB::select( DB::raw("SELECT * FROM dms_payments WHERE doctor_id = '$user_doc' "));
         foreach ($payments as $payment) {
-            return view('doctor.payments.show', compact('payments'));
+            return view('doctor.payments.show', compact('payments'))
+            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
         }
     }
 
     public function create_payment() {
         return view('doctor.payments.create')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
+    }
+
+    public function create_payment_id($id) {
+        $patient = Patient::findorFail($id);
+        return view('doctor.payments.create')
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
     }
 
     public function insert_payment(Request $request) {
@@ -70,10 +108,12 @@ class DoctorsController extends Controller
 
 
     //APPOINTMENTS
-    public function allappointments() {
+    public function allappointments_doc() {
         return view('doctor.appointments.show')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+        ->with('users', User::orderBy('created_at','desc')->paginate(5))
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
     }
 
     public function new_appointment_doc() {
@@ -96,36 +136,39 @@ class DoctorsController extends Controller
         return back();
     }
 
+    public function delete_appointment($id) {
+        $appointment = Appointment::find($id);
+
+        if($appointment) {
+            Appointment::where('id', $id)->update(['appointment_status' => 'Complete']);
+        }
+
+        $appointment->delete();
+
+        \Session::flash('flash_message','Appointments Cleared Successfully.');
+        return back();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     //WAITING LIST
     public function allwaiting_doc() {
-        $user = Auth::user()->name;
-
-        $waitlist = DB::select( DB::raw("SELECT * FROM dms_patients WHERE doctor = '$user' AND DATE(created_at) = '".date('Y-m-d')."'"));
-        
-        return view('doctor.waitinglist.show', compact('waitlist'));
-        //dd($waitlist);
-        // foreach ($waitlist as $lists) {
-        //     dd($lists);
-        //     //return view('doctor.waitinglist.show', compact('lists'));
-        // }
-        
-
-        // $waitlist = DB::select( DB::raw("SELECT amount_due FROM dms_payments WHERE patient_id = '$patient_id'") );
-        
-        // // $amountdue = $patient->amount_due;
-        // foreach ($amountdue as $patient_due) {
-        //     $final_due = $patient_due->amount_due;
-        //     $balance = (float) $final_due - $amount_paid;
-        // }
-        
-    
-        // $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
-
-        // Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        //     return back();
-
-        // return view('doctor.waitinglist.show')
-        // ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
+        return view('doctor.waitinglist.show')
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
     }
+
+    
+
+    
 }

@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Patient Profile
+                        My Profile
                     </h3>
                 </div>
                 <div>
@@ -36,9 +36,9 @@
                 </div>
             </div>
         </div>
-        <!-- END: Subheader -->
-        
-        
+		<!-- END: Subheader -->
+		
+		
 
 
         <div class="m-content">
@@ -49,7 +49,7 @@
                             <div class="m-portlet__body">
                                 <div class="m-card-profile">
                                     <div class="m-card-profile__title m--hide">
-                                        Patient Profile
+                                        Your Profile
                                     </div>
                                     <div class="m-card-profile__pic">
                                         <div class="m-card-profile__pic-wrapper">
@@ -140,9 +140,11 @@
                                                 </h3>
                                             </div>
                                             <div class="col m--align-right">
-                                                <span class="m-widget1__number m--font-brand">
-                                                    +$17,800
-                                                </span>
+                                                @foreach($payments as $payment)
+                                                    <span class="m-widget1__number m--font-brand">
+                                                        {{$payment->balance}}
+                                                    </span>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -153,8 +155,8 @@
                                     <li class="m-nav__item">
                                         <span class="m-nav__link">
                                             <div id="m_repeater_1">
-                                            
-                                        </div>
+											
+										</div>
                                         </span>
                                     </li>
                                 </ul>
@@ -168,7 +170,7 @@
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-tools">
                                     <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                                        <li class="nav-item m-tabs__item">
+                                        {{--  <li class="nav-item m-tabs__item">
                                             <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
                                                 <i class="flaticon-share m--hide"></i>
                                                 Update Profile
@@ -184,14 +186,14 @@
                                             <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_3" role="tab">
                                                 Payment History
                                             </a>
-                                        </li>
+                                        </li>  --}}
                                     </ul>
                                 </div>
                                 
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right">
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient') }}">
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
                                                 <div class="alert m-alert m-alert--default" role="alert">
@@ -210,7 +212,7 @@
                                                     First Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->firstname }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="firstname"  type="text" value="{{ $patient->firstname }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -218,7 +220,7 @@
                                                     Middle Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->middlename }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="middlename"  type="text" value="{{ $patient->middlename }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -226,7 +228,7 @@
                                                     Last Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->lastname }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $patient->lastname }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -234,7 +236,7 @@
                                                     Sex
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->sex }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->sex }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -242,13 +244,16 @@
                                                     Payment Mode
                                                 </label>
                                                 <div class="col-7">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
+                                                    {{--  <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" disabled="disabled"  name="payment_mode">
                                             
                                                         <option value='{{ $patient->payment_mode }}' selected="selected">
                                                             {{ $patient->payment_mode }}
                                                         </option>
 
                                                         <optgroup label="Insurance Providers">
+                                                            <option value="Cash">
+                                                                Cash
+                                                            </option>
                                                             <option value="Jubilee">
                                                                 Jubilee
                                                             </option>
@@ -301,7 +306,9 @@
                                                                 Sedwick
                                                             </option>
 										                </optgroup>
-                                                    </select>
+                                                    </select>  --}}
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->payment_mode }}">
+
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -309,7 +316,7 @@
                                                     Occupation
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->occupation }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="occupation"  type="text" value="{{ $patient->occupation }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -317,7 +324,7 @@
                                                     Date of Birth
                                                 </label>
                                                 <div class="col-7">
-                                                    <input type="text" name="dob"  class="form-control" id="m_inputmask_1" value="{{ $patient->dob }}">
+                                                    <input type="text" disabled="disabled"  name="dob"  class="form-control" id="m_inputmask_1" value="{{ $patient->dob }}">
                                                     <span class="m-form__help">
                                                         Custom date format:
                                                         <code>
@@ -331,7 +338,7 @@
                                                     Phone No.
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->phone_number }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="phone_number" type="text" value="{{ $patient->phone_number }}">
                                                 </div>
                                             </div>
 
@@ -340,7 +347,7 @@
                                                     Email
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->email }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->email }}">
                                                 </div>
                                             </div>
 
@@ -349,13 +356,15 @@
                                                     Preferred Doctor
                                                 </label>
                                                 <div class="col-7">
-                                                    <select name="" id="input" class="form-control" required="required">
+                                                    {{--  <select disabled="disabled"  name="doctor" id="input" class="form-control" required="required">
                                                         @foreach($users as $user)
                                                             @if($user->role == 'doctor')
                                                                 <option value="">{{ $user->name }}</option>
                                                             @endif
                                                         @endforeach
-                                                    </select>
+                                                    </select>  --}}
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->doctor }}">
+
                                                 </div>
                                             </div>
 
@@ -373,7 +382,7 @@
                                                     Address
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->postal_address }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="postal_address"  type="text" value="{{ $patient->postal_address }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -381,7 +390,7 @@
                                                     Emergency Contact Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->emergency_contact_name }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_name"  type="text" value="{{ $patient->emergency_contact_name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -389,7 +398,7 @@
                                                     Emergency Contact Phone Number
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->emergency_contact_phone_number }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_phone_number"  type="text" value="{{ $patient->emergency_contact_phone_number }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -397,7 +406,7 @@
                                                     Emergency Contact Relationship
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" type="text" value="{{ $patient->emergency_contact_relationship }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_relationship"   type="text" value="{{ $patient->emergency_contact_relationship }}">
                                                 </div>
                                             </div>
                                             
@@ -408,13 +417,13 @@
                                                 <div class="row">
                                                     <div class="col-2"></div>
                                                     <div class="col-7">
-                                                        <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
-                                                            Save changes
-                                                        </button>
-                                                        &nbsp;&nbsp;
-                                                        <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                        {{-- <a href="{{ url('/edit-patient/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
+                                                            Edit Patient
+                                                        </a>
+                                                        &nbsp;&nbsp; --}}
+                                                        {{--  <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
                                                             Cancel
-                                                        </button>
+                                                        </button>  --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -434,7 +443,7 @@
                                                     </div>
                                                     <div class="m-widget3__info">
                                                         <span class="m-widget3__username">
-                                                            Dr {{ $patient->doctor }}
+                                                            Dr 
                                                         </span>
                                                         <br>
                                                         <span class="m-widget3__time">
@@ -443,54 +452,6 @@
                                                     </div>
                                                     <span class="m-widget3__status m--font-info">
                                                         Pending
-                                                    </span>
-                                                </div>
-                                                <div class="m-widget3__body">
-                                                    <p class="m-widget3__text">
-                                                        Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="m-widget3__item">
-                                                <div class="m-widget3__header">
-                                                    <div class="m-widget3__user-img">
-                                                        <img class="m-widget3__img" src="../admin/assets/app/media/img/users/user4.jpg" alt="">
-                                                    </div>
-                                                    <div class="m-widget3__info">
-                                                        <span class="m-widget3__username">
-                                                            Dr {{ $patient->doctor }}
-                                                        </span>
-                                                        <br>
-                                                        <span class="m-widget3__time">
-                                                            {{ $patient->created_at }}
-                                                        </span>
-                                                    </div>
-                                                    <span class="m-widget3__status m--font-info">
-                                                        Pending
-                                                    </span>
-                                                </div>
-                                                <div class="m-widget3__body">
-                                                    <p class="m-widget3__text">
-                                                        Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud exerci tation ullamcorper.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="m-widget3__item">
-                                                <div class="m-widget3__header">
-                                                    <div class="m-widget3__user-img">
-                                                        <img class="m-widget3__img" src="../admin/assets/app/media/img/users/user5.jpg" alt="">
-                                                    </div>
-                                                    <div class="m-widget3__info">
-                                                        <span class="m-widget3__username">
-                                                            Dr {{ $patient->doctor }}
-                                                        </span>
-                                                        <br>
-                                                        <span class="m-widget3__time">
-                                                            {{ $patient->created_at }}
-                                                        </span>
-                                                    </div>
-                                                    <span class="m-widget3__status m--font-success">
-                                                        Complete
                                                     </span>
                                                 </div>
                                                 <div class="m-widget3__body">
@@ -504,123 +465,7 @@
                                 </div>
                                 <!--end:: Widgets/Support Tickets -->
                             </div>
-                                </div>
-
-
-
-
-
-                                <div class="tab-pane " id="m_user_profile_tab_3">
-                                    <div class="col-md-12">
-                                        <!--begin:: Widgets/Sale Reports-->
-                                        <div class="">
-                                            <div class="m-portlet__head">
-                                                <div class="m-portlet__head-caption">
-                                                    <div class="m-portlet__head-title">
-                                                        <h3 class="m-portlet__head-text">
-                                                            Payment Reports
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="m-portlet__head-tools">
-                                                    <ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
-                                                        <li class="nav-item m-tabs__item">
-                                                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_widget11_tab1_content" role="tab">
-                                                                Last Month
-                                                            </a>
-                                                        </li>
-                                                        <li class="nav-item m-tabs__item">
-                                                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget11_tab2_content" role="tab">
-                                                                All Time
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="m-portlet__body">
-                                                <!--Begin::Tab Content-->
-                                                <div class="tab-content">
-                                                    <!--begin::tab 1 content-->
-                                                    <div class="tab-pane active" id="m_widget11_tab1_content">
-                                                        <!--begin::Widget 11-->
-                                                        <div class="m-widget11">
-                                                            <div class="table-responsive">
-                                                                <!--begin::Table-->
-                                                                <table class="table">
-                                                                    <!--begin::Thead-->
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <td class="m-widget11__label">
-                                                                                #
-                                                                            </td>
-                                                                            <td class="m-widget11__app">
-                                                                                Application
-                                                                            </td>
-                                                                            <td class="m-widget11__sales">
-                                                                                Sales
-                                                                            </td>
-                                                                            <td class="m-widget11__price">
-                                                                                Avg Price
-                                                                            </td>
-                                                                            <td class="m-widget11__total m--align-right">
-                                                                                Total
-                                                                            </td>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <!--end::Thead-->
-                                                                    <!--begin::Tbody-->
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <label class="m-checkbox m-checkbox--solid m-checkbox--single m-checkbox--brand">
-                                                                                    <input type="checkbox">
-                                                                                    <span></span>
-                                                                                </label>
-                                                                            </td>
-                                                                            <td>
-                                                                                <span class="m-widget11__title">
-                                                                                    Vertex 2.0
-                                                                                </span>
-                                                                                <span class="m-widget11__sub">
-                                                                                    Vertex To By Again
-                                                                                </span>
-                                                                            </td>
-                                                                            <td>
-                                                                                19,200
-                                                                            </td>
-                                                                            <td>
-                                                                                $63
-                                                                            </td>
-                                                                            <td class="m--align-right m--font-brand">
-                                                                                $14,740
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                    <!--end::Tbody-->
-                                                                </table>
-                                                                <!--end::Table-->
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        <!--end::Widget 11-->
-                                                    </div>
-                                                    <!--end::tab 1 content-->
-                                                    <!--begin::tab 2 content-->
-                                                    
-                                                    <!--end::tab 2 content-->
-                                                    <!--begin::tab 3 content-->
-                                                    <div class="tab-pane" id="m_widget11_tab3_content"></div>
-                                                    <!--end::tab 3 content-->
-                                                </div>
-                                                <!--End::Tab Content-->
-                                            </div>
-                                            <div class="m-portlet__foot">
-                                                
-                                            </div>
-                                        </div>
-                                        <!--end:: Widgets/Sale Reports-->
-                                    </div>
-                                </div>
+							    </div>
                             </div>
                             
                         </div>

@@ -114,7 +114,6 @@ class AdminController extends Controller
           return back();
        } else {
           $user->save();
-          
           Alert::success('User Creted Successfully', 'Success')->autoclose(2000);
           return back();
        }

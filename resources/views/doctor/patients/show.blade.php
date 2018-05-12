@@ -99,14 +99,11 @@
 											<th title="Field #4">
 												Lastname
 											</th>
-											<th title="Field #4">
-												Sex
-											</th>
 											<th title="Field #6">
 												Insurance Provider
 											</th>
 											<th title="Field #8">
-												Phone No
+												Amount Allocated
 											</th>
 											<th title="Field #8">
 												Action
@@ -119,7 +116,6 @@
 												<td>{{ $patient->id }}</td>
 												<td>{{ $patient->firstname }}</td>
 												<td>{{ $patient->lastname }}</td>
-												<td>{{ $patient->sex }}</td>
 												<td>
 													@if($patient->payment_mode == 'Cash')
 														{{ "N/A" }}
@@ -127,22 +123,22 @@
 														{{ $patient->payment_mode }}
 													@endif
 												</td>
-												<td>{{ $patient->phone_number }}</td>
+												<td>{{ $patient->amount_allocated }}</td>
 												<td>
 													
 													<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
-														<i class="fa fa-edit"></i>
+													<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+														<i class="fa fa-user-md"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
-														<i class="fa fa-trash"></i>
+													<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
+														<i class="fa fa-credit-card"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
+													<a href="{{ url('new-doc-payment/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
 														<i class="fa fa-plus text-primary"></i>
 													</a>
 													
