@@ -175,9 +175,9 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	//WAITING ROUTES (RECEPTIONIST)
 	Route::get('all-waiting','ReceptionistController@allwaiting');
 
-	Route::get('new-waiting','ReceptionistController@new_waiting');
+	Route::get('new-waiting-appointment/{id}','ReceptionistController@create_waiting');
 
-	Route::post('new-waiting','ReceptionistController@insert_waiting');
+	Route::get('new-waiting/{id}', 'ReceptionistController@insert_waiting');
 
 	Route::get('/show-waiting/{id}','ReceptionistController@show_waiting');
 

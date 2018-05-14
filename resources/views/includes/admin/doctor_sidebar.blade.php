@@ -112,7 +112,7 @@
 												</span>
 											</a>
 										</li>
-										{{-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 											<a  href="{{ url('new-doc-payment') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -121,7 +121,7 @@
 													 New Payment
 												</span>
 											</a>
-										</li> --}}
+										</li>
 									</ul>
 								</div>
 							</li>

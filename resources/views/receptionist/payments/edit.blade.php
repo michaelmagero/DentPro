@@ -231,56 +231,7 @@
                                                     Procedure
                                                 </label>
                                                 <div class="col-7">
-                                                    <select class="form-control m-select2" id="m_select2_procedure" name="procedure" multiple="multiple">
-                                                        <option value='{{ $payment->procedure }}' selected="selected">
-                                                            {{ $payment->procedure }}
-                                                        </option>
-                                                        <optgroup >
-                                                            
-                                                            <option value="Consultation">
-                                                                Consultation
-                                                            </option>
-                                                            <option value="Full Mouth Scaling and Polishing">
-                                                                Full Mouth Scaling and Polishing
-                                                            </option>
-                                                            <option value="Root Canal">
-                                                                Root Canal
-                                                            </option>
-                                                            <option value="Permanent Filling">
-                                                                Permanent Filling
-                                                            </option>
-                                                            <option value="Open Surgical Disimpaction">
-                                                                Open Surgical Disimpaction
-                                                            </option>
-                                                            <option value="Closed Surgical Disimpaction">
-                                                                Closed Surgical Disimpaction
-                                                            </option>
-                                                            <option value="Operculectomy">
-                                                                Operculectomy
-                                                            </option>
-                                                            <option value="Curettage">
-                                                                Curettage
-                                                            </option>
-                                                            <option value="Whitening">
-                                                                Whitening
-                                                            </option>
-                                                            <option value="Masking">
-                                                                Masking
-                                                            </option>
-                                                            <option value="Dental Bridges">
-                                                                Dental Bridges
-                                                            </option>
-                                                            <option value="Dental Implants">
-                                                                Dental Implants
-                                                            </option>
-                                                            <option value="Dentures">
-                                                                Dentures
-                                                            </option>
-                                                            <option value="Braces">
-                                                                Braces
-                                                            </option>
-                                                        </optgroup>
-									                </select>
+                                                    <input class="form-control m-input"   name="amount_due"  type="procedure" value="{{ $payment->procedure }}" disabled="disabled">
                                                 </div>
                                             </div>
 
@@ -289,7 +240,7 @@
                                                     Amount Due
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->amount_due }}">
+                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->amount_due }}" disabled="disabled">
                                                 </div>
                                             </div>
 
@@ -336,7 +287,8 @@
                                                     Notes
                                                 </label>
                                                 <div class="col-7">
-                                                    <textarea name="notes" id="textarea"   readonly  class="form-control" cols="15" rows="10" required="required"  value="">{{ $payment->notes }}</textarea>
+                                                    <textarea name="notes" id="textarea"   readonly  class="form-control" cols="15" rows="10" required="required"  value=""
+                                                    disabled="disabled">{{ $payment->notes }}</textarea>
 
                                                 </div>
                                             </div>

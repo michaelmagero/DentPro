@@ -77,12 +77,23 @@
 									
 								</div>
 								<div class="col-lg-4">
+									<label class="">
+										Middle Name:
+									</label>
+									<input type="text" name="middlename"  class="form-control m-input" >
+									
+								</div>
+								<div class="col-lg-4">
 									<label>
 										Last Name:
 									</label>
 									<input type="text" name="lastname"  class="form-control m-input" >
 									
 								</div>
+								
+							</div>
+
+							<div class="form-group m-form__group row">
 								<div class="col-lg-4">
 									<label>
 										Phone Number:
@@ -90,11 +101,7 @@
 									<input type="text" name="phone_number"  class="form-control m-input" >
 									
 								</div>
-							</div>
 
-
-							<div class="form-group m-form__group row">
-								
 								<div class="col-lg-4">
 									<label>
 										Doctor:
@@ -125,6 +132,12 @@
        					    		</div>
 									
 								</div>
+							</div>
+
+
+							<div class="form-group m-form__group row">
+								
+								
 
 								<div class="col-lg-4">
 									<label>

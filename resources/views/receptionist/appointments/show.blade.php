@@ -93,10 +93,7 @@
 												File No
 											</th>
 											<th title="Field #3">
-												First Name
-											</th>
-											<th title="Field #4">
-												Last Name
+												Patient Name
 											</th>
 											<th title="Field #6">
 												Doctor
@@ -105,10 +102,10 @@
 												Date
 											</th>
 											<th title="Field #8">
-												Balance
+												Phone Number
 											</th>
 											<th title="Field #8">
-												Action
+												Appointment Status
 											</th>
 										</tr>
 									</thead>
@@ -116,12 +113,16 @@
 										@foreach($appointments as $appointment)
 											<tr>
 												<td>{{ $appointment->id }}</td>
-												<td>{{ $appointment->firstname }}</td>
-												<td>{{ $appointment->lastname }}</td>
+												<td>{{ $appointment->firstname . " " . $appointment->lastname }}</td>
 												<td>{{ $appointment->doctor }}</td>
 												<td>{{ $appointment->appointment_date }}</td>
-												<td></td>
-												<td>
+												<td>{{ $appointment->phone_number }}</td>
+												<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--brand m-badge--wide">Pending</span></span></td>
+												{{--  <td>
+
+													<a href="{{ url('new-waiting-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">
+														<i class="fa fa-plus text-primary"></i>
+													</a>
 													
 													<a href="{{ url('show-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
@@ -136,7 +137,7 @@
 													</a>
 													
 												</button>
-												</td>
+												</td>  --}}
 											</tr>
                                    		@endforeach
 									</tbody>

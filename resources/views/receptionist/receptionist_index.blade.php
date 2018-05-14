@@ -180,7 +180,7 @@
 									</div>
 								</div>
 								<!--end: Search Form -->
-						<table class="m-datatable" id="html_table" width="100%">
+								<table class="m-datatable" id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
 											
@@ -188,43 +188,49 @@
 												File No
 											</th>
 											<th title="Field #3">
-												Firstname
-											</th>
-											<th title="Field #4">
-												Lastname
+												Patient Name
 											</th>
 											<th title="Field #5">
+												Payment Mode
+											</th>
+											<th title="Field #6">
+												Amount Allocated
+											</th>
+											<th title="Field #6">
 												Doctor
 											</th>
-											<th title="Field #8">
+											<th title="Field #7">
 												Action
 											</th>
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($patients as $patient)
+										@foreach($waitings as $waiting)
 											<tr>
-												<td>{{ $patient->id }}</td>
-												<td>{{ $patient->firstname }}</td>
-												<td>{{ $patient->lastname }}</td>
-												<td>{{ $patient->doctor }}</td>
+												<td>{{ $waiting->patient_id }}</td>
+												<td>{{ $waiting->firstname . "	". $waiting->lastname }}</td>
+												<td>{{ $waiting->payment_mode }}</td>
+												<td>{{ $waiting->amount_allocated }}</td>
+												<td>{{ $waiting->doctor }}</td>
 												<td>
 													
-													<a href="{{ url('show-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													{{-- <a href="{{ url('show-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
-													</a>
+													</a> --}}
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													{{--  <a href="{{ url('new-payment') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
+														<i class="fa fa-plus text-primary"></i>
+													</a>  --}}
+
+													<a href="{{ url('delete-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Remove from List ">
 														<i class="fa fa-trash"></i>
 													</a>
 
-													<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
-														<i class="fa fa-plus text-primary"></i>
-													</a>
+													
 													
 												</button>
 												</td>

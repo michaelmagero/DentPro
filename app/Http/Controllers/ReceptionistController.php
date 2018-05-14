@@ -184,14 +184,17 @@ class ReceptionistController extends Controller
     //PAYMENTS
     public function allpayments() {
         return view('receptionist.payments.show')
-        ->with('payments', Payment::orderBy('created_at','desc')->paginate(10));
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(10))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1));
     }
 
     public function new_payment($id) {
         $patient = Patient::findorFail($id);
-        return view('receptionist.payments.create')
+
+        return view('receptionist.payments.create', compact('payments'))
         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
-        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
 
 
@@ -302,6 +305,7 @@ class ReceptionistController extends Controller
         $appointment = new Appointment();
 
         $appointment->firstname = $request->get('firstname');
+        $appointment->middlename = $request->get('middlename');
         $appointment->lastname = $request->get('lastname');
         $appointment->phone_number = $request->get('phone_number');
         $appointment->doctor = $request->get('doctor');
@@ -360,6 +364,7 @@ class ReceptionistController extends Controller
                 // store
                 $appointment = Appointment::find($id);
                 $appointment->firstname = $request->get('firstname');
+                $appointment->lastname = $request->get('middlename');
                 $appointment->lastname = $request->get('lastname');
                 $appointment->phone_number = $request->get('phone_number');
                 $appointment->doctor = $request->get('doctor');
@@ -392,8 +397,43 @@ class ReceptionistController extends Controller
     //WAITING LIST
     public function allwaiting() {
         return view('receptionist.waitinglist.show')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
         ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+    }
+
+    //insert waiting without ID - mainly for appointments from patients not registered with the clinic
+    public function create_waiting($id) {
+        $appointment = Appointment::find($id);
+
+        $appointment = Waiting::create([
+            'patient_id' => $appointment->patient_id,
+            'firstname' => $appointment->firstname,
+            'middlename' => $appointment->middlename,
+            'lastname' => $appointment->lastname,
+            'payment_mode' => $appointment->payment_mode,
+            'amount_allocated' => $appointment->amount_allocated,
+            'doctor' => $appointment->doctor,
+        ]);
+        
+        Alert::success('Patient Added to Waiting List', 'Success')->autoclose(2000);
+        return back();
+    }
+
+    public function insert_waiting($id) {
+        $patient = Patient::find($id);
+
+        $patient = Waiting::create([
+            'patient_id' => $patient->id,
+            'firstname' => $patient->firstname,
+            'middlename' => $patient->middlename,
+            'lastname' => $patient->lastname,
+            'payment_mode' => $patient->payment_mode,
+            'amount_allocated' => $patient->amount_allocated,
+            'doctor' => $patient->doctor,
+        ]);
+        
+        Alert::success('Patient Added to Waiting List', 'Success')->autoclose(2000);
+        return back();
     }
 
     public function delete_waiting($id) {
