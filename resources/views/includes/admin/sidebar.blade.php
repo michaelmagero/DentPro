@@ -92,7 +92,7 @@
 											</span>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-											<a  href="#" class="m-menu__link m-menu__toggle">
+											<a  href="{{ url('all-patients-admin') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -102,7 +102,7 @@
 											</a>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-											<a  href="#" class="m-menu__link m-menu__toggle">
+											<a  href="{{ url('new-patient-admin') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -133,7 +133,7 @@
 											</span>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-											<a  href="#" class="m-menu__link m-menu__toggle">
+											<a  href="{{ url('all-payments-admin') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -143,7 +143,7 @@
 											</a>
 										</li>
 										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-											<a  href="#" class="m-menu__link m-menu__toggle">
+											<a  href="{{ url('new-payment-admin') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -175,7 +175,7 @@
 											</span>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="#" class="m-menu__link ">
+											<a  href="{{ url('all-appointments-admin') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -185,7 +185,7 @@
 											</a>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="#" class="m-menu__link ">
+											<a  href="{{ url('new-appointment-admin') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -212,21 +212,21 @@
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
 											<span class="m-menu__link">
 												<span class="m-menu__link-text">
-													Marketing
+													Waiting List
 												</span>
 											</span>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="#" class="m-menu__link ">
+											<a  href="{{ url('all-waiting-admin') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Insurance
+													Show List
 												</span>
 											</a>
 										</li>
-										<li class="m-menu__item " aria-haspopup="true" >
+										{{--  <li class="m-menu__item " aria-haspopup="true" >
 											<a  href="#" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -235,7 +235,7 @@
 													Dental Camps
 												</span>
 											</a>
-										</li>
+										</li>  --}}
 									</ul>
 								</div>
 							</li>

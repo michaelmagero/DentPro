@@ -102,7 +102,7 @@
 												Appointment Date
 											</th>
 											<th title="Field #6">
-												Last Remarks
+												Notes
 											</th>
 											<th title="Field #6">
 												Action

@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    All Users
+    All Appointments
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Users
+                        Appointments
                     </h3>
                 </div>
                 <div>
@@ -28,7 +28,7 @@
                 <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
-							<strong> {{ date('M d Y h:i a') }} </strong>
+							{{ date('d M Y h:i a') }}
                             <span class="m-subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
@@ -71,11 +71,11 @@
 											</div>
 										</div>
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-user') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+											<a href="{{ url('new-appointment') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
 													<span>
-														New User
+														New Appointment
 													</span>
 												</span>
 											</a>
@@ -84,30 +84,28 @@
 									</div>
 								</div>
 								<!--end: Search Form -->
-
-								
-								<!--begin: Datatable -->
+		<!--begin: Datatable -->
 								<table class="m-datatable" id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
 											
 											<th title="Field #2">
-												UserID
+												File No
 											</th>
 											<th title="Field #3">
-												Firstname
+												First Name
 											</th>
 											<th title="Field #4">
-												Lastname
-											</th>
-											<th title="Field #5">
-												Email
+												Last Name
 											</th>
 											<th title="Field #6">
-												Role
+												Doctor
 											</th>
 											<th title="Field #7">
-												Created
+												Date
+											</th>
+											<th title="Field #8">
+												Balance
 											</th>
 											<th title="Field #8">
 												Action
@@ -115,31 +113,27 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($users as $user)
+										@foreach($appointments as $appointment)
 											<tr>
-												<td>{{ $user->id }}</td>
-												<td>{{ $user->name }}</td>
-												<td>{{ $user->lastname }}</td>
-												<td>{{ $user->email }}</td>
-												<td>{{ $user->role }}</td>
-												<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</td>
+												<td>{{ $appointment->id }}</td>
+												<td>{{ $appointment->firstname }}</td>
+												<td>{{ $appointment->lastname }}</td>
+												<td>{{ $appointment->doctor }}</td>
+												<td>{{ $appointment->appointment_date }}</td>
+												<td></td>
 												<td>
 													
-													<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													<a href="{{ url('show-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="{{ url('delete-user/'.$user->id)  }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 														<i class="fa fa-trash"></i>
 													</a>
-
-													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
-														<i class="fa fa-plus text-primary"></i>
-													</a> --}}
 													
 												</button>
 												</td>
@@ -157,6 +151,14 @@
 					
 
 						
+						
+						
+						
+						
+
+
+
+
 @endsection
 
 

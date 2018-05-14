@@ -96,6 +96,28 @@ class ReceptionistController extends Controller
         }
     }
 
+    public function medical_history($id) {
+        //get post data by id
+        $patient = Patient::where('id',$id)->first();
+            
+        //load form view
+        return view('receptionist.patients.medical_history', compact('payments'))
+        ->with('users', User::orderBy('created_at','desc')->get())
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->get());
+    }
+
+    public function payment_history($id) {
+        //get post data by id
+        $patient = Patient::where('id',$id)->first();
+            
+        //load form view
+        return view('receptionist.patients.payment_history', compact('payments'))
+        ->with('users', User::orderBy('created_at','desc')->get())
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->get());
+    }
+
     public function update_patient(Request $request, $id) {
         // validate
             // read more on validation at http://laravel.com/docs/validation
@@ -263,24 +285,6 @@ class ReceptionistController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //APPOINTMENTS
     public function allappointments() {
         return view('receptionist.appointments.show')
@@ -324,11 +328,19 @@ class ReceptionistController extends Controller
     }
 
     public function show_appointment($id) {
+        $patient = Patient::where('id',$id)->first();
 
+        if($patient)
+        {
             return view('receptionist.appointments.read')
-            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
+            ->with('users', User::orderBy('created_at','desc')->get())
             ->with('payments', Payment::orderBy('created_at','desc')->get());   
+        }
+        else 
+        {
+            return view('doctor.patients.read');
+        }
     }
 
     public function update_appointment(Request $request, $id) {

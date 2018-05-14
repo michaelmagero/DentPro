@@ -28,7 +28,7 @@
                 <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
-							{{ date('d M Y h:i a') }}
+							<strong>{{ date('d M Y h:i a') }}</strong>
                             <span class="m-subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>

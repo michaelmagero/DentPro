@@ -171,7 +171,7 @@
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 								<a class="m-menu__link m-menu__toggle">
-									<i class="m-menu__link-icon flaticon-clock-1"></i>
+									<i class="m-menu__link-icon flaticon-time-1"></i>
 									<span class="m-menu__link-text">
 										Waiting List
 									</span>

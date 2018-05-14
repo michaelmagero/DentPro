@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    User Profile
+    Patient Profile
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        User Profile
+                        My Profile
                     </h3>
                 </div>
                 <div>
@@ -42,7 +42,7 @@
 
 
         <div class="m-content">
-            @foreach($users as $user)
+            @foreach($patients as $patient)
                 <div class="row">
                     <div class="col-xl-3 col-lg-4">
                         <div class="m-portlet  ">
@@ -58,10 +58,10 @@
                                     </div>
                                     <div class="m-card-profile__details">
                                         <span class="m-card-profile__name">
-                                            {{ $user->name }} {{ $user->lastname }}
+                                            {{ $patient->firstname }} {{ $patient->lastname }}
                                         </span>
                                         <a href="" class="m-card-profile__email m-link">
-                                            {{ $user->email }}
+                                            {{ $patient->email }}
                                         </a>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                                             <span class="m-nav__link-title">
                                                 <span class="m-nav__link-wrap">
                                                     <span class="m-nav__link-text">
-                                                        File No - <span class="text-primary">{{ $user->id }}</span>
+                                                        File No - <span class="text-primary">{{ $patient->id }}</span>
                                                     </span>
                                                 </span>
                                             </span>
@@ -88,7 +88,7 @@
                                         <span class="m-nav__link">
                                             <i class="m-nav__link-icon flaticon-share"></i>
                                             <span class="m-nav__link-text">
-                                                Date of Birth - <span class="text-primary">{{ $user->dob }}</span>
+                                                Date of Birth - <span class="text-primary">{{ $patient->dob }}</span>
                                             </span>
                                         </span>
                                     </li>
@@ -96,7 +96,7 @@
                                         <span class="m-nav__link">
                                             <i class="m-nav__link-icon flaticon-support"></i>
                                             <span class="m-nav__link-text">
-                                                Phone No. - <span class="text-primary">{{ $user->phone_number }}</span>
+                                                Phone No. - <span class="text-primary">{{ $patient->phone_number }}</span>
                                             </span>
                                         </span>
                                     </li>
@@ -104,13 +104,62 @@
                                         <span class="m-nav__link">
                                             <i class="m-nav__link-icon flaticon-chat-1"></i>
                                             <span class="m-nav__link-text">
-                                                Email - <span class="text-primary">{{ $user->email }}</span>
+                                                Email - <span class="text-primary">{{ $patient->email }}</span>
                                             </span>
                                         </span>
                                     </li>
                                 </ul>
 
-                                
+                                <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
+                                    <li class="m-nav__separator m-nav__separator--fit"></li>
+                                    <li class="m-nav__section m--hide">
+                                        <span class="m-nav__section-text">
+                                            Section
+                                        </span>
+                                    </li>
+
+                                    <li class="m-nav__item">
+                                        <span class="m-nav__link">
+                                            <span class="m-nav__link-title">
+                                                <span class="m-nav__link-wrap">
+                                                    <span class="m-nav__link-text">
+                                                        Payment History 
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    
+                                </ul></br>
+                                <div class="m-widget1 m-widget1--paddingless">
+                                    <div class="m-widget1__item">
+                                        <div class="row m-row--no-padding align-items-center">
+                                            <div class="col">
+                                                <h3 class="m-widget1__title">
+                                                    Balance
+                                                </h3>
+                                            </div>
+                                            <div class="col m--align-right">
+                                                @foreach($payments as $payment)
+                                                    <span class="m-widget1__number m--font-brand">
+                                                        {{$payment->balance}}
+                                                    </span>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
+                                    
+                                    <li class="m-nav__item">
+                                        <span class="m-nav__link">
+                                            <div id="m_repeater_1">
+											
+										</div>
+                                        </span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -121,101 +170,243 @@
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-tools">
                                     <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                                        {{-- <li class="nav-item m-tabs__item">
+                                        {{--  <li class="nav-item m-tabs__item">
                                             <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
                                                 <i class="flaticon-share m--hide"></i>
-                                                 Profile
+                                                Update Profile
                                             </a>
-                                        </li> --}}
-                                        {{-- <li class="nav-item m-tabs__item">
+                                        </li>
+                                        <li class="nav-item m-tabs__item">
                                             <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
-                                                Change Password
+                                                Medical History
                                             </a>
-                                        </li> --}}
+                                        </li>
 
-                                        {{-- <li class="nav-item m-tabs__item">
+                                        <li class="nav-item m-tabs__item">
                                             <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_3" role="tab">
                                                 Payment History
                                             </a>
-                                        </li> --}}
+                                        </li>  --}}
                                     </ul>
                                 </div>
                                 
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-user/{id}') }}">
-                                        {{ csrf_field() }}
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient') }}">
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
                                                 <div class="alert m-alert m-alert--default" role="alert">
+                                                    The example form below demonstrates common HTML form elements that receive updated styles from Bootstrap with additional classes.
                                                 </div>
                                             </div>
-                                            
                                             <div class="form-group m-form__group row">
                                                 <div class="col-10 ml-auto">
                                                     <h3 class="m-form__section">
-                                                        Personal Information
+                                                        1. Personal Details
                                                     </h3>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
-                                                    Firstname
+                                                    First Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled" name="name"  type="text" value="{{ $user->name }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="firstname"  type="text" value="{{ $patient->firstname }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
-                                                    Lastname
+                                                    Middle Name
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $user->lastname }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="middlename"  type="text" value="{{ $patient->middlename }}">
                                                 </div>
                                             </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Last Name
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="lastname"  type="text" value="{{ $patient->lastname }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Sex
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->sex }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Payment Mode
+                                                </label>
+                                                <div class="col-7">
+                                                    {{--  <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" disabled="disabled"  name="payment_mode">
+                                            
+                                                        <option value='{{ $patient->payment_mode }}' selected="selected">
+                                                            {{ $patient->payment_mode }}
+                                                        </option>
+
+                                                        <optgroup label="Insurance Providers">
+                                                            <option value="Cash">
+                                                                Cash
+                                                            </option>
+                                                            <option value="Jubilee">
+                                                                Jubilee
+                                                            </option>
+                                                            <option value="UAP">
+                                                                UAP
+                                                            </option>
+                                                            <option value="Madison">
+                                                                Madison
+                                                            </option>
+                                                            <option value="AON">
+                                                                AON
+                                                            </option>
+                                                            <option value="Britam">
+                                                                Britam
+                                                            </option>
+                                                            <option value="Sanlam">
+                                                                Sanlam
+                                                            </option>
+                                                            <option value="Pacific">
+                                                                Pacific
+                                                            </option>
+                                                            <option value="Saham">
+                                                                Saham
+                                                            </option>
+                                                            <option value="Resolution">
+                                                                Resolution
+                                                            </option>
+                                                            <option value="AAR">
+                                                                AAR
+                                                            </option>
+                                                            <option value="APA">
+                                                                APA
+                                                            </option>
+                                                            <option value="Liaison">
+                                                                Liaison
+                                                            </option>
+                                                            <option value="KCB">
+                                                                KCB
+                                                            </option>
+                                                            <option value="Co-operative">
+                                                                Co-operative
+                                                            </option>
+                                                            <option value="First Assurance">
+                                                                First Assurance
+                                                            </option>
+                                                            <option value="Eagle Africa">
+                                                                Eagle Africa
+                                                            </option>
+                                                            <option value="Sedwick">
+                                                                Sedwick
+                                                            </option>
+										                </optgroup>
+                                                    </select>  --}}
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->payment_mode }}">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Occupation
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="occupation"  type="text" value="{{ $patient->occupation }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Date of Birth
+                                                </label>
+                                                <div class="col-7">
+                                                    <input type="text" disabled="disabled"  name="dob"  class="form-control" id="m_inputmask_1" value="{{ $patient->dob }}">
+                                                    <span class="m-form__help">
+                                                        Custom date format:
+                                                        <code>
+                                                            yyyy/mm/dd
+                                                        </code>
+                                                    </span>
+                                            </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Phone No.
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="phone_number" type="text" value="{{ $patient->phone_number }}">
+                                                </div>
+                                            </div>
+
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
                                                     Email
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $user->email }}">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->email }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Preferred Doctor
+                                                </label>
+                                                <div class="col-7">
+                                                    {{--  <select disabled="disabled"  name="doctor" id="input" class="form-control" required="required">
+                                                        @foreach($users as $user)
+                                                            @if($user->role == 'doctor')
+                                                                <option value="">{{ $user->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>  --}}
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->doctor }}">
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+                                            <div class="form-group m-form__group row">
+                                                <div class="col-10 ml-auto">
+                                                    <h3 class="m-form__section">
+                                                        2. Address & Emergency Contacts
+                                                    </h3>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
-                                                    Role
+                                                    Address
                                                 </label>
                                                 <div class="col-7">
-                                                    {{-- <select name="role" disabled="disabled"  class="form-control" id="m_notify_state">
-                                                        <option value='{{ $user->role }}' selected="selected">
-                                                            {{ $user->role }}
-                                                        </option>
-                                                        <option value="doctor">
-                                                            Doctor
-                                                        </option>
-                                                        <option value="receptionist">
-                                                            Receptionist
-                                                        </option>
-                                                        <!-- <option value="marketing_manager">
-                                                            Marketing Manager
-                                                        </option>
-                                                        <option value="ass_marketing_manager">
-                                                            Ass. Marketing Manager
-                                                        </option>
-                                                        <option value="inventory_nurse">
-                                                            Nurse (Inventory)
-                                                        </option>
-                                                        <option value="followup_nurse">
-                                                            Nurse (Follow-up)
-                                                        </option>
-                                                        <option value="shopping_nurse">
-                                                            Nurse (Shoopping)
-                                                        </option> -->
-                                                    </select> --}}
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $user->role }}">
-
+                                                    <input class="form-control m-input" disabled="disabled"  name="postal_address"  type="text" value="{{ $patient->postal_address }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Emergency Contact Name
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_name"  type="text" value="{{ $patient->emergency_contact_name }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Emergency Contact Phone Number
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_phone_number"  type="text" value="{{ $patient->emergency_contact_phone_number }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Emergency Contact Relationship
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="emergency_contact_relationship"   type="text" value="{{ $patient->emergency_contact_relationship }}">
                                                 </div>
                                             </div>
                                             
@@ -226,13 +417,13 @@
                                                 <div class="row">
                                                     <div class="col-2"></div>
                                                     <div class="col-7">
-                                                        <a href="{{ url('/edit-user/'.$user->id) }}" class="btn btn-primary m-btn m-btn--air m-btn--custom">
-                                                            Edit User
+                                                        <a href="{{ url('/edit-patient/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
+                                                            Edit Patient
                                                         </a>
                                                         &nbsp;&nbsp;
-                                                        {{-- <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                        {{--  <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
                                                             Cancel
-                                                        </button> --}}
+                                                        </button>  --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,64 +431,40 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane " id="m_user_profile_tab_2"><br>
-                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-user') }}">
-                                        <div class="m-portlet__body">
-                                            <div class="form-group m-form__group m--margin-top-10 m--hide">
-                                                <div class="alert m-alert m-alert--default" role="alert">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group m-form__group row">
-                                                <div class="col-10 ml-auto">
-                                                    <h3 class="m-form__section">
-                                                        Change Password
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Current Password
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" name="postal_address"  type="text" value="{{ $user->password }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    New Password
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" name="emergency_contact_name"  type="text" value="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Confirm Password
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" name="emergency_contact_phone_number"  type="text" value="">
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                        </div>
-                                        <div class="m-portlet__foot m-portlet__foot--fit">
-                                            <div class="m-form__actions">
-                                                <div class="row">
-                                                    <div class="col-2"></div>
-                                                    <div class="col-7">
-                                                        <button type="reset" class="btn btn-accent m-btn m-btn--air m-btn--custom">
-                                                            Save
-                                                        </button>
-                                                        &nbsp;&nbsp;
-                                                        <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
-                                                            Cancel
-                                                        </button>
+                                    <div class="col-md-12">
+                                <!--begin:: Widgets/Support Tickets -->
+                                <div class=" ">
+                                    <div class="m-portlet__body">
+                                        <div class="m-widget3">
+                                            <div class="m-widget3__item">
+                                                <div class="m-widget3__header">
+                                                    <div class="m-widget3__user-img">
+                                                        <img class="m-widget3__img" src="../admin/assets/app/media/img/users/user1.jpg" alt="">
                                                     </div>
+                                                    <div class="m-widget3__info">
+                                                        <span class="m-widget3__username">
+                                                            Dr 
+                                                        </span>
+                                                        <br>
+                                                        <span class="m-widget3__time">
+                                                            {{ $patient->created_at }}
+                                                        </span>
+                                                    </div>
+                                                    <span class="m-widget3__status m--font-info">
+                                                        Pending
+                                                    </span>
+                                                </div>
+                                                <div class="m-widget3__body">
+                                                    <p class="m-widget3__text">
+                                                        Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                </div>
+                                <!--end:: Widgets/Support Tickets -->
+                            </div>
 							    </div>
 
 

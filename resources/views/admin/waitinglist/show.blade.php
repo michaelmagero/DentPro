@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    All Users
+    Waiting List
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Users
+                        Waiting List
                     </h3>
                 </div>
                 <div>
@@ -28,7 +28,7 @@
                 <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
-							<strong> {{ date('M d Y h:i a') }} </strong>
+							<strong>{{ date('d M Y h:i a') }}</strong>
                             <span class="m-subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
@@ -40,9 +40,6 @@
 
 		<!-- END: Subheader -->
 					<div class="m-content">
-
-						
-						
 						<div class="m-portlet m-portlet--mobile">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
@@ -71,28 +68,26 @@
 											</div>
 										</div>
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-user') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+											<!-- <a href="{{ url('new-waiting') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
 													<span>
-														New User
+														New Waiting Patient
 													</span>
 												</span>
-											</a>
+											</a> -->
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
 										</div>
 									</div>
 								</div>
 								<!--end: Search Form -->
-
-								
-								<!--begin: Datatable -->
+		<!--begin: Datatable -->
 								<table class="m-datatable" id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
 											
 											<th title="Field #2">
-												UserID
+												File No
 											</th>
 											<th title="Field #3">
 												Firstname
@@ -101,43 +96,39 @@
 												Lastname
 											</th>
 											<th title="Field #5">
-												Email
+												Payment Mode
 											</th>
 											<th title="Field #6">
-												Role
+												Amount Allocated
 											</th>
 											<th title="Field #7">
-												Created
-											</th>
-											<th title="Field #8">
 												Action
 											</th>
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($users as $user)
+										@foreach($waitings as $waiting)
 											<tr>
-												<td>{{ $user->id }}</td>
-												<td>{{ $user->name }}</td>
-												<td>{{ $user->lastname }}</td>
-												<td>{{ $user->email }}</td>
-												<td>{{ $user->role }}</td>
-												<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</td>
+												<td>{{ $waiting->patient_id }}</td>
+												<td>{{ $waiting->firstname }}</td>
+												<td>{{ $waiting->lastname }}</td>
+												<td>{{ $waiting->payment_mode }}</td>
+												<td>{{ $waiting->amount_allocated }}</td>
 												<td>
 													
-													<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													{{-- <a href="{{ url('show-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
-													</a>
+													</a> --}}
 
-													<a href="{{ url('delete-user/'.$user->id)  }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Remove from List ">
 														<i class="fa fa-trash"></i>
 													</a>
 
-													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
+													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
 														<i class="fa fa-plus text-primary"></i>
 													</a> --}}
 													
@@ -157,6 +148,14 @@
 					
 
 						
+						
+						
+						
+						
+
+
+
+
 @endsection
 
 

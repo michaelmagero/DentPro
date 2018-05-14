@@ -42,6 +42,75 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/delete-user/{id}','AdminController@destroy');
 
+	//PATIENTS (ADMIN)
+	Route::get('all-patients-admin','AdminController@allpatients');
+
+	Route::get('new-patient-admin','AdminController@create_patient');
+
+	Route::post('new-patient-admin','AdminController@insert_patient');
+
+	Route::get('/show-patient-admin/{id}','AdminController@show_patient');
+
+	Route::get('/edit-patient-admin/{id}','AdminController@edit_patient');
+
+	Route::post('update-patient-admin/{id}','AdminController@update_patient');
+
+	Route::get('/delete-patient-admin/{id}','AdminController@delete_patient');
+
+	//PAYMENT ROUTES (RECEPTIONIST)
+	Route::get('all-payments-admin','AdminController@allpayments');
+
+	Route::get('new-payment-admin/{id}','AdminController@new_payment');
+
+	Route::post('new-payment-admin/{id}','AdminController@create_payment');
+
+	Route::get('show-payment-admin/{id}','AdminController@show_payment');
+
+	Route::get('edit-payment-admin/{id}','AdminController@edit_payment');
+
+	Route::post('update-payment-admin/{id}','AdminController@update_payment');
+
+	Route::get('/delete-payment-admin/{id}','AdminController@delete_payment');
+
+	
+
+
+	//APPOINTMENT ROUTES (RECEPTIONIST)
+	Route::get('all-appointments-admin','AdminController@allappointments');
+
+	Route::get('new-appointment-admin','AdminController@new_appointment');
+
+	Route::post('new-appointment-admin','AdminController@create_appointment');
+
+	Route::get('/show-appointment-admin/{id}','AdminController@show_appointment');
+
+	Route::get('/edit-appointment-admin/{id}','AdminController@edit_appointment');
+
+	Route::post('update-appointment-admin/{id}','AdminController@update_appointment');
+
+	Route::get('/delete-appointment-admin/{id}','AdminController@delete_appointment');
+
+
+	//WAITING ROUTES (RECEPTIONIST)
+	Route::get('all-waiting-admin','AdminController@allwaiting');
+
+	Route::get('new-waiting-admin','AdminController@new_waiting');
+
+	Route::post('new-waiting-admin','AdminController@insert_waiting');
+
+	Route::get('/show-waiting-admin/{id}','AdminController@show_waiting');
+
+	Route::get('/edit-waiting-admin/{id}','AdminController@edit_waiting');
+
+	Route::post('update-waiting-admin','AdminController@update_waiting');
+
+	Route::get('/delete-waiting-admin/{id}','AdminController@delete_waiting');
+
+
+
+
+
+
 
 
 	/* LOGIC FROM RECEPTIONIST CONTROLLER */
@@ -56,6 +125,10 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::post('new-patient','ReceptionistController@create_patient');
 
 	Route::get('/show-patient/{id}','ReceptionistController@show');
+
+	Route::get('/patient-history/{id}','ReceptionistController@medical_history');
+
+	Route::get('/payment-history/{id}','ReceptionistController@payment_history');
 
 	Route::get('/edit-patient/{id}','ReceptionistController@edit');
 

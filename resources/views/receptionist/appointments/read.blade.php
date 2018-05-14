@@ -40,9 +40,9 @@
 		
 		
 
-
+        @foreach($patients as $patient)
         <div class="m-content">
-            @foreach($patients as $patient)
+           
                 <div class="row">
                     <div class="col-xl-3 col-lg-4">
                         <div class="m-portlet  ">
@@ -275,9 +275,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
+                                        
                                     </form>
                                 </div>
+                                @endforeach
                                 <div class="tab-pane " id="m_user_profile_tab_2"><br>
                                     <div class="col-md-12">
                                 <!--begin:: Widgets/Support Tickets -->
@@ -435,8 +436,8 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-
+            
+                @endforeach
             <!--End::Section-->
                     </div>
                 </div>
