@@ -206,11 +206,13 @@
                                                                 <img class="m-widget3__img" src="../images/avatar.png" alt="">
                                                             </div>
                                                             <div class="m-widget3__info">
-                                                                <span class="m-widget3__username">
-                                                                    @if($payment->doctor_id == Auth::user()->id)
-                                                                        Dr {{ Auth::user()->name }} {{ Auth::user()->lastname }}
-                                                                    @endif
-                                                                </span>
+                                                                @foreach($users as $user)
+                                                                    <span class="m-widget3__username">
+                                                                        @if($patient->doctor)
+                                                                            Dr {{ $user->id }}
+                                                                        @endif
+                                                                    </span>
+                                                                @endforeach
                                                                 <br>
                                                                 <span class="m-widget3__time">
                                                                     {{ $payment->created_at }}

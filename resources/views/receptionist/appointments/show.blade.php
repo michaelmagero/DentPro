@@ -117,7 +117,13 @@
 												<td>{{ $appointment->doctor }}</td>
 												<td>{{ $appointment->appointment_date }}</td>
 												<td>{{ $appointment->phone_number }}</td>
-												<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--brand m-badge--wide">Pending</span></span></td>
+												@if($appointment->appointment_status == 'Pending')
+													<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
+												@elseif($appointment->appointment_status == 'Complete')
+													<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
+												@else
+													<td></td>
+												@endif
 												{{--  <td>
 
 													<a href="{{ url('new-waiting-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">

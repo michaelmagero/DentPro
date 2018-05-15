@@ -33,8 +33,6 @@
         <!--begin::Page Snippets -->
 		<script src="../admin/assets/app/js/dashboard.js" type="text/javascript"></script>
 
-		<script src="../admin/assets/demo/default/custom/components/datatables/base/data-ajax.js" type="text/javascript"></script>
-
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/bootstrap-datepicker.js" type="text/javascript"></script>
 
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/input-mask.js" type="text/javascript"></script>
@@ -52,6 +50,9 @@
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/select2.js" type="text/javascript"></script>
 
 		<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+
+		{{--  Tables Ajax Data  --}}
+		<script src="../js/patients.js" type="text/javascript"></script>
 
 		<!--end::Page Snippets -->
 

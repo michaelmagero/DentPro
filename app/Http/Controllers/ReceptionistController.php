@@ -76,7 +76,7 @@ class ReceptionistController extends Controller
         //load form view
         return view('receptionist.patients.edit', compact('patients'))
         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
-        ->with('payments', Payment::orderBy('created_at','desc')->get())
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(1))
         ->with('users', User::orderBy('created_at','desc')->get());
     }
 
@@ -87,8 +87,8 @@ class ReceptionistController extends Controller
         {
             return view('receptionist.patients.read')
             ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
-            ->with('users', User::orderBy('created_at','desc')->get())
-            ->with('payments', Payment::orderBy('created_at','desc')->get());   
+            ->with('users', User::orderBy('created_at','desc')->paginate(1))
+            ->with('payments', Payment::orderBy('created_at','desc')->paginate(1));   
         }
         else 
         {
@@ -99,12 +99,13 @@ class ReceptionistController extends Controller
     public function medical_history($id) {
         //get post data by id
         $patient = Patient::where('id',$id)->first();
+        $patient_doc = Patient::where('role', 'doctor')->first();
             
         //load form view
         return view('receptionist.patients.medical_history', compact('payments'))
-        ->with('users', User::orderBy('created_at','desc')->get())
-        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->get());
+        ->with('users', User::where()->orderBy('created_at','desc')->paginate(1))
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(1))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(1));
     }
 
     public function payment_history($id) {

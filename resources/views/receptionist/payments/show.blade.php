@@ -139,9 +139,9 @@
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="{{ url('delete-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													{{--  <a href="{{ url('delete-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 														<i class="fa fa-trash"></i>
-													</a>
+													</a>  --}}
 													
 												</button>
 												</td>

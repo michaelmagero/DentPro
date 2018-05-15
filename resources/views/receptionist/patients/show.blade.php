@@ -149,13 +149,15 @@
                            		@endforeach
 							</tbody>
 						</table>
-								<!--end: Datatable -->
-							</div>
+						<!--end: Datatable -->
+					</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- end:: Body -->
+
+			
+		<!-- end:: Body -->
 					
 
 @endsection

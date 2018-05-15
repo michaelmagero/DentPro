@@ -118,7 +118,7 @@
                                         </span>
                                     </li>
 
-                                    <li class="m-nav__item">
+                                    {{--  <li class="m-nav__item">
                                         <span class="m-nav__link">
                                             <span class="m-nav__link-title">
                                                 <span class="m-nav__link-wrap">
@@ -128,7 +128,7 @@
                                                 </span>
                                             </span>
                                         </a>
-                                    </li>
+                                    </li>  --}}
                                     
                                 </ul></br>
                                 <div class="m-widget1 m-widget1--paddingless">
@@ -309,6 +309,14 @@
                                                     </select>  --}}
                                                     <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->payment_mode }}">
 
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Amount Allocated
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->amount_allocated }}">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">

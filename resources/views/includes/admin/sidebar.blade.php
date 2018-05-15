@@ -73,7 +73,7 @@
 								</div>
 							</li>
 							
-							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+							{{--  <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 								<a class="m-menu__link m-menu__toggle">
 									<i class="m-menu__link-icon flaticon-users"></i>
 									<span class="m-menu__link-text">
@@ -226,19 +226,9 @@
 												</span>
 											</a>
 										</li>
-										{{--  <li class="m-menu__item " aria-haspopup="true" >
-											<a  href="#" class="m-menu__link ">
-												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-													<span></span>
-												</i>
-												<span class="m-menu__link-text">
-													Dental Camps
-												</span>
-											</a>
-										</li>  --}}
 									</ul>
 								</div>
-							</li>
+							</li>  --}}
 
 
 							<li class="m-menu__section">
