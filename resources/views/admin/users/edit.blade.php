@@ -138,6 +138,15 @@
                                                 Payment History
                                             </a>
                                         </li> --}}
+
+                                        <script src="../js/sweetalert2.all.js"></script>
+
+                                        <!-- Include this after the sweet alert js file -->
+                                        @if (Session::has('sweet_alert.alert'))
+                                            <script>
+                                                swal({!! Session::get('sweet_alert.alert') !!});
+                                            </script>
+                                        @endif
                                     </ul>
                                 </div>
                                 
@@ -242,7 +251,7 @@
                                                 </label>
 
                                                 <div class="col-md-7">
-                                                    <input id="password" type="password" class="form-control" name="password" required>
+                                                    <input id="password" type="password" class="form-control" name="password">
 
                                                     @if ($errors->has('password'))
                                                         <span class="help-block">
@@ -258,7 +267,7 @@
                                                 </label>
 
                                                 <div class="col-md-7">
-                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
                                                 </div>
                                             </div>
 

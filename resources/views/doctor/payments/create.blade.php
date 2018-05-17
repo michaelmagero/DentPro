@@ -149,7 +149,7 @@
 									<label>
 										Amount:
 									</label>
-									<input type="text" name="amount_due"  class="form-control m-input" >
+									<input type="text" name="procedure_cost"  class="form-control m-input" >
 									
 								</div>
 

@@ -25,19 +25,13 @@ class DoctorsController extends Controller
     }
 
     public function show($id) {
-        $patient = Patient::where('id',$id)->first();
+        $patients = DB::select( DB::raw("SELECT * FROM dms_patients WHERE id = '$id' "));
 
-        if($patient)
-        {
             return view('doctor.patients.read')
-            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
-            ->with('users', User::orderBy('created_at','desc')->get())
-            ->with('payments', Payment::orderBy('created_at','desc')->get());   
-        }
-        else 
-        {
-            return view('doctor.patients.read');
-        }
+            ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(10))
+            ->with('users', User::orderBy('created_at','desc')->paginate(1))
+            ->with('payments', Payment::orderBy('created_at','desc')->paginate(1));
+        
     }
 
     public function medical_history($id) {
@@ -76,7 +70,7 @@ class DoctorsController extends Controller
         $payments = DB::select( DB::raw("SELECT * FROM dms_payments WHERE doctor_id = '$user_doc' "));
         foreach ($payments as $payment) {
             return view('doctor.payments.show', compact('payments'))
-            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
+            ->with('patients', Patient::orderBy('created_at','desc')->paginate(1));
         }
     }
 
@@ -98,7 +92,7 @@ class DoctorsController extends Controller
         $payment->doctor_id = Auth::user()->id;
         $payment->patient_id = $request->get('patient_id');
         $payment->procedure = $request->get('procedure');
-        $payment->amount_due = $request->get('amount_due');
+        $payment->procedure_cost = $request->get('procedure_cost');
         $payment->notes = $request->get('notes');
 
         $payment->save();
@@ -137,25 +131,15 @@ class DoctorsController extends Controller
     }
 
     public function delete_appointment($id) {
-        $appointment = Appointment::find($id);
+        $waiting = Waiting::findorFail($id);
 
-        if($appointment) {
-            Appointment::where('id', $id)->update(['appointment_status' => 'Complete']);
-        }
+        $wait= DB::update(DB::raw("UPDATE dms_appointments set appointment_status = 'Complete' where id = $waiting->patient_id "));
 
-        $appointment->delete();
+        $waiting->delete();
 
-        \Session::flash('flash_message','Appointments Cleared Successfully.');
+        \Session::flash('flash_message','Appointment Deleted Successfully.');
         return back();
     }
-
-
-
-
-
-
-
-
 
 
 

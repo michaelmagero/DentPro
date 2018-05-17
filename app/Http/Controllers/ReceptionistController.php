@@ -201,24 +201,39 @@ class ReceptionistController extends Controller
 
     
     public function create_payment($patient_id, Request $request) {
-        
+        $payment = new Payment();
 
         $date = $request->get('next_appointment');
-        $next_appointment = date_format(date_create($date), 'Y-m-d');
+        $payment->next_appointment = date_format(date_create($date), 'Y-m-d');
 
         
-        $amount_paid = $request->get('amount_paid');
+        $payment->amount_paid = $request->get('amount_paid');
         
-        $amountdue = DB::select( DB::raw("SELECT amount_due FROM dms_payments WHERE patient_id = '$patient_id'") );
         $patient = Patient::findorFail($patient_id);
+
+        $doctor = DB::select( DB::raw("SELECT doctor_id FROM dms_payments WHERE patient_id = '$patient_id'") );
+
+
+        $procedure_cost = DB::select( DB::raw("SELECT procedure_cost FROM dms_payments WHERE patient_id = '$patient_id'") );
+        
         // $amountdue = $patient->amount_due;
-        foreach ($amountdue as $patient_due) {
-            $final_due = $patient_due->amount_due;
-            $balance = (float) $final_due - $amount_paid;
+        foreach ($procedure_cost as $patient_due) {
+            $final_due = $patient_due->procedure_cost;
+            $balance = (float) $final_due - $payment->amount_paid;
+            $payment->balance = $balance;
+        }
+
+        //other payments after the initial one
+        $balance2 = DB::select( DB::raw("SELECT balance FROM dms_payments WHERE patient_id = '$patient_id'") );
+        foreach($balance2 as $balance) {
+            $bal = $balance->balance;
+            $balance = (float) $bal - $payment->amount_paid;
+            $payment->balance = $balance;
         }
         
-    
-        $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
+
+        $final = DB::insert('insert into dms_payments (patient_id, doctor_id, next_appointment, amount_paid, balance) values (?, ?, ?, ?, ?)', [$payment->patient, $payment->doctor,     $payment->next_appointment, $payment->amount_paid, $payment->balance]);
+
 
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
             return back();
@@ -414,6 +429,7 @@ class ReceptionistController extends Controller
             'payment_mode' => $appointment->payment_mode,
             'amount_allocated' => $appointment->amount_allocated,
             'doctor' => $appointment->doctor,
+            'doctor' => $appointment->doctor,
         ]);
         
         Alert::success('Patient Added to Waiting List', 'Success')->autoclose(2000);
@@ -431,16 +447,19 @@ class ReceptionistController extends Controller
             'payment_mode' => $patient->payment_mode,
             'amount_allocated' => $patient->amount_allocated,
             'doctor' => $patient->doctor,
+            'status' => 'Waiting',
         ]);
         
         Alert::success('Patient Added to Waiting List', 'Success')->autoclose(2000);
         return back();
     }
 
-    public function delete_waiting($id) {
+    public function delete_waiting($patient_id) {
 
-        $waiting = Waiting::find( $id );
-        
+        $waiting = Waiting::findorFail($patient_id);
+
+        $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $waiting->patient_id "));
+
         $waiting->delete();
 
         \Session::flash('flash_message','Appointment Deleted Successfully.');

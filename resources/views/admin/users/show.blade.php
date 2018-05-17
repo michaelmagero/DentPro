@@ -47,7 +47,42 @@
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
-										
+										<script src="../js/sweetalert2.all.js"></script>
+
+											@if (Session::has('sweet_alert.alert'))
+												<script>
+													$('#delete_user').on('click', function () {
+														var url = $(this).attr("data-href");
+														swal({
+																title: "Delete user?",
+																text: "Submit to delete",
+																type: "warning",
+																showCancelButton: true,
+																closeOnConfirm: false,
+																confirmButtonColor: "#DD6B55",
+																confirmButtonText: "Delete!"
+															},
+															function () {
+																setTimeout(function () {
+																	$.ajax({
+																		type: "GET",
+																		url: "{{ url('delete-user/'.$user->id) }}",
+																		data: {
+																			_method: 'DELETE',
+																			_token: csrf_token
+																		},
+																		success: function (data) {
+																			if (data)
+																				swal("Deleted!", "User has been deleted", "success");
+																			else
+																				swal("cancelled", "User has not been deleted", "error");
+																		}
+																	}), 2000
+																});
+															});
+													})
+												</script>
+											@endif
 									</div>
 								</div>
 							</div>
@@ -124,18 +159,20 @@
 												<td>{{ $user->role }}</td>
 												<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</td>
 												<td>
+													@if($user->role != 'admin')
 													
-													<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-														<i class="fa fa-eye"></i>
-													</a>
+														<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+															<i class="fa fa-eye"></i>
+														</a>
 
-													<a href="{{ url('edit-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
-														<i class="fa fa-edit"></i>
-													</a>
+														<a href="{{ url('edit-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+															<i class="fa fa-edit"></i>
+														</a>
 
-													<a href="{{ url('delete-user/'.$user->id)  }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
-														<i class="fa fa-trash"></i>
-													</a>
+														<button  id="#delete-user" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
+															<i class="fa fa-trash"></i>
+														</button>
+													@endif
 
 													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
 														<i class="fa fa-plus text-primary"></i>

@@ -27,6 +27,7 @@ class CreateDmsWaitingTable extends Migration
             $table->string('payment_mode')->nullable();
             $table->decimal('amount_allocated', 13, 2)->nullable();
             $table->string('doctor')->nullable();
+            $table->string('status')->default('waiting');
             $table->timestamps();
             $table->softDeletes();
         }); 

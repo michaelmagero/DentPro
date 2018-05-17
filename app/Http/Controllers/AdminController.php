@@ -36,21 +36,25 @@ class AdminController extends Controller
 
       if ($user->role == 'admin') {
         return View('admin.index')
-        ->with('users', User::orderBy('created_at','desc')->paginate(5))
+        ->with('users', User::orderBy('created_at','desc')->paginate(1))
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
         ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+        
 
       } elseif ($user->role == 'receptionist') {
+
         return View('receptionist.receptionist_index')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
         ->with('invoices', Invoice::orderBy('created_at','desc')->paginate(5))
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
         ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+        
 
       } elseif ($user->role == 'doctor') {
+
         return View('doctor.doctor_index')
         ->with('waitlist', $waitlist)
         ->with('patients', $pref_doc)
@@ -59,6 +63,7 @@ class AdminController extends Controller
         ->with('invoices', Invoice::orderBy('created_at','desc')->paginate(5))
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
         ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+        
       }
     }
 
@@ -74,11 +79,11 @@ class AdminController extends Controller
         $user = $request->user();
 
         if ($user->role == 'admin') {
-          Alert::success('Login Successfully', 'Success')->autoclose(2000);
+          
           return View('admin.users.show')
               ->with('users', User::orderBy('created_at','desc')->paginate(5));
         } else {
-          Alert::error('Login Failed, Check credential before Login', 'Error')->autoclose(2000);
+          
           return View('admin.users.show')
               ->with('users', User::where('id',$user->id)->orderBy('created_at','asc')->paginate(10));
         }
@@ -110,11 +115,11 @@ class AdminController extends Controller
        $mail = DB::select( DB::raw("SELECT * FROM users WHERE email = '$user->email'") );
 
        if ($mail) {
-         Alert::error('User Exists', 'Error')->autoclose(2000);
-          return back();
+           Alert::error('User Already Exists!', 'Error')->autoclose(2500);
+           return back();
        } else {
           $user->save();
-          Alert::success('User Creted Successfully', 'Success')->autoclose(2000);
+          Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);
           return back();
        }
 
@@ -184,7 +189,7 @@ class AdminController extends Controller
                 $user->save();
 
                 // redirect
-                \Session::flash('message', 'Successfully updated!');
+                Alert::success('Successfully Updated!', 'Success')->autoclose(2500);
                 return back();
             }
         
@@ -202,9 +207,11 @@ class AdminController extends Controller
         //
         $user = User::where('id',$id)->first();
 
+        Alert::warning('Are you sure You want to Delete this?', 'Caution')->persistent('Close');
+
         $user->delete();
 
-        \Session::flash('flash_message','User Deleted Successfully.');
+        
         return back();
     }
 
@@ -255,7 +262,7 @@ class AdminController extends Controller
             'doctor' => $request->get('doctor'),
         ]);
         
-        Alert::success('Patient Added Successfully', 'Success')->autoclose(2000);
+        Alert::success('Patient Added Successfully!', 'Success')->autoclose(2500);
         return back();
     }
 

@@ -48,14 +48,16 @@
 										<div class="m-portlet__head-caption" style="margin: 0 0 0 300px !important;">
 											<div class="col-lg-6 col-lg-offset-3">
                                                 <span class="text-center">
-                                                        <!-- @if(Session::has('flash_message'))
-                                                            <div class="alert alert-success"><em> {!! session('flash_message') !!}</em></div>
-                                                        @endif -->
+                                                        
 
-                                                        <script src="js/sweetalert.min.js"></script>
+														<script src="../js/sweetalert2.all.js"></script>
 
-                                                            <!-- Include this after the sweet alert js file -->
-                                                        @include('sweet::alert')
+														<!-- Include this after the sweet alert js file -->
+														@if (Session::has('sweet_alert.alert'))
+															<script>
+																swal({!! Session::get('sweet_alert.alert') !!});
+															</script>
+														@endif
                                                 </span>
 											</div>
 										</div>

@@ -96,7 +96,7 @@
 												Procedure
 											</th>
 											<th title="Field #5">
-												Amount Due
+												Procedure Cost
 											</th>
 											<th title="Field #6">
 												Amount Paid
@@ -117,7 +117,7 @@
 											<tr>
 												<td>{{ $payment->patient_id }}</td>
 												<td>{{ $payment->procedure }}</td>
-												<td>{{ $payment->amount_due }}</td>
+												<td>{{ $payment->procedure_cost }}</td>
 												<td>{{ $payment->amount_paid }}</td>
 												<td>{{ $payment->balance }}</td>
 												<td>{{ $payment->created_at }}</td>

@@ -126,6 +126,7 @@
 												<td>{{ $patient->amount_allocated }}</td>
 												<td>
 													
+													
 													<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>

@@ -27,7 +27,9 @@
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 		<link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
-    	<script src="https://unpkg.com/flatpickr"></script>
+		<script src="https://unpkg.com/flatpickr"></script>
+		
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->

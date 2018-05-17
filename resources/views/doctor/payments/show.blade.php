@@ -99,7 +99,7 @@
 												Procedure
 											</th>
 											<th title="Field #4">
-												Amount Due
+												Procedure Cost
 											</th>
 											<th title="Field #4">
 												Amount Paid
@@ -117,16 +117,18 @@
 										@foreach($payments as $payment)
 											<tr>
 												<td>{{ $payment->patient_id }}</td>
-												@foreach($patients as $patient)
-													@if($patient->id == $payment->patient_id)
-														<td>{{ $patient->firstname . " " . $patient->lastname }} </td>
-													@endif
-												@endforeach
+												<td>
+													@foreach($patients as $patient)
+														@if($patient->id == $payment->patient_id)
+															{{ $patient->firstname . " " . $patient->lastname  }}
+														@endif
+													@endforeach
+												</td>
 												<td>{{ $payment->procedure }}</td>
-												<td>{{ $payment->amount_due }}</td>
+												<td>{{ $payment->procedure_cost }}</td>
 												<td>{{ $payment->amount_paid }}</td>
 												<td>{{ $payment->balance }}</td>
-												<td>{{ $payment->created_at }}</td>
+												<td>{{ $payment->updated_at }}</td>
 												{{-- <td>
 													
 													<a href="{{ url('show-patient/') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">

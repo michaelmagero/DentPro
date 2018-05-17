@@ -200,6 +200,9 @@
 												Doctor
 											</th>
 											<th title="Field #7">
+												Status
+											</th>
+											<th title="Field #7">
 												Action
 											</th>
 										</tr>
@@ -208,10 +211,17 @@
 										@foreach($waitings as $waiting)
 											<tr>
 												<td>{{ $waiting->patient_id }}</td>
-												<td>{{ $waiting->firstname . "	". $waiting->lastname }}</td>
+												<td>{{ $waiting->firstname . " " . $waiting->lastname }}</td>
 												<td>{{ $waiting->payment_mode }}</td>
 												<td>{{ $waiting->amount_allocated }}</td>
 												<td>{{ $waiting->doctor }}</td>
+												@if($waiting->status == 'waiting')
+													<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $waiting->status }}</span></span></td>
+												@elseif($waiting->status == 'seen')
+													<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $waiting->status }}</span></span></td>
+												@else
+													<td></td>
+												@endif
 												<td>
 													
 													{{-- <a href="{{ url('show-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">

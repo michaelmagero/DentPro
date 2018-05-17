@@ -34,9 +34,8 @@ class LoginController extends Controller
         if(auth()->user()->role == 'admin')
         {
             return redirect('/admin-dash');
+            
         }
-
-        return redirect('/admin-dash');
     }
 
     /**

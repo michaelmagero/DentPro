@@ -95,14 +95,14 @@
 											<th title="Field #3">
 												Patient
 											</th>
-											<th title="Field #4">
-												Doctor
-											</th>
 											<th title="Field #5">
 												Appointment Date
 											</th>
 											<th title="Field #6">
 												Notes
+											</th>
+											<th title="Field #6">
+												Appointment Status
 											</th>
 											<th title="Field #6">
 												Action
@@ -111,18 +111,29 @@
 									</thead>
 									<tbody>
 										@foreach($appointments as $appointment)
-											<tr>
-												<td>{{ $appointment->patient_id }}</td>
-												<td>{{ $appointment->firstname . " ". $appointment->lastname }}</td>
-												<td>{{ $appointment->doctor }}</td>
-												<td>{{ $appointment->appointment_date }}</td>
-												<td>
-													@foreach($payments as $payment)
-														@if($payment->patient_id == $appointment->patient_id)
-															<td>{{ $payment->notes }}</td>
-														@endif
-													@endforeach
-												</td>
+											@if($appointment->doctor == Auth::user()->name)
+												<tr>
+													<td>{{ $appointment->patient_id }}</td>
+													<td>{{ $appointment->firstname . " ". $appointment->lastname }}</td>
+													<td>{{ $appointment->appointment_date }}</td>
+
+													<td>
+														@foreach($payments as $payment)
+															@if($payment->patient_id == $appointment->patient_id)
+																<td>{{ $payment->notes }}</td>
+															@endif
+														@endforeach
+													</td>
+
+
+													@if($appointment->appointment_status == 'Pending')
+														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
+													@elseif($waiting->appointment_status == 'Complete')
+														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
+													@else
+														<td></td>
+													@endif
+													
 													@foreach($patients as $patient)
 														@if($patient->id == $appointment->patient_id)
 															<td>
@@ -144,15 +155,17 @@
 															</td>
 														@else
 															<td>
-																<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Appointments ">
+
+																{{--  <a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Register Patient ">
 																	<i class="fa fa-trash"></i>
-																</a>
+																</a>  --}}
 															</td>
 														@endif
 													@endforeach
 
 
-											</tr>
+												</tr>
+											@endif
                                    		@endforeach
 									</tbody>
 								</table>
