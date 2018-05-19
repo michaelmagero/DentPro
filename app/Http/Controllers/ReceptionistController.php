@@ -200,40 +200,34 @@ class ReceptionistController extends Controller
 
 
     
-    public function create_payment($patient_id, Request $request) {
-        $payment = new Payment();
+    public function create_payment($id, Request $request) {
 
+        //get appointment date
         $date = $request->get('next_appointment');
-        $payment->next_appointment = date_format(date_create($date), 'Y-m-d');
-
+        $next_appointment = date_format(date_create($date), 'Y-m-d');
         
-        $payment->amount_paid = $request->get('amount_paid');
-        
-        $patient = Patient::findorFail($patient_id);
+        //get amount paid
+        $amount_paid = $request->get('amount_paid');
 
-        $doctor = DB::select( DB::raw("SELECT doctor_id FROM dms_payments WHERE patient_id = '$patient_id'") );
+        $patient = Patient::find($id);
+        $pid = $patient->id;
 
+        // $procedure_cost = Payment::where('patient_id', $pid)
+        //        ->orderBy('created_at', 'desc')
+        //        ->get();
+               
+        $procedure_cost = DB::select(DB::raw("SELECT procedure_cost FROM dms_payments WHERE patient_id ='$pid' "));
 
-        $procedure_cost = DB::select( DB::raw("SELECT procedure_cost FROM dms_payments WHERE patient_id = '$patient_id'") );
-        
-        // $amountdue = $patient->amount_due;
-        foreach ($procedure_cost as $patient_due) {
-            $final_due = $patient_due->procedure_cost;
-            $balance = (float) $final_due - $payment->amount_paid;
-            $payment->balance = $balance;
+        foreach ($procedure_cost as $cost) {
+            //dd($cost->procedure_cost);
+
+            $balance = $cost->procedure_cost - $amount_paid;
+            $insert_payment = Payment::where('patient_id', $id)->update(array('amount_paid' => $amount_paid, 'balance' => $balance,'next_appointment' => $next_appointment,));
+            $balance = $balance;
+            
         }
 
-        //other payments after the initial one
-        $balance2 = DB::select( DB::raw("SELECT balance FROM dms_payments WHERE patient_id = '$patient_id'") );
-        foreach($balance2 as $balance) {
-            $bal = $balance->balance;
-            $balance = (float) $bal - $payment->amount_paid;
-            $payment->balance = $balance;
-        }
         
-
-        $final = DB::insert('insert into dms_payments (patient_id, doctor_id, next_appointment, amount_paid, balance) values (?, ?, ?, ?, ?)', [$payment->patient, $payment->doctor,     $payment->next_appointment, $payment->amount_paid, $payment->balance]);
-
 
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
             return back();
