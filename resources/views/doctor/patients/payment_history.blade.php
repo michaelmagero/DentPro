@@ -240,7 +240,7 @@
 												Date
 											</th>
 											<th title="Field #4">
-												Charges
+												Procecure Cost
 											</th>
 											<th title="Field #6">
 												Amount Paid
@@ -255,7 +255,7 @@
 											<tr>
                                                 <td>{{ $payment->procedure }}</td>
                                                 <td>{{ $payment->created_at }}</td>
-												<td>{{ $payment->amount_due }}</td>
+												<td>{{ $payment->procedure_cost }}</td>
 												<td>{{ $payment->amount_paid }}</td>
 												<td>{{ $payment->balance }}</td>
 												{{-- <td>

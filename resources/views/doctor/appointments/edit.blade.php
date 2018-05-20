@@ -45,6 +45,25 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-4">
                         <div class="m-portlet  ">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon m--hide">
+                                            <i class="la la-gear"></i>
+                                        </span>
+                                        
+                                        <span class="text-center">
+                                            <br>
+                                            <div class="col-md-12 ">
+                                                <script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+
+                                                <!-- Include this after the sweet alert js file -->
+                                                @include('sweet::alert')
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+					        </div>
                             <div class="m-portlet__body">
                                 <div class="m-card-profile">
                                     <div class="m-card-profile__title m--hide">

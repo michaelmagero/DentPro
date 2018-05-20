@@ -47,7 +47,10 @@
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
-										
+										<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+
+                                        <!-- Include this after the sweet alert js file -->
+                                        @include('sweet::alert')
 									</div>
 								</div>
 							</div>
@@ -104,9 +107,6 @@
 											<th title="Field #6">
 												Appointment Status
 											</th>
-											<th title="Field #6">
-												Action
-											</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -134,7 +134,7 @@
 														<td></td>
 													@endif
 													
-													@foreach($patients as $patient)
+													{{-- @foreach($patients as $patient)
 														@if($patient->id == $appointment->patient_id)
 															<td>
 																<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
@@ -155,13 +155,12 @@
 															</td>
 														@else
 															<td>
-
-																{{--  <a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Register Patient ">
-																	<i class="fa fa-trash"></i>
-																</a>  --}}
+																 <a href="{{ url('delete-waiting/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
+																	<i class="flaticon-circle"></i>
+																</a>
 															</td>
 														@endif
-													@endforeach
+													@endforeach --}}
 
 
 												</tr>

@@ -46,6 +46,36 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-4">
                         <div class="m-portlet  ">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon m--hide">
+                                            <i class="la la-gear"></i>
+                                        </span>
+
+                                        <!-- <button type="button" class="btn btn-success m-btn m-btn--custom" id="m_sweetalert_demo_6">
+                                            Show me
+                                        </button> -->
+
+
+                                        
+                                        <span class="text-center">
+                                            <br>
+                                            <div class="col-md-12 ">
+                                                
+                                                <script src="../js/sweetalert2.all.js"></script>
+
+                                                <!-- Include this after the sweet alert js file -->
+                                                @if (Session::has('sweet_alert.alert'))
+                                                    <script>
+                                                        swal({!! Session::get('sweet_alert.alert') !!});
+                                                    </script>
+                                                @endif
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+					</div>
                             <div class="m-portlet__body">
                                 <div class="m-card-profile">
                                     <div class="m-card-profile__title m--hide">

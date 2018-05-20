@@ -80,10 +80,11 @@
 										Patient FileNo:
 									</label>
 										<select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
-											
+											@foreach($patients as $patient)
 											<option value='{{ $patient->id }}'>
 												{{ $patient->id }}
 											</option>
+											@endforeach
 										</select>
 									<span class="m-form__help">
 										Search user by searching File No.

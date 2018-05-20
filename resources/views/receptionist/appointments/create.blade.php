@@ -54,9 +54,7 @@
 								<span class="text-center">
 									<br>
 									<div class="col-md-12 ">
-										@if(Session::has('flash_message'))
-											<div class="alert alert-success" role="alert"><em> {!! session('flash_message') !!}</em></div>
-										@endif
+										
 									</div>
 								</span>
 							</div>

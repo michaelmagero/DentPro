@@ -44,7 +44,14 @@
 					<div class="m-portlet__head">
 						<div class="m-portlet__head-caption">
 							<div class="m-portlet__head-title">
-								
+								<script src="../js/sweetalert2.all.js"></script>
+
+								<!-- Include this after the sweet alert js file -->
+								@if (Session::has('sweet_alert.alert'))
+									<script>
+										swal({!! Session::get('sweet_alert.alert') !!});
+									</script>
+								@endif
 							</div>
 						</div>
 					</div>

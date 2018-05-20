@@ -99,11 +99,11 @@ class ReceptionistController extends Controller
     public function medical_history($id) {
         //get post data by id
         $patient = Patient::where('id',$id)->first();
-        $patient_doc = Patient::where('role', 'doctor')->first();
+        //$patient_doc = Patient::where('role', 'doctor')->get();
             
         //load form view
         return view('receptionist.patients.medical_history', compact('payments'))
-        ->with('users', User::where()->orderBy('created_at','desc')->paginate(1))
+        ->with('users', User::orderBy('created_at','desc')->paginate(1))
         ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(1))
         ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(1));
     }
@@ -157,7 +157,7 @@ class ReceptionistController extends Controller
                 
 
                 // redirect
-                \Session::flash('message', 'Successfully updated!');
+                Alert::success('Successfully Updated!', 'Success')->autoclose(2500);
                 return back();
             }
     }
@@ -222,14 +222,15 @@ class ReceptionistController extends Controller
             //dd($cost->procedure_cost);
 
             $balance = $cost->procedure_cost - $amount_paid;
-            $insert_payment = Payment::where('patient_id', $id)->update(array('amount_paid' => $amount_paid, 'balance' => $balance,'next_appointment' => $next_appointment,));
+
+            if($cost->procedure_cost > 0)
             $balance = $balance;
+            $insert_payment = Payment::where('patient_id', $id)->update(array('amount_paid' => $amount_paid, 'balance' => $balance,'next_appointment' => $next_appointment));
             
         }
 
         
-
-        Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
+        Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);
             return back();
         
     }

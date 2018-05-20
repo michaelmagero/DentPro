@@ -54,9 +54,10 @@
 								<span class="text-center">
 									<br>
 									<div class="col-md-12 ">
-										@if(Session::has('flash_message'))
-											<div class="alert alert-success" role="alert"><em> {!! session('flash_message') !!}</em></div>
-										@endif
+										<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+
+                                        <!-- Include this after the sweet alert js file -->
+                                        @include('sweet::alert')
 									</div>
 								</span>
 							</div>

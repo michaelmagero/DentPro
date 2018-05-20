@@ -212,7 +212,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
+										{{-- <div class="col-xl-4 order-1 order-xl-2 m--align-right">
 											<a href="{{ url('new-doc-payment/'.$patient->id) }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
@@ -222,7 +222,7 @@
 												</span>
 											</a>
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
-										</div>
+										</div> --}}
 									</div>
 								</div>
 								<!--end: Search Form -->
@@ -240,7 +240,7 @@
 												Date
 											</th>
 											<th title="Field #4">
-												Charges
+												Procedure Cost
 											</th>
 											<th title="Field #6">
 												Amount Paid
@@ -255,7 +255,7 @@
 											<tr>
                                                 <td>{{ $payment->procedure }}</td>
                                                 <td>{{ $payment->created_at }}</td>
-												<td>{{ $payment->amount_due }}</td>
+												<td>{{ $payment->procedure_cost }}</td>
 												<td>{{ $payment->amount_paid }}</td>
 												<td>{{ $payment->balance }}</td>
 												{{-- <td>

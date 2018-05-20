@@ -67,11 +67,10 @@ class DoctorsController extends Controller
     public function allpayments() {
         $user_doc = Auth::user()->id;
 
-        $payments = DB::select( DB::raw("SELECT * FROM dms_payments WHERE doctor_id = '$user_doc' "));
-        foreach ($payments as $payment) {
-            return view('doctor.payments.show', compact('payments'))
-            ->with('patients', Patient::orderBy('created_at','desc')->paginate(1));
-        }
+        return view('doctor.payments.show', compact('payments'))
+            ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
+            ->with('payments', Payment::where('doctor_id', $user_doc)->orderBy('created_at','desc')->paginate(1));
+
     }
 
     public function create_payment() {
@@ -80,12 +79,12 @@ class DoctorsController extends Controller
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
     }
 
-    public function create_payment_id($id) {
-        $patient = Patient::findorFail($id);
-        return view('doctor.payments.create')
-        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
-    }
+    // public function create_payment_id($id) {
+    //     $patient = Patient::findorFail($id);
+    //     return view('doctor.payments.create')
+    //     ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+    //     ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
+    // }
 
     public function insert_payment(Request $request) {
         $payment = new Payment();
@@ -126,18 +125,18 @@ class DoctorsController extends Controller
         $appointment->appointment_status = $request->get('appointment_status');
 
         $appointment->save();
-        \Session::flash('flash_message','Patient Added Successfully.');
+        Alert::success('Apppointment Added Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
     public function delete_appointment($id) {
-        $waiting = Waiting::findorFail($id);
+        $waiting = Appointment::findorFail($id);
 
         $wait= DB::update(DB::raw("UPDATE dms_appointments set appointment_status = 'Complete' where id = $waiting->patient_id "));
 
         $waiting->delete();
 
-        \Session::flash('flash_message','Appointment Deleted Successfully.');
+        Alert::success('Appointment Deleted Successfully', 'Deleted')->autoclose(2000);
         return back();
     }
 

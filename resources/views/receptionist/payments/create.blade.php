@@ -61,10 +61,14 @@
 										</button>
 										@endif --> --}}
 
-										<script src="js/sweetalert.min.js"></script>
+										<script src="../js/sweetalert2.all.js"></script>
 
 										<!-- Include this after the sweet alert js file -->
-									@include('sweet::alert')
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 										
 									</div>
 								</span>
