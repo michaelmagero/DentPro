@@ -240,14 +240,22 @@
 														<i class="flaticon-circle"></i>
 													</a>
 
-													
-													
 												</button>
 												</td>
 											</tr>
                                    		@endforeach
 									</tbody>
 								</table>
+							</div>
+							<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+											{{ $waitings->links() }}
+										</div>
+									</div>
+										
+								</div>
 							</div>
 						</div>
 						

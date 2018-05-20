@@ -49,40 +49,12 @@
 									<div class="m-portlet__head-title">
 										<script src="../js/sweetalert2.all.js"></script>
 
-											@if (Session::has('sweet_alert.alert'))
-												<script>
-													$('#delete_user').on('click', function () {
-														var url = $(this).attr("data-href");
-														swal({
-																title: "Delete user?",
-																text: "Submit to delete",
-																type: "warning",
-																showCancelButton: true,
-																closeOnConfirm: false,
-																confirmButtonColor: "#DD6B55",
-																confirmButtonText: "Delete!"
-															},
-															function () {
-																setTimeout(function () {
-																	$.ajax({
-																		type: "GET",
-																		url: "{{ url('delete-user/'.$user->id) }}",
-																		data: {
-																			_method: 'DELETE',
-																			_token: csrf_token
-																		},
-																		success: function (data) {
-																			if (data)
-																				swal("Deleted!", "User has been deleted", "success");
-																			else
-																				swal("cancelled", "User has not been deleted", "error");
-																		}
-																	}), 2000
-																});
-															});
-													})
-												</script>
-											@endif
+										<!-- Include this after the sweet alert js file -->
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 									</div>
 								</div>
 							</div>

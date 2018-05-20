@@ -12,6 +12,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!--begin::Web font -->
 		<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
 		
 		<!--end::Web font -->
         <!--begin::Base Styles -->  

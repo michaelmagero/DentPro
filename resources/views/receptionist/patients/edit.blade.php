@@ -75,7 +75,7 @@
                                         </span>
                                     </div>
                                 </div>
-					</div>
+					        </div>
                             <div class="m-portlet__body">
                                 <div class="m-card-profile">
                                     <div class="m-card-profile__title m--hide">

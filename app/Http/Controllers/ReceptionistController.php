@@ -167,7 +167,7 @@ class ReceptionistController extends Controller
 
         $patient->delete();
 
-        \Session::flash('flash_message','Post Deleted Successfully.');
+        Alert::success('Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -231,7 +231,7 @@ class ReceptionistController extends Controller
 
         
         Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);
-            return back();
+        return back();
         
     }
 
@@ -276,8 +276,7 @@ class ReceptionistController extends Controller
 
         Payment::where('patient_id', $id)->update(array('procedure' => $procedure, 'amount_due' => $amount_due,'amount_paid' => $amount_paid, 'balance' => $balance, 'next_appointment' => $next_appointment, 'notes' => $notes ));
 
-        // redirect
-        \Session::flash('message', 'Successfully updated!');
+        Alert::success('Update Successfull', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -288,7 +287,7 @@ class ReceptionistController extends Controller
 
         $payment->delete();
 
-        \Session::flash('flash_message','Payment Deleted Successfully.');
+        Alert::success('Appointment Cleared', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -302,7 +301,7 @@ class ReceptionistController extends Controller
     //APPOINTMENTS
     public function allappointments() {
         return view('receptionist.appointments.show')
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5));
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(10));
     }
 
     public function new_appointment() {
@@ -328,7 +327,7 @@ class ReceptionistController extends Controller
 
         $appointment->save();
 
-        \Session::flash('flash_message','Appointment Added Successfully.');
+        Alert::success('Appointment Added Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -384,19 +383,18 @@ class ReceptionistController extends Controller
                 $appointment->save();
 
                 // redirect
-                \Session::flash('message', 'Successfully updated!');
+                Alert::success('Update Successfull', 'Success')->autoclose(2000);
                 return back();
             }
     }
 
 
-
     public function delete_appointment($id) {
-        $appointment = Appointment::where('id',$id)->first();
+        $appointment = Appointment::findorFail($id);
 
-        $appointment->delete();
+        $app= DB::update(DB::raw("UPDATE dms_appointments set appointment_status = 'Complete' where id = $appointment->id "));
 
-        \Session::flash('flash_message','Appointment Deleted Successfully.');
+        Alert::success('Appointment Cleared Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -409,7 +407,7 @@ class ReceptionistController extends Controller
     public function allwaiting() {
         return view('receptionist.waitinglist.show')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
-        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(10));
     }
 
     //insert waiting without ID - mainly for appointments from patients not registered with the clinic
@@ -457,7 +455,7 @@ class ReceptionistController extends Controller
 
         $waiting->delete();
 
-        \Session::flash('flash_message','Appointment Deleted Successfully.');
+        Alert::success('Patient Cleared Successfully', 'Success')->autoclose(2000);
         return back();
     }
 

@@ -47,7 +47,14 @@
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
-										
+										<script src="../js/sweetalert2.all.js"></script>
+
+										<!-- Include this after the sweet alert js file -->
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -150,6 +157,16 @@
 									</tbody>
 								</table>
 								<!--end: Datatable -->
+							</div>
+							<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+											{{ $payments->links() }}
+										</div>
+									</div>
+										
+								</div>
 							</div>
 						</div>
 					</div>

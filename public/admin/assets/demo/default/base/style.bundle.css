@@ -10170,19 +10170,23 @@ b, strong {
     .m-datatable.m-datatable--default.m-datatable--scroll > .m-datatable__table > .m-datatable__body {
       overflow: hidden; }
   .m-datatable.m-datatable--default > .m-datatable__pager {
-    margin-top: 20px; }
+    margin-top: 20px;
+  display:none !important; }
     .m-datatable.m-datatable--default > .m-datatable__pager.m-datatable__pager--top {
       margin-bottom: 20px; }
     .m-datatable.m-datatable--default > .m-datatable__pager > .m-datatable__pager-nav {
       margin: 10px 0 0 0;
       padding: 0;
-      display: inline-block; }
+      display: inline-block;
+    display:none !important; }
       .m-datatable.m-datatable--default > .m-datatable__pager > .m-datatable__pager-nav > li {
         padding: 0;
         margin-right: 5px;
-        display: inline-block; }
+        display: inline-block;
+      display:none !important; }
         .m-datatable.m-datatable--default > .m-datatable__pager > .m-datatable__pager-nav > li:last-child {
-          margin-right: 0; }
+          margin-right: 0;
+        display:none !important; }
         .m-datatable.m-datatable--default > .m-datatable__pager > .m-datatable__pager-nav > li > .m-datatable__pager-link {
           cursor: pointer;
           display: inline-block;

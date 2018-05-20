@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/admin-dash', 'AdminController@home');
 });
 
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@login');
+Route::get('/logout', 'LoginController@login');
 
 
 Route::group(['/middleware' => ['auth', 'web']], function() {
@@ -163,6 +163,8 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('new-appointment','ReceptionistController@create_appointment');
 
+	Route::post('new-appointment/{id}','ReceptionistController@create_appointment');
+
 	Route::get('/show-appointment/{id}','ReceptionistController@show_appointment');
 
 	Route::get('/edit-appointment/{id}','ReceptionistController@edit_appointment');
@@ -248,7 +250,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	// Route::post('update-appointment','DoctorsController@update_appointment');
 
-	Route::get('/delete-appointment/{id}','DoctorsController@delete_appointment');
+	Route::get('/delete-appointment-doc/{id}','DoctorsController@delete_appointment');
 
 
 

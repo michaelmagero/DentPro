@@ -44,7 +44,14 @@
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
-										
+										<script src="../js/sweetalert2.all.js"></script>
+
+										<!-- Include this after the sweet alert js file -->
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -82,11 +89,11 @@
 								</div>
 								<!--end: Search Form -->
 								<!--begin: Datatable -->
-								<table class="m-datatable" id="html_table" width="100%">
+								<table class="m-datatable " id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
 											
-											<th title="Field #2">
+											<th title="Field #2" class="file_no">
 												File No
 											</th>
 											<th title="Field #3">
@@ -152,22 +159,18 @@
 								</table>
 								<!--end: Datatable -->
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+							<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+											{{ $waitings->links() }}
+										</div>
+									</div>
+										
+								</div>
+							</div>
 			<!-- end:: Body -->
 					
-
-						
-						
-						
-						
-						
-
-
-
-
 @endsection
 
 

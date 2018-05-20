@@ -47,12 +47,18 @@
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
-										
+										<script src="../js/sweetalert2.all.js"></script>
+
+										<!-- Include this after the sweet alert js file -->
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 									</div>
 								</div>
 							</div>
 							<div class="m-portlet__body">
-								
 								<!--begin: Search Form -->
 								<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
 									<div class="row align-items-center">
@@ -84,7 +90,7 @@
 									</div>
 								</div>
 								<!--end: Search Form -->
-		<!--begin: Datatable -->
+								<!--begin: Datatable -->
 								<table class="m-datatable" id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
@@ -107,6 +113,9 @@
 											<th title="Field #8">
 												Appointment Status
 											</th>
+											<th>
+												Action
+											</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -124,9 +133,9 @@
 												@else
 													<td></td>
 												@endif
-												{{--  <td>
+												 <td>
 
-													<a href="{{ url('new-waiting-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">
+													{{-- <a href="{{ url('new-waiting-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">
 														<i class="fa fa-plus text-primary"></i>
 													</a>
 													
@@ -136,14 +145,14 @@
 
 													<a href="{{ url('edit-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
-													</a>
+													</a> --}}
 
-													<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
-														<i class="fa fa-trash"></i>
+													<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Appointments ">
+														<i class="flaticon-circle"></i>
 													</a>
 													
 												</button>
-												</td>  --}}
+												</td> 
 											</tr>
                                    		@endforeach
 									</tbody>

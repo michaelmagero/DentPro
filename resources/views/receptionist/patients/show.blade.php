@@ -90,23 +90,23 @@
 						<!--end: Search Form -->
 
 						<!--begin: Datatable -->
-						<table class="m-datatable" id="html_table" width="100%">
+						<table class="m-datatable" id="html_table">
 							<thead>
 								<tr class="m_datatable__row">
 									
-									<th title="Field #2">
+									<th class="file_no">
 										File No
 									</th>
-									<th title="Field #3">
+									<th>
 										Patient Name
 									</th>
-									<th title="Field #6">
+									<th>
 										Insurance Provider
 									</th>
-									<th title="Field #7">
+									<th>
 										Amount Allocated
 									</th>
-									<th title="Field #8">
+									<th>
 										Action
 									</th>
 								</tr>
@@ -114,7 +114,7 @@
 							<tbody>
 								@foreach($patients as $patient)
 									<tr>
-										<td>{{ $patient->id }}</td>
+										<td style="width:20px !important;">{{ $patient->id }}</td>
 										<td>{{ $patient->firstname ." ".$patient->lastname  }}</td>
 										<td>
 											@if($patient->payment_mode == 'Cash')
@@ -132,6 +132,10 @@
 
 											<a href="{{ url('edit-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 												<i class="fa fa-edit"></i>
+											</a>
+
+											<a href="{{ url('new-appointment/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to appointments ">
+												<i class="fa fa-calendar"></i>
 											</a>
 
 											<a href="{{ url('patient-history/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
@@ -158,8 +162,22 @@
 						</table>
 						<!--end: Datatable -->
 					</div>
-						</div>
+
+					<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+											{{ $patients->links() }}
+										</div>
+									</div>
+										
+								</div>
+							</div>
 					</div>
+					
+					</div>
+
+					
 				</div>
 			</div>
 
