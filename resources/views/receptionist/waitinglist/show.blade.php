@@ -145,9 +145,15 @@
 														<i class="fa fa-plus text-primary"></i>
 													</a>  --}}
 
-													<a href="{{ url('delete-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
-														<i class="flaticon-circle"></i>
+													@foreach($patients as $patient)
+													<a href="{{ url('new-payment/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add payment ">
+														<i class="fa fa-plus"></i>
 													</a>
+													@endforeach
+
+													{{--  <a href="{{ url('delete-waiting/'.$waiting->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
+														<i class="flaticon-circle"></i>
+													</a>  --}}
 
 													
 													

@@ -163,7 +163,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('new-appointment','ReceptionistController@create_appointment');
 
-	Route::post('new-appointment/{id}','ReceptionistController@create_appointment');
+	Route::get('new-appointment-existing','ReceptionistController@new_appointment_existing');
 
 	Route::get('/show-appointment/{id}','ReceptionistController@show_appointment');
 
@@ -225,7 +225,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('new-doc-payment','DoctorsController@insert_payment');
 
-	//Route::get('new-doc-payment/{id}','DoctorsController@create_payment_id');
+	Route::get('new-doc-payment/{id}','DoctorsController@create_payment_id');
 
 	Route::get('/show-doc-payment/{id}','DoctorsController@show_payment');
 

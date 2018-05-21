@@ -74,54 +74,24 @@
 							
 							<div class="form-group m-form__group row">
 								
-								<div class="col-lg-4">
+								<div class="col-lg-4 col-md-9 col-sm-12">
 									<label class="">
-										First Name:
+										Patient FileNo:
 									</label>
-									<input type="text" name="firstname"  class="form-control m-input" >
-									
+										<select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
+											@foreach($patients as $patient)
+											<option value='{{ $patient->id }}'>
+												{{ $patient->id }}
+											</option>
+											@endforeach
+										</select>
+									<span class="m-form__help">
+										Search user by searching File No.
+									</span>
 								</div>
-								<div class="col-lg-4">
-									<label class="">
-										Middle Name:
-									</label>
-									<input type="text" name="middlename"  class="form-control m-input" >
-									
-								</div>
-								<div class="col-lg-4">
-									<label>
-										Last Name:
-									</label>
-									<input type="text" name="lastname"  class="form-control m-input" >
-									
-								</div>
-								
-							</div>
-
-							<div class="form-group m-form__group row">
-								<div class="col-lg-4">
-									<label>
-										Phone Number:
-									</label>
-									<input type="text" name="phone_number"  class="form-control m-input" >
-									
-								</div>
-
-								<div class="col-lg-4">
-									<label>
-										Doctor:
-									</label>
-									<select name="doctor" id="input" class="form-control" required="required">
-										@foreach($users as $user)
-											@if($user->role == 'doctor')
-												<option value="{{ $user->name }}">{{ $user->name }}</option>
-											@endif
-										@endforeach
-									</select>
-									
-								</div>
-
-								<div class="col-lg-4">
+                                
+                                
+                                <div class="col-lg-4">
 									<label>
 										Appointment Date:
 									</label>
@@ -136,13 +106,8 @@
 		       					        </script>
        					    		</div>
 									
-								</div>
-							</div>
-
-
-							<div class="form-group m-form__group row">
-								
-								
+                                </div>
+                                
 
 								<div class="col-lg-4">
 									<label>
@@ -160,12 +125,6 @@
 										</option>
 									</select>
 								</div>
-							</div>
-
-
-							<div class="form-group m-form__group row">
-								
-
 								
 							</div>
 						</div>

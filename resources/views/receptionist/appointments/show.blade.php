@@ -121,7 +121,15 @@
 									<tbody>
 										@foreach($appointments as $appointment)
 											<tr>
-												<td>{{ $appointment->id }}</td>
+												<td>
+													@foreach($patients as $patient)
+														@if($appointment->patient_id == $patient->id)
+															{{ $appointment->patient->id }}
+														@elseif($appointment->patient_id != $patient->id)
+															{{ "N/A" }}
+														@endif
+													@endforeach
+												</td>
 												<td>{{ $appointment->firstname . " " . $appointment->lastname }}</td>
 												<td>{{ $appointment->doctor }}</td>
 												<td>{{ $appointment->appointment_date }}</td>
@@ -146,6 +154,10 @@
 													<a href="{{ url('edit-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a> --}}
+
+													<a href="{{ url('new-patient') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add new Patient ">
+														<i class="fa fa-plus"></i>
+													</a>
 
 													<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Appointments ">
 														<i class="flaticon-circle"></i>

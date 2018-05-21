@@ -133,11 +133,7 @@
 											<a href="{{ url('edit-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 												<i class="fa fa-edit"></i>
 											</a>
-
-											<a href="{{ url('new-appointment/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to appointments ">
-												<i class="fa fa-calendar"></i>
-											</a>
-
+											
 											<a href="{{ url('patient-history/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
 												<i class="fa fa-user-md"></i>
 											</a>

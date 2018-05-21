@@ -301,7 +301,8 @@ class ReceptionistController extends Controller
     //APPOINTMENTS
     public function allappointments() {
         return view('receptionist.appointments.show')
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(10));
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(10))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1));
     }
 
     public function new_appointment() {
@@ -330,6 +331,14 @@ class ReceptionistController extends Controller
         Alert::success('Appointment Added Successfully', 'Success')->autoclose(2000);
         return back();
     }
+
+    public function new_appointment_existing() {
+        return view('receptionist.appointments.create-existing')
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+    }
+
+    
 
     public function edit_appointment($id) {
             
@@ -453,7 +462,7 @@ class ReceptionistController extends Controller
 
         $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $waiting->patient_id "));
 
-        $waiting->delete();
+        //$waiting->delete();
 
         Alert::success('Patient Cleared Successfully', 'Success')->autoclose(2000);
         return back();

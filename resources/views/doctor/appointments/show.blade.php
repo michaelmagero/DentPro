@@ -106,65 +106,56 @@
 												Appointment Date
 											</th>
 											<th title="Field #6">
-												Notes
-											</th>
-											<th title="Field #6">
 												Appointment Status
 											</th>
+											<th title="Field #6">
+												Action
+											</th>
+
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($appointments as $appointment)
-											@if($appointment->doctor == Auth::user()->name)
+										@foreach($payments as $payment)
+											@if($payment->doctor_id == Auth::user()->id)
 												<tr>
-													<td>{{ $appointment->patient_id }}</td>
-													<td>{{ $appointment->firstname . " ". $appointment->lastname }}</td>
-													<td>{{ $appointment->appointment_date }}</td>
+													<td>{{ $payment->patient_id }}</td>
+												
+													@foreach($patients as $patient)
+														@if($patient->id == $payment->patient_id)
+															<td>{{ $patient->firstname . " ". $patient->lastname }}</td>
+														@endif
+													@endforeach
+													
+													<td>{{ $payment->next_appointment }}</td>
 
 													<td>
-														@foreach($payments as $payment)
-															@if($payment->patient_id == $appointment->patient_id)
-																<td>{{ $payment->notes }}</td>
-															@endif
-														@endforeach
-													</td>
-
-
-													@if($appointment->appointment_status == 'Pending')
-														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
-													@elseif($waiting->appointment_status == 'Complete')
-														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
-													@else
-														<td></td>
-													@endif
-													
-													{{-- @foreach($patients as $patient)
-														@if($patient->id == $appointment->patient_id)
-															<td>
-																<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-																	<i class="fa fa-eye"></i>
-																</a>
-
-																<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
-																	<i class="fa fa-user-md"></i>
-																</a>
-
-																<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
-																	<i class="fa fa-credit-card"></i>
-																</a>
-
-																<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Appointments ">
-																	<i class="fa fa-trash"></i>
-																</a>
-															</td>
-														@else
-															<td>
-																 <a href="{{ url('delete-waiting/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
-																	<i class="flaticon-circle"></i>
-																</a>
-															</td>
+													@foreach($appointments as $appointment)
+														@if($appointment->patient_id == $patient->id)
+																<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
+														
+																{{--  <td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>  --}}
+															
 														@endif
-													@endforeach --}}
+													@endforeach
+													</td>
+													
+													<td>
+														<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+															<i class="fa fa-eye"></i>
+														</a>
+
+														<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+															<i class="fa fa-user-md"></i>
+														</a>
+
+														<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
+															<i class="fa fa-credit-card"></i>
+														</a>
+
+														<a href="{{ url('delete-waiting/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
+															<i class="flaticon-circle"></i>
+														</a>
+													</td>
 
 
 												</tr>
