@@ -140,7 +140,7 @@
 
 						
 						<!--Begin::Section-->
-						<div class="m-portlet">
+						{{--  <div class="m-portlet">
 							<div class="m-portlet__body  m-portlet__body--no-padding">
 								<div class="row m-row--no-padding m-row--col-separator-xl">
 									<div class="col-xl-4">
@@ -255,7 +255,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>  --}}
 						<!--End::Section-->
 
 

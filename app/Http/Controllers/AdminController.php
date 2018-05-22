@@ -46,7 +46,7 @@ class AdminController extends Controller
       } elseif ($user->role == 'receptionist') {
 
         return View('receptionist.receptionist_index')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
         ->with('invoices', Invoice::orderBy('created_at','desc')->paginate(5))
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))

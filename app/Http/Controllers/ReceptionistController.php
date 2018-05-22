@@ -64,7 +64,7 @@ class ReceptionistController extends Controller
         ]);
         
         Alert::success('Patient Added Successfully', 'Success')->autoclose(2000);
-        return back();
+        return redirect('all-waiting');
     }
 
     
@@ -116,7 +116,7 @@ class ReceptionistController extends Controller
         return view('receptionist.patients.payment_history', compact('payments'))
         ->with('users', User::orderBy('created_at','desc')->get())
         ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->get());
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
 
     public function update_patient(Request $request, $id) {
@@ -154,6 +154,9 @@ class ReceptionistController extends Controller
                 $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
                 $patient->doctor = $request->get('doctor');
                 $patient->save();
+
+
+                Waiting::where('patient_id', $id)->update(array('firstname' => $request->get('firstname'), 'middlename' => $request->get('middlename'),'lastname' => $request->get('lastname'), 'payment_mode' => $request->get('payment_mode'), 'amount_allocated' => $request->get('amount_allocated'), 'doctor' => $request->get('doctor') ));
                 
 
                 // redirect
@@ -231,7 +234,7 @@ class ReceptionistController extends Controller
 
         
         Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);
-        return back();
+        return redirect('all-waiting');
         
     }
 

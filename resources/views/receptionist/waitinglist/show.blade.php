@@ -15,7 +15,8 @@
                     <h3 class="m-subheader__title ">
                         Waiting List
                     </h3>
-                </div>
+				</div>
+				
                 <div>
                     <span class="m-subheader__daterange" >
                         <span class="m-subheader__daterange-label">
@@ -24,7 +25,8 @@
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
                     </span>
-                </div>&nbsp;&nbsp;&nbsp;
+				</div>&nbsp;&nbsp;&nbsp;
+				
                 <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">

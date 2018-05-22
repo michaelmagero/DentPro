@@ -79,12 +79,12 @@ class DoctorsController extends Controller
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
     }
 
-    // public function create_payment_id($id) {
-    //     $patient = Patient::findorFail($id);
-    //     return view('doctor.payments.create')
-    //     ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
-    //     ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
-    // }
+    public function create_payment_id($id) {
+        $patient = Patient::findorFail($id);
+        return view('doctor.payments.create')
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
+    }
 
     public function insert_payment(Request $request) {
         $payment = new Payment();
@@ -95,8 +95,11 @@ class DoctorsController extends Controller
         $payment->notes = $request->get('notes');
 
         $payment->save();
+
+        $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $payment->patient_id "));
+        
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        return back();
+        return redirect('all-waiting');
     }
 
 

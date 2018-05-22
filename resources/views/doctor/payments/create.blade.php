@@ -54,16 +54,14 @@
 								<span class="text-center">
 									<br>
 									<div class="col-md-12 ">
-										<!-- @if(Session::has('flash_message'))
-										<button type="button" class="btn btn-success m-btn m-btn--custom" id="m_sweetalert_demo_3_3">
-										{!! session('flash_message') !!}
-										</button>
-										@endif -->
+										<script src="../js/sweetalert2.all.js"></script>
 
-										<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
-
-                                        <!-- Include this after the sweet alert js file -->
-                                        @include('sweet::alert')
+										<!-- Include this after the sweet alert js file -->
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 										
 									</div>
 								</span>
