@@ -93,7 +93,7 @@ class DoctorsController extends Controller
         $payment->doctor_id = Auth::user()->id;
         $payment->patient_id = $request->get('patient_id');
         $payment->procedure = $request->get('procedure');
-        $payment->procedure_cost = $request->get('procedure_cost');
+        $payment->procedure_cost = number_format($request->get('procedure_cost'),2);
         $payment->notes = $request->get('notes');
 
         $payment->save();

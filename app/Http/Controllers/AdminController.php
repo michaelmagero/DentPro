@@ -207,7 +207,7 @@ class AdminController extends Controller
         //
         $user = User::where('id',$id)->first();
 
-        Alert::warning('Are you sure You want to Delete this?', 'Caution')->persistent('Close');
+        //Alert::warning('Are you sure You want to Delete this?', 'Caution')->persistent('Close');
 
         $user->delete();
 

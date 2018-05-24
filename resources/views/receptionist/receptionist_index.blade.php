@@ -154,7 +154,7 @@
 									<div class="row align-items-center">
 										<div class="col-xl-8 order-2 order-xl-1">
 											<div class="form-group m-form__group row align-items-center">
-												<div class="col-md-4">
+												<div class="col-lg-4">
 													<div class="m-input-icon m-input-icon--left">
 														<input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
 														<span class="m-input-icon__icon m-input-icon__icon--left">
@@ -162,6 +162,19 @@
 																<i class="la la-search"></i>
 															</span>
 														</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-group m-form__group row align-items-center">
+												<div class="col-lg-4 col-md-9 col-sm-12">
+													<div class="input-group" id="m_daterangepicker_2">
+														<input type="text" class="form-control m-input" readonly="" placeholder="Select date range">
+														<div class="input-group-append">
+															<span class="input-group-text">
+																<i class="la la-calendar-check-o"></i>
+															</span>
+														</div>
 													</div>
 												</div>
 											</div>

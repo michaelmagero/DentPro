@@ -191,6 +191,14 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/delete-waiting/{id}','ReceptionistController@delete_waiting');
 
+	
+	//EXPENSES ROUTES
+	Route::get('all-expenses','ReceptionistController@allexpenses');
+
+	Route::get('new-expense','ReceptionistController@create_expense');
+
+	Route::post('new-expense','ReceptionistController@insert_expense');
+
 
 
 

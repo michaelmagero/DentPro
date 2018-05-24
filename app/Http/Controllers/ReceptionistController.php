@@ -8,6 +8,7 @@ use App\Patient;
 use App\Payment;
 use App\Appointment;
 use App\Waiting;
+use App\Expense;
 use Hash;
 use DB;
 use Alert;
@@ -205,24 +206,24 @@ class ReceptionistController extends Controller
     
     public function create_payment($id, Request $request) {
 
-        $balance = "GET BALANCE FROM your ACCOUNT";
-        if ($balance < $amount_being_paid) {
-            charge_huge_overdraft_fees();
-        }
-        $balance = $balance - $amount_being paid;
-        UPDATE your ACCOUNT SET BALANCE = $balance;
+        // $balance = "GET BALANCE FROM your ACCOUNT";
+        // if ($balance < $amount_being_paid) {
+        //     charge_huge_overdraft_fees();
+        // }
+        // $balance = $balance - $amount_being paid;
+        // UPDATE your ACCOUNT SET BALANCE = $balance;
 
-        $balance = "GET BALANCE FROM receiver ACCOUNT"
-        charge_insane_transaction_fee();
-        $balance = $balance + $amount_being_paid
-        UPDATE receiver ACCOUNT SET BALANCE = $balance
+        // $balance = "GET BALANCE FROM receiver ACCOUNT"
+        // charge_insane_transaction_fee();
+        // $balance = $balance + $amount_being_paid
+        // UPDATE receiver ACCOUNT SET BALANCE = $balance
 
         //get appointment date
         $date = $request->get('next_appointment');
         $next_appointment = date_format(date_create($date), 'Y-m-d');
         
         //get amount paid
-        $amount_paid = $request->get('amount_paid');
+        $amount_paid = number_format($request->get('amount_paid'),2);
 
         $patient = Patient::find($id);
         $pid = $patient->id;
@@ -504,6 +505,32 @@ class ReceptionistController extends Controller
         //$waiting->delete();
 
         Alert::success('Patient Cleared Successfully', 'Success')->autoclose(2000);
+        return back();
+    }
+
+
+    //EXPENSES
+    public function allexpenses() {
+        return view('receptionist.expenses.show')
+        ->with('expenses', Expense::orderBy('created_at','desc')->paginate(10));
+    }
+
+    //insert waiting without ID - mainly for appointments from patients not registered with the clinic
+    public function create_expense() {
+        return view('receptionist.expenses.create')
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+    }
+
+    public function insert_expense(Request $request) {
+
+        $expense = new Expense();
+
+        $expense->description = $request->get('description');
+        $expense->amount = number_format($request->get('amount'),2);
+
+        $expense->save();
+        
+        Alert::success('Expense Added Successfully', 'Success')->autoclose(2000);
         return back();
     }
 

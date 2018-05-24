@@ -52,6 +52,8 @@
 		<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
 
 		<script src="../admin/assets/demo/default/custom/components/base/bootstrap-notify.js" type="text/javascript"></script>
+
+		<script src="../admin/assets/demo/default/custom/components/forms/widgets/bootstrap-daterangepicker.js" type="text/javascript"></script>
 		
 
 		<!--end::Page Snippets -->

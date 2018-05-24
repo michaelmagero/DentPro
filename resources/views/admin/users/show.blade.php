@@ -141,9 +141,9 @@
 															<i class="fa fa-edit"></i>
 														</a>
 
-														<button  id="#delete-user" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
+														<a href="{{ url('delete-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 															<i class="fa fa-trash"></i>
-														</button>
+														</a>
 													@endif
 
 													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">

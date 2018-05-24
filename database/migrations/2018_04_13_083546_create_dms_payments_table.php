@@ -27,9 +27,9 @@ class CreateDmsPaymentsTable extends Migration
                     ->onDelete('cascade');
         
             $table->string('procedure')->nullable();
-            $table->decimal('procedure_cost', 13, 2)->nullable();
-            $table->decimal('amount_paid', 13, 2)->nullable();
-            $table->decimal('balance', 13, 2)->nullable();
+            $table->string('procedure_cost')->nullable();
+            $table->string('amount_paid')->nullable();
+            $table->string('balance')->nullable();
             $table->date('next_appointment')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
