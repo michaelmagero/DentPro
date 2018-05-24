@@ -205,6 +205,18 @@ class ReceptionistController extends Controller
     
     public function create_payment($id, Request $request) {
 
+        $balance = "GET BALANCE FROM your ACCOUNT";
+        if ($balance < $amount_being_paid) {
+            charge_huge_overdraft_fees();
+        }
+        $balance = $balance - $amount_being paid;
+        UPDATE your ACCOUNT SET BALANCE = $balance;
+
+        $balance = "GET BALANCE FROM receiver ACCOUNT"
+        charge_insane_transaction_fee();
+        $balance = $balance + $amount_being_paid
+        UPDATE receiver ACCOUNT SET BALANCE = $balance
+
         //get appointment date
         $date = $request->get('next_appointment');
         $next_appointment = date_format(date_create($date), 'Y-m-d');
@@ -303,6 +315,7 @@ class ReceptionistController extends Controller
 
     //APPOINTMENTS
     public function allappointments() {
+
         return view('receptionist.appointments.show')
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(10))
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(1));
@@ -315,6 +328,7 @@ class ReceptionistController extends Controller
     }
 
     public function create_appointment(Request $request) {
+        
 
         $appointment = new Appointment();
 
@@ -339,6 +353,28 @@ class ReceptionistController extends Controller
         return view('receptionist.appointments.create-existing')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('users', User::orderBy('created_at','desc')->paginate(5));
+    }
+
+    public function create_appointment_existing(Request $request) {
+
+        $appointment = new Appointment();
+
+        $appointment->patient_id = $request->get('patient_id');
+        $appointment->firstname = $request->get('firstname');
+        $appointment->middlename = $request->get('middlename');
+        $appointment->lastname = $request->get('lastname');
+        $appointment->phone_number = $request->get('phone_number');
+        $appointment->doctor = $request->get('doctor');
+
+        $date = $request->get('appointment_date');
+        $appointment->appointment_date = date_format(date_create($date), 'Y-m-d');
+
+        $appointment->appointment_status = $request->get('appointment_status');
+
+        $appointment->save();
+
+        Alert::success('Appointment Added Successfully', 'Success')->autoclose(2000);
+        return back();
     }
 
     

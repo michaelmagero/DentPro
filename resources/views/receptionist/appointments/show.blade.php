@@ -122,15 +122,24 @@
 										@foreach($appointments as $appointment)
 											<tr>
 												<td>
+													@if($appointment->patient_id == " ")
+														{{ $appointment->id }}
+													@elseif($appointment->patient_id != " ")
+														{{ $appointment->patient_id }}
+													@else()
+
+													@endif
+												</td>
+												<td>
 													@foreach($patients as $patient)
-														@if($appointment->patient_id == $patient->id)
-															{{ $appointment->patient->id }}
-														@elseif($appointment->patient_id != $patient->id)
-															{{ "N/A" }}
+														@if($patient->id == $appointment->patient_id)
+															{{ $patient->id }}
+														@else
+															{{ $appointment->firstname . " " . $appointment->lastname }}
 														@endif
 													@endforeach
 												</td>
-												<td>{{ $appointment->firstname . " " . $appointment->lastname }}</td>
+												
 												<td>{{ $appointment->doctor }}</td>
 												<td>{{ $appointment->appointment_date }}</td>
 												<td>{{ $appointment->phone_number }}</td>

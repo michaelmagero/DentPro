@@ -19,9 +19,11 @@ class DoctorsController extends Controller
     public function allpatients_doc() {
         $user_doc = Auth::user()->name;
 
-        $patients = DB::select( DB::raw("SELECT * FROM dms_patients WHERE doctor = '$user_doc' "));
+        //$patients = DB::select( DB::raw("SELECT * FROM dms_patients WHERE doctor = '$user_doc' "));
         
-        return view('doctor.patients.show', compact('patients'));
+        return view('doctor.patients.show')
+        ->with('patients', Patient::where('doctor', $user_doc)->orderBy('created_at','desc')->paginate(10))
+;
     }
 
     public function show($id) {
@@ -69,7 +71,7 @@ class DoctorsController extends Controller
 
         return view('doctor.payments.show', compact('payments'))
             ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
-            ->with('payments', Payment::where('doctor_id', $user_doc)->orderBy('created_at','desc')->paginate(1));
+            ->with('payments', Payment::where('doctor_id', $user_doc)->orderBy('created_at','desc')->paginate(10));
 
     }
 
@@ -108,8 +110,8 @@ class DoctorsController extends Controller
         return view('doctor.appointments.show')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('users', User::orderBy('created_at','desc')->paginate(5))
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(10))
+        ->with('payments', Payment::where('doctor_id', Auth::user()->id)->orderBy('created_at','desc')->paginate(10));
     }
 
     public function new_appointment_doc() {
@@ -150,8 +152,8 @@ class DoctorsController extends Controller
     //WAITING LIST
     public function allwaiting_doc() {
         return view('doctor.waitinglist.show')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10))
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(10));
     }
 
     

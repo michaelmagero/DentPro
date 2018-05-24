@@ -62,7 +62,7 @@ class AdminController extends Controller
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
         ->with('invoices', Invoice::orderBy('created_at','desc')->paginate(5))
         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
-        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+        ->with('waitings', Waiting::where('doctor', $cur_user)->orderBy('created_at','desc')->paginate(5));
         
       }
     }

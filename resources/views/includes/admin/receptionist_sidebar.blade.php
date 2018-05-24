@@ -137,7 +137,7 @@
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Appointments
+													All Appointments
 												</span>
 											</a>
 										</li>
@@ -157,7 +157,7 @@
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Existing
+													Existing Patient
 												</span>
 											</a>
 										</li>

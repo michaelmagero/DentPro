@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Add Appointment
+                        Add Appointment (<small>Existing patients</small>)
                     </h3>
                 </div>
                 <div>
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 					<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-appointment') }}">
+					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-appointment-existing') }}">
 						{{ csrf_field() }}
 						<div class="m-portlet__body">
 							

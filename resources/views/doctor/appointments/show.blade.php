@@ -100,10 +100,13 @@
 												File No
 											</th>
 											<th title="Field #3">
-												Patient
+												Patient Name
 											</th>
 											<th title="Field #5">
 												Appointment Date
+											</th>
+											<th title="Field #5">
+												Phone Number
 											</th>
 											<th title="Field #6">
 												Appointment Status
@@ -115,30 +118,34 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($payments as $payment)
-											@if($payment->doctor_id == Auth::user()->id)
+										@foreach($appointments as $appointment)
+											@if($appointment->doctor == Auth::user()->name)
 												<tr>
-													<td>{{ $payment->patient_id }}</td>
-												
-													@foreach($patients as $patient)
-														@if($patient->id == $payment->patient_id)
-															<td>{{ $patient->firstname . " ". $patient->lastname }}</td>
-														@endif
-													@endforeach
-													
-													<td>{{ $payment->next_appointment }}</td>
-
 													<td>
-													@foreach($appointments as $appointment)
-														@if($appointment->patient_id == $patient->id)
-																<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
-														
-																{{--  <td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>  --}}
-															
+														@if($appointment->patient_id == " ")
+															{{ $appointment->id }}
+														@elseif($appointment->patient_id != " ")
+															{{ $appointment->patient_id }}
+														@else()
+
 														@endif
-													@endforeach
 													</td>
+												
+													<td>{{ $appointment->firstname . " ". $appointment->lastname }}</td>
 													
+													<td>{{ $appointment->appointment_date }}</td>
+
+													<td>{{ $appointment->phone_number }}</td>
+
+													@if($appointment->appointment_status == 'Pending')
+														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
+													@elseif($appointment->appointment_status == 'Complete')
+														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
+													@else
+														<td></td>
+													@endif
+													
+													@foreach($patients as $patient)
 													<td>
 														<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 															<i class="fa fa-eye"></i>
@@ -156,7 +163,7 @@
 															<i class="flaticon-circle"></i>
 														</a>
 													</td>
-
+													@endforeach
 
 												</tr>
 											@endif
@@ -164,6 +171,17 @@
 									</tbody>
 								</table>
 								<!--end: Datatable -->
+							</div>
+
+							<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+												{{ $appointments->links()}}
+										</div>
+									</div>
+										
+								</div>
 							</div>
 						</div>
 					</div>

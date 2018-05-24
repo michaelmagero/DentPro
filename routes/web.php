@@ -165,6 +165,8 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('new-appointment-existing','ReceptionistController@new_appointment_existing');
 
+	Route::post('new-appointment-existing','ReceptionistController@create_appointment_existing');
+
 	Route::get('/show-appointment/{id}','ReceptionistController@show_appointment');
 
 	Route::get('/edit-appointment/{id}','ReceptionistController@edit_appointment');
