@@ -267,7 +267,17 @@
                                                     Sex
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="sex"  type="text" value="{{ $patient->sex }}">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="sex">
+                                            
+                                                            <option value='{{ $patient->doctor }}' selected="selected">
+                                                                {{ $patient->sex }}
+                                                            </option>
+
+                                                            <optgroup label="Sex">
+                                                                <option value="male">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </optgroup>
+                                                        </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -407,13 +417,379 @@
                                                             @endforeach
 										                </optgroup>
                                                     </select>
-                                                    {{--  <select name="doctor" id="input" class="form-control">
-                                                        @foreach($users as $user)
-                                                            @if($user->role == 'doctor')
-                                                                <option value="" selected="selected">{{ $user->name }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>  --}}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Referred by
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" name="referred_by"  type="text" value="{{ $patient->referred_by }}">
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Alcoholic
+                                                </label>
+                                                <div class="col-7">
+                                                    <div class="m-checkbox-inline">
+                                                        <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="alcoholic">
+                                            
+                                                            <option value='{{ $patient->alcoholic }}' selected="selected">
+                                                                {{ $patient->alcoholic }}
+                                                            </option>
+
+                                                            <optgroup label="Alcoholic">
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </optgroup>
+                                                        </select>
+									                </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Smoker
+                                                </label>
+                                                <div class="col-7">
+                                                    <div class="m-checkbox-inline">
+                                                        
+                                                        <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="smoker">
+                                            
+                                                            <option value='{{ $patient->smoker }}' selected="selected">
+                                                                {{ $patient->smoker }}
+                                                            </option>
+
+                                                            <optgroup label="Smoker">
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </optgroup>
+                                                        </select>
+
+									                </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Allergic Reactions
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" name="allergic_reactions"  type="text" value="{{ $patient->allergic_reactions }}">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Disease History
+                                                </label>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="">
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="">
+                                                                    <strong>HAVE</strong> &nbsp;&nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="">
+                                                                    <strong>HAD</strong>
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Abnormal Bleeding">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Abnormal Bleeding">
+                                                                    &nbsp; Abnormal Bleeding
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - AIDS or HIV infection">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - AIDS or HIV infection">
+                                                                    &nbsp; AIDS or HIV infection
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Diabetes">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Diabetes">
+                                                                    &nbsp; Diabetes
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Anemia">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Anemia">
+                                                                    &nbsp; Anemia
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Ulcers">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Ulcers">
+                                                                    &nbsp; Ulcers
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Athritis">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Athritis">
+                                                                    &nbsp; Athritis
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Migraines">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Migraines">
+                                                                    &nbsp; Migraines
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Persistent Dry mouth or lips">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Persistent Dry mouth or lips">
+                                                                    &nbsp; Persistent Dry mouth or lips
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Eating Disorder">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Eating Disorder">
+                                                                    &nbsp; Eating Disorder
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Respiratory Problems">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Respiratory Problems">
+                                                                    &nbsp; Respiratory Problems
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="">
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="">
+                                                                    <strong>HAVE</strong> &nbsp;&nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="">
+                                                                    <strong>HAD</strong>
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Mental Health Disorders">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Mental Health Disorders">
+                                                                    &nbsp; Mental Health Disorders
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Neurological Disorders E.g Stroke">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Neurological Disorders E.g Stroke">
+                                                                    &nbsp; Neurological Disorders E.g Stroke
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Rapid Weight Loss / Weight Gain">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Rapid Weight Loss / Weight Gain">
+                                                                    &nbsp; Rapid Weight Loss / Weight Gain
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Kidney Diseases">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Kidney Diseases">
+                                                                    &nbsp; Kidney Diseases
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Liver Diseases">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Liver Diseases">
+                                                                    &nbsp; Liver Diseases
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Sexually Transmitted Diseases (STDs)">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Sexually Transmitted Diseases (STDs)">
+                                                                    &nbsp; STDs)
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Epilepsy">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Epilepsy">
+                                                                    &nbsp; Epilepsy
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Asthma">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Asthma">
+                                                                    &nbsp; Asthma
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Cancer">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Cancer">
+                                                                    &nbsp; Cancer
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="m-checkbox-inline">
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Have - Persistent Swollen Glands in Neck (Goiter)">
+                                                                    &nbsp;
+                                                                    <span></span>
+                                                                </label>
+                                                                <label class="m-checkbox">
+                                                                    <input type="checkbox" name="disease_history" value="Had - Persistent Swollen Glands in Neck (Goiter)">
+                                                                    &nbsp; Persistent Swollen Glands in Neck (Goiter)
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Cardiovascular Disease
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" name="cardiovascular_disease"  type="text" value="{{ $patient->cardiovascular_disease }}">
+
                                                 </div>
                                             </div>
 

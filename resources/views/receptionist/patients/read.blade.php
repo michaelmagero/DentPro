@@ -364,14 +364,67 @@
                                                     Preferred Doctor
                                                 </label>
                                                 <div class="col-7">
-                                                    {{--  <select disabled="disabled"  name="doctor" id="input" class="form-control" required="required">
-                                                        @foreach($users as $user)
-                                                            @if($user->role == 'doctor')
-                                                                <option value="">{{ $user->name }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>  --}}
                                                     <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->doctor }}">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Referred by
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->referred_by }}">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Alcoholic
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->alcoholic }}">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Smoker
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->smoker }}">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Allergic Reactions
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->allergic_reactions }}">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Disease History
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->disease_history }}">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Cardiovascular Disease
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->cardiovascular_disease }}">
 
                                                 </div>
                                             </div>

@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/admin-dash', 'AdminController@home');
 });
 
-Route::get('/logout', 'LoginController@login');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
 Route::group(['/middleware' => ['auth', 'web']], function() {

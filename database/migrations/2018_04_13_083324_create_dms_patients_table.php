@@ -30,6 +30,12 @@ class CreateDmsPatientsTable extends Migration
             $table->string('emergency_contact_phone_number');
             $table->string('emergency_contact_relationship');
             $table->string('doctor')->nullable();
+            $table->string('referred_by')->nullable();
+            $table->string('alcoholic');
+            $table->string('smoker');
+            $table->string('allergic_reactions')->nullable();
+            $table->string('disease_history')->nullable();
+            $table->string('cardiovascular_disease')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

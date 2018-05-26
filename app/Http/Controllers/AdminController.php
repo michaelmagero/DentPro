@@ -76,17 +76,9 @@ class AdminController extends Controller
     //USER MANAGEMENT
     public function users(Request $request)
     {   
-        $user = $request->user();
-
-        if ($user->role == 'admin') {
           
-          return View('admin.users.show')
-              ->with('users', User::orderBy('created_at','desc')->paginate(5));
-        } else {
-          
-          return View('admin.users.show')
-              ->with('users', User::where('id',$user->id)->orderBy('created_at','asc')->paginate(10));
-        }
+        return View('admin.users.show')
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
         
     }
 

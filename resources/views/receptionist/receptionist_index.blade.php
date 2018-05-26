@@ -165,19 +165,6 @@
 													</div>
 												</div>
 											</div>
-
-											<div class="form-group m-form__group row align-items-center">
-												<div class="col-lg-4 col-md-9 col-sm-12">
-													<div class="input-group" id="m_daterangepicker_2">
-														<input type="text" class="form-control m-input" readonly="" placeholder="Select date range">
-														<div class="input-group-append">
-															<span class="input-group-text">
-																<i class="la la-calendar-check-o"></i>
-															</span>
-														</div>
-													</div>
-												</div>
-											</div>
 										</div>
 										<!-- <div class="col-xl-4 order-1 order-xl-2 m--align-right">
 											<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">

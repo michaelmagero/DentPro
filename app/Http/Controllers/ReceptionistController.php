@@ -31,28 +31,34 @@ class ReceptionistController extends Controller
         return view('receptionist.patients.create')
         ->with('users', User::orderBy('created_at','desc')->get());
     }
-
+    
     public function create_patient(Request $request) {
-
-        $patient = Patient::create([
-
-        'firstname' => $request->get('firstname'),
-        'middlename' => $request->get('middlename'),
-        'lastname' => $request->get('lastname'),
-        'sex' => $request->get('sex'),
-        'dob' => $request->get('dob'),
-        'payment_mode' => $request->get('payment_mode'),
-        'amount_allocated' => $request->get('amount_allocated'),
-        'occupation' => $request->get('occupation'),
-        'postal_address' => $request->get('postal_address'),
-        'email' => $request->get('email'),
-        'phone_number' => $request->get('phone_number'),
-        'emergency_contact_name' => $request->get('emergency_contact_name'),
-        'emergency_contact_phone_number' => $request->get('emergency_contact_phone_number'),
-        'emergency_contact_relationship' => $request->get('emergency_contact_relationship'),
-        'doctor' => $request->get('doctor'),
+        
+        $patient = new Patient();
             
-        ]);
+        $patient->firstname = $request->get('firstname');
+        $patient->middlename = $request->get('middlename');
+        $patient->lastname = $request->get('lastname');
+        $patient->sex = $request->get('sex');
+        $patient->dob = $request->get('dob');
+        $patient->payment_mode = $request->get('payment_mode');
+        $patient->amount_allocated = $request->get('amount_allocated');
+        $patient->occupation = $request->get('occupation');
+        $patient->postal_address = $request->get('postal_address');
+        $patient->email = $request->get('email');
+        $patient->phone_number = $request->get('phone_number');
+        $patient->emergency_contact_name = $request->get('emergency_contact_name');
+        $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
+        $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        $patient->doctor = $request->get('doctor');
+        $patient->referred_by = $request->get('referred_by');
+        $patient->alcoholic = $request->get('alcoholic');
+        $patient->smoker = $request->get('smoker');
+        $patient->allergic_reactions = $request->get('allergic_reactions');
+        $patient->disease_history = $request->get('disease_history');
+        $patient->cardiovascular_disease = $request->get('cardiovascular_diseas;');
+            
+        $patient->save();
 
         Waiting::create([
             'patient_id' => $patient->id,
@@ -154,6 +160,12 @@ class ReceptionistController extends Controller
                 $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
                 $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
                 $patient->doctor = $request->get('doctor');
+                $patient->referred_by = $request->get('referred_by');
+                $patient->alcoholic = $request->get('alcoholic');
+                $patient->smoker = $request->get('smoker');
+                $patient->allergic_reactions = $request->get('allergic_reactions');
+                $patient->disease_history = $request->get('disease_history');
+                $patient->cardiovascular_disease = $request->get('cardiovascular_diseas;');
                 $patient->save();
 
 
@@ -225,29 +237,30 @@ class ReceptionistController extends Controller
         //get amount paid
         $amount_paid = number_format($request->get('amount_paid'),2);
 
+        //dd(number_format($amount_paid,2));
+
         $patient = Patient::find($id);
         $pid = $patient->id;
-
-        // $procedure_cost = Payment::where('patient_id', $pid)
-        //        ->orderBy('created_at', 'desc')
-        //        ->get();
                
         $procedure_cost = DB::select(DB::raw("SELECT procedure_cost FROM dms_payments WHERE patient_id ='$pid' "));
 
-        foreach ($procedure_cost as $cost) {
-            //dd($cost->procedure_cost);
+        $cost = $procedure_cost[0]->procedure_cost;
 
-            $balance = $cost->procedure_cost - $amount_paid;
+        $balance = (double)str_replace(',','',$cost) - (double)str_replace(',','',$amount_paid);
 
-            if($cost->procedure_cost > 0)
-            $balance = $balance;
-            $insert_payment = Payment::where('patient_id', $id)->update(array('amount_paid' => $amount_paid, 'balance' => $balance,'next_appointment' => $next_appointment));
+        $final_balance = number_format($balance,2);
+
+        $pay = new Payment();
+        $pay = Payment::where('patient_id',$id)->first();
+
+        $pay->amount_paid = $amount_paid;
+        $pay->balance = $final_balance;
+        $pay->next_appointment = $next_appointment;
+        $pay->save();
             
-        }
-
         
         Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);
-        return redirect('all-waiting');
+        return redirect('all-payments');
         
     }
 

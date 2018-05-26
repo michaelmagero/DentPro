@@ -261,16 +261,16 @@
                                                     Procedure
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_due"  type="procedure" value="{{ $payment->procedure }}" disabled="disabled">
+                                                    <input class="form-control m-input"   name="procedure_cost"  type="procedure" value="{{ $payment->procedure }}" disabled="disabled">
                                                 </div>
                                             </div>
 
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
-                                                    Amount Due
+                                                    Procedure Cost
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->amount_due }}" disabled="disabled">
+                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->procedure_cost }}" disabled="disabled">
                                                 </div>
                                             </div>
 
@@ -288,7 +288,7 @@
                                                     Balance
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="balance"  type="text" value="{{ $payment->balance }}">
+                                                    <input class="form-control m-input"   name="balance"  type="text" value="{{ $payment->balance }}" disabled="disabled">
                                                 </div>
                                             </div>
 

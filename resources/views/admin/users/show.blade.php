@@ -123,36 +123,38 @@
 									</thead>
 									<tbody>
 										@foreach($users as $user)
-											<tr>
-												<td>{{ $user->id }}</td>
-												<td>{{ $user->name }}</td>
-												<td>{{ $user->lastname }}</td>
-												<td>{{ $user->email }}</td>
-												<td>{{ $user->role }}</td>
-												<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</td>
-												<td>
-													@if($user->role != 'admin')
-													
-														<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-															<i class="fa fa-eye"></i>
-														</a>
+											@if($user->role != 'admin')
+												<tr>
+													<td>{{ $user->id }}</td>
+													<td>{{ $user->name }}</td>
+													<td>{{ $user->lastname }}</td>
+													<td>{{ $user->email }}</td>
+													<td>{{ $user->role }}</td>
+													<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</td>
+													<td>
+														@if($user->role != 'admin')
+														
+															<a href="{{ url('show-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+																<i class="fa fa-eye"></i>
+															</a>
 
-														<a href="{{ url('edit-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
-															<i class="fa fa-edit"></i>
-														</a>
+															<a href="{{ url('edit-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+																<i class="fa fa-edit"></i>
+															</a>
 
-														<a href="{{ url('delete-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
-															<i class="fa fa-trash"></i>
-														</a>
-													@endif
+															<a href="{{ url('delete-user/'.$user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+																<i class="fa fa-trash"></i>
+															</a>
+														@endif
 
-													{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
-														<i class="fa fa-plus text-primary"></i>
-													</a> --}}
-													
-												</button>
-												</td>
-											</tr>
+														{{-- <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add to Waiting List ">
+															<i class="fa fa-plus text-primary"></i>
+														</a> --}}
+														
+													</button>
+													</td>
+												</tr>
+											@endif
                                    		@endforeach
 									</tbody>
 								</table>
