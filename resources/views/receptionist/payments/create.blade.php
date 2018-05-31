@@ -110,7 +110,7 @@
 										Amount Due:
 									</label>
 
-									<input type="text" name="" readonly class="form-control m-input" disabled="disabled" value="{{ $payment->procedure_cost }}" style="font-weight: 600px !important;">
+									<input type="text" name="" readonly class="form-control m-input" disabled="disabled" value="{{ $payment->balance }}" style="font-weight: 600px !important;">
 								</div>
 
 							</div>

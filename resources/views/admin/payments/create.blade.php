@@ -61,10 +61,14 @@
 										</button>
 										@endif --> --}}
 
-										<script src="js/sweetalert.min.js"></script>
+										<script src="../js/sweetalert2.all.js"></script>
 
 										<!-- Include this after the sweet alert js file -->
-									@include('sweet::alert')
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 										
 									</div>
 								</span>
@@ -95,10 +99,47 @@
 
 								<div class="col-lg-4">
 									<label>
+										Procedure Cost:
+									</label>
+
+									<input type="text" name="" readonly class="form-control m-input" disabled="disabled" value="{{ $payment->procedure_cost }}" style="font-weight: 600px !important;">
+								</div>
+
+								<div class="col-lg-4">
+									<label>
 										Amount Due:
 									</label>
 
-									<input type="text" name="amount" readonly class="form-control m-input" disabled="disabled" value="{{ $payment->amount_due }}" style="font-weight: 600px !important;">
+									<input type="text" name="" readonly class="form-control m-input" disabled="disabled" value="{{ $payment->balance }}" style="font-weight: 600px !important;">
+								</div>
+
+							</div>
+
+							<div class="form-group m-form__group row">
+								<div class="col-lg-4">
+									<label>
+										Amount Paid:
+									</label>
+									<input type="text" name="amount_paid"  class="form-control m-input" ><br><br>
+
+									{{--  <label>
+										Balance:
+									</label>
+									<input type="text" name="balance"  disabled="disabled" class="form-control m-input" >  --}}
+									
+								</div>
+							</div>
+
+
+							<div class="form-group m-form__group row">
+								<div class="col-lg-8">
+									<label>
+										Notes
+									</label>
+										<div>
+											<textarea name="" id="textarea" readonly  class="form-control" cols="15" rows="10" required="required" disabled="disabled" value="">{{ $payment->notes }}</textarea>
+										</div>
+									
 								</div>
 
 								<div class="col-lg-4">
@@ -117,35 +158,7 @@
        					    		</div>
 								</div>
 
-
-							</div>
-
-
-							<div class="form-group m-form__group row">
-								<div class="col-lg-8">
-									<label>
-										Notes
-									</label>
-										<div>
-											<textarea name="" id="textarea" readonly  class="form-control" cols="15" rows="10" required="required" disabled="disabled" value="">{{ $payment->notes }}</textarea>
-										</div>
-									
-								</div>
-
-								<div class="col-lg-4">
-									<label>
-										Amount Paid:
-									</label>
-									<input type="text" name="amount_paid"  class="form-control m-input" ><br><br>
-
-									<label>
-										Balance:
-									</label>
-									<input type="text" name="balance"  disabled="disabled" class="form-control m-input" >
-									
-								</div>
-
-
+							
 							</div>
 
 						</div>

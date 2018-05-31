@@ -256,7 +256,7 @@ class ReceptionistController extends Controller
         $pay->amount_paid = $amount_paid;
         $pay->balance = $final_balance;
         $pay->next_appointment = $next_appointment;
-        $pay->save();
+        $pay->save();   
             
         
         Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);

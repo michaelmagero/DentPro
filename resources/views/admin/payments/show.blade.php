@@ -130,19 +130,19 @@
 												<td>{{ $payment->created_at }}</td>
 												<td>
 													
-													<a href="{{ url('new-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
+													<a href="{{ url('new-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
 														<i class="fa fa-plus text-primary"></i>
 													</a>
 
-													<a href="{{ url('show-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													<a href="{{ url('show-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="{{ url('delete-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 														<i class="fa fa-trash"></i>
 													</a>
 													

@@ -78,7 +78,7 @@
 											</div>
 										</div>
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-appointment') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+											<a href="{{ url('new-appointment-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
 													<span>
@@ -130,15 +130,15 @@
 												<td></td>
 												<td>
 													
-													<a href="{{ url('show-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													<a href="{{ url('show-appointment-admin/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
 													</a>
 
-													<a href="{{ url('edit-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+													<a href="{{ url('edit-appointment-admin/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="{{ url('delete-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+													<a href="{{ url('delete-appointment-admin/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 														<i class="fa fa-trash"></i>
 													</a>
 													

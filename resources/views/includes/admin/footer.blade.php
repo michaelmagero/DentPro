@@ -55,6 +55,9 @@
 
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/bootstrap-daterangepicker.js" type="text/javascript"></script>
 		
+		<script src="../admin/assets/demo/default/custom/components/datatables/base/advanced-search.js" type="text/javascript"></script>
+
+		<script src="../admin/assets/demo/default/custom/components/datatables/base/datatables.bundle.js" type="text/javascript"></script>
 
 		<!--end::Page Snippets -->
 

@@ -9,6 +9,7 @@ use App\Payment;
 use App\Appointment;
 use App\Invoice;
 use App\Waiting;
+use App\Expense;
 use Hash;
 use Alert;
 use DB;
@@ -325,7 +326,7 @@ class AdminController extends Controller
                 
 
                 // redirect
-                \Session::flash('message', 'Successfully updated!');
+                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
                 return back();
             }
     }
@@ -335,21 +336,24 @@ class AdminController extends Controller
 
         $patient->delete();
 
-        \Session::flash('flash_message','Post Deleted Successfully.');
+        Alert::success('Post Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
+
+
+
     //PAYMENTS
     public function allpayments() {
-        return view('receptionist.payments.show')
+        return view('admin.payments.show')
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(10));
     }
 
     public function new_payment($id) {
         $patient = Patient::findorFail($id);
-        return view('receptionist.payments.create')
-        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
-        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
+        return view('admin.payments.create')
+            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+            ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
 
 
@@ -384,7 +388,7 @@ class AdminController extends Controller
         $payment = Payment::where('id',$patient_id)->first();
             
         //load form view
-        return view('receptionist.payments.edit', compact('payments'))
+        return view('admin.payments.edit', compact('payments'))
         ->with('patients', Patient::where('id', $patient_id)->orderBy('created_at','desc')->paginate(5))
         ->with('payments', Payment::where('patient_id', $patient_id)->orderBy('created_at','desc')->get());
     }
@@ -394,13 +398,13 @@ class AdminController extends Controller
 
         if($patient)
         {
-            return view('receptionist.payments.read')
+            return view('admin.payments.read')
             ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5)) 
             ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get()); 
         }
         else 
         {
-            return view('receptionist.payments.read');
+            return view('admin.payments.read');
         }
     }
 
@@ -421,7 +425,7 @@ class AdminController extends Controller
         Payment::where('patient_id', $id)->update(array('procedure' => $procedure, 'amount_due' => $amount_due,'amount_paid' => $amount_paid, 'balance' => $balance, 'next_appointment' => $next_appointment, 'notes' => $notes ));
 
         // redirect
-        \Session::flash('message', 'Successfully updated!');
+        Alert::success('Successfully Updated', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -432,43 +436,21 @@ class AdminController extends Controller
 
         $payment->delete();
 
-        \Session::flash('flash_message','Payment Deleted Successfully.');
+        Alert::success('Payment Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     //APPOINTMENTS
     public function allappointments() {
-        return view('receptionist.appointments.show')
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5));
+        return view('admin.appointments.show')
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(1));
     }
 
     public function new_appointment() {
-        return view('receptionist.appointments.create')
+        return view('admin.appointments.create')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
         ->with('users', User::orderBy('created_at','desc')->paginate(5));
     }
@@ -489,26 +471,26 @@ class AdminController extends Controller
 
         $appointment->save();
 
-        \Session::flash('flash_message','Appointment Added Successfully.');
+        Alert::success('Appointment Added Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
     public function edit_appointment($id) {
             
         //load form view
-        return view('receptionist.appointments.edit', compact('appointments'))
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        return view('admin.appointments.edit')
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(1))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
         ->with('payments', Payment::orderBy('created_at','desc')->get())
-        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+        ->with('users', User::orderBy('created_at','desc')->paginate(1));
     }
 
     public function show_appointment($id) {
 
-            return view('receptionist.appointments.read')
-            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
-            ->with('payments', Payment::orderBy('created_at','desc')->get());   
+            return view('admin.appointments.read')
+            ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
+            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(1))
+            ->with('payments', Payment::orderBy('created_at','desc')->paginate(1));   
     }
 
     public function update_appointment(Request $request, $id) {
@@ -536,7 +518,7 @@ class AdminController extends Controller
                 $appointment->save();
 
                 // redirect
-                \Session::flash('message', 'Successfully updated!');
+                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
                 return back();
             }
     }
@@ -548,7 +530,7 @@ class AdminController extends Controller
 
         $appointment->delete();
 
-        \Session::flash('flash_message','Appointment Deleted Successfully.');
+        Alert::success('Appointment Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -559,9 +541,10 @@ class AdminController extends Controller
 
     //WAITING LIST
     public function allwaiting() {
-        return view('receptionist.waitinglist.show')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(5));
+        return view('admin.waitinglist.show')
+        ->with('patients', Patient::orderBy('created_at','desc')->get())
+        ->with('waitings', Waiting::orderBy('created_at','desc')->get())
+        ->with('payments', Payment::orderBy('created_at','desc')->get());
     }
 
     public function delete_waiting($id) {
@@ -570,7 +553,94 @@ class AdminController extends Controller
         
         $waiting->delete();
 
-        \Session::flash('flash_message','Appointment Deleted Successfully.');
+        Alert::success('Waiting Cleared Successfully', 'Success')->autoclose(2000);
+        return back();
+    }
+
+
+
+
+
+    //EXPENSES
+    public function allexpenses() {
+        
+        return view('admin.expenses.show')
+        ->with('expenses', Expense::orderBy('created_at','desc')->paginate(10));
+    }
+
+    //insert waiting without ID - mainly for appointments from patients not registered with the clinic
+    public function create_expense() {
+        return view('admin.expenses.create')
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+    }
+
+    public function insert_expense(Request $request) {
+
+        $expense = new Expense();
+
+        $expense->description = $request->get('description');
+        $expense->amount = number_format($request->get('amount'),2);
+
+        $expense->save();
+        
+        Alert::success('Expense Added Successfully', 'Success')->autoclose(2000);
+        return back();
+    }
+
+    public function edit_expense($id) {
+            
+        //load form view
+        return view('admin.expenses.edit', compact('expenses'))
+        ->with('expenses', Expense::orderBy('created_at','desc')->paginate(5))
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::orderBy('created_at','desc')->get())
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+    }
+
+    public function show_expense($id) {
+
+            return view('admin.expenses.read')
+            ->with('expenses', Expense::orderBy('created_at','desc')->paginate(5))
+            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+            ->with('payments', Payment::orderBy('created_at','desc')->get());   
+    }
+
+    public function update_expense(Request $request, $id) {
+        // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'description'       => 'required',
+                'amount'      => 'required'
+            );
+            $validator = Validator::make(Input::all(), $rules);
+
+            // process the login
+            if ($validator->fails()) {
+                return Redirect::to('edit-expense/' . $id)
+                    ->withErrors($validator);
+            } else {
+                // store
+                $expense = Expense::find($id);
+                $expense->description = $request->get('description');
+                $expense->amount = number_format($request->get('amount'),2);
+                $expense->save();
+
+                // redirect
+                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
+                return back();
+            }
+    }
+
+
+
+    public function delete_expense($id) {
+        $expense = Expense::where('id',$id)->first();
+
+        $expense->delete();
+
+        Alert::success('Expense Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
 

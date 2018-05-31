@@ -106,6 +106,21 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/delete-waiting-admin/{id}','AdminController@delete_waiting');
 
+	//EXPENSES ROUTES
+	Route::get('all-expenses-admin','AdminController@allexpenses');
+
+	Route::get('new-expense-admin','AdminController@create_expense');
+
+	Route::post('new-expense-admin','AdminController@insert_expense');
+
+	Route::get('show-expense-admin/{id}','AdminController@show_expense');
+
+	Route::get('edit-expense-admin/{id}','AdminController@edit_expense');
+
+	Route::post('update-expense-admin/{id}','AdminController@update_expense');
+
+	Route::get('/delete-expense-admin/{id}','AdminController@delete_expense');
+
 
 
 

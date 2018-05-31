@@ -50,11 +50,12 @@
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Patients
+													Doctors
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-brand">
-													{{ $patients->count() }}
+
+													{{ $users->where("role", "admin")->count() }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
@@ -71,11 +72,11 @@
 										<div class="m-widget24">
 											<div class="m-widget24__item">
 												<h4 class="m-widget24__title">
-													Payments
+													Patients
 												</h4>
 												<br>
 												<span class="m-widget24__stats m--font-info">
-													{{ $payments->count() }}
+													{{ $patients->count() }}
 												</span>
 												<div class="m--space-10"></div>
 												<div class="progress m-progress--sm">
