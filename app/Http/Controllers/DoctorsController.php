@@ -156,6 +156,14 @@ class DoctorsController extends Controller
         ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(10));
     }
 
+
+    //LAB LIST
+    public function all_lab_list() {
+        return view('doctor.laboratory.show')
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10))
+        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(10));
+    }
+
     
 
     

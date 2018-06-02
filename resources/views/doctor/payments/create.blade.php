@@ -159,7 +159,7 @@
 							<div class="form-group m-form__group row">
 								
 
-								<div class="col-lg-8">
+								<div class="col-lg-6">
 									<label>
 										Notes
 									</label>
@@ -168,6 +168,36 @@
 									</div>
 									
 								</div>
+
+								<div class="col-lg-6">
+									<label>
+										Description:
+									</label>
+									<input type="text" name="description"  class="form-control m-input" ><br>
+
+
+									<label>
+										Lab Name:
+									</label>
+									<input type="text" name="lab_name"  class="form-control m-input" ><br>
+
+									<label>
+										Due Date:
+									</label>
+									<div class="input-group date" >
+										<input class="flatpickr flatpickr-input form-control input active" placeholder="Select Date..." tabindex="0" type="text" readonly="readonly" name="due_date">
+		       					        <script>
+		       					            flatpickr(".flatpickr", {
+		       					                enableTime: false,
+		       					                altInput: true,
+		       					                altFormat: "Y-m-d",
+		       					            });
+		       					        </script>
+       					    		</div>
+									
+								</div>
+
+								
 							</div>
 
 						</div>

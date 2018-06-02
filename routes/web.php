@@ -293,6 +293,18 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	// Route::get('/delete-appointment/{id}','DoctorsController@delete_appointment');
 
 
+	//WAITING ROUTES (LOGIC FROM DOCTOR CONTROLLER)
+	Route::get('all-lablist','DoctorsController@all_lab_list');
+
+	// Route::get('/show-appointment/{id}','DoctorsController@show_appointment');
+
+	// Route::get('/edit-appointment/{id}','DoctorsController@edit_appointment');
+
+	// Route::post('update-appointment','DoctorsController@update_appointment');
+
+	// Route::get('/delete-appointment/{id}','DoctorsController@delete_appointment');
+
+
 
 
 	
