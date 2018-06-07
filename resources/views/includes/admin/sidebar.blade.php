@@ -328,7 +328,7 @@
 											document.getElementById('logout-form').submit();">
 									<i class="fa fa-sign-out m-menu__link-icon "></i>
 									<span class="m-menu__link-text">
-										Sing Out
+										Sign Out
 									</span>
 								</a>
 
@@ -393,7 +393,7 @@
 											<div class="m-messenger__message-arrow"></div>
 											<div class="m-messenger__message-content">
 												<div class="m-messenger__message-text">
-													<p> Megan. It's at 2.30PM </p>
+													<p> Megan. Its at 2.30PM </p>
 												</div>
 											</div>
 										</div>

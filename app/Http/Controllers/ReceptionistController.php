@@ -548,20 +548,4 @@ class ReceptionistController extends Controller
     }
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

@@ -48,7 +48,7 @@
 							<div class="m-stack m-stack--ver m-stack--general">
 								<div class="m-stack__item m-stack__item--middle m-brand__logo">
 									<a href="{{ url('/') }}" class="m-brand__logo-wrapper">
-										<h3 class="text-center" style="padding:10px 0 0 30px; color:#fff;"> DMS </h3>
+										<h6 class="text-center" style="padding:10px 0 0 30px; color:#fff;"> DMS </h6>
 									</a>
 								</div>
 								<div class="m-stack__item m-stack__item--middle m-brand__tools">

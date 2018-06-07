@@ -57,10 +57,14 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/delete-patient-admin/{id}','AdminController@delete_patient');
 
+
+
 	//PAYMENT ROUTES (RECEPTIONIST)
 	Route::get('all-payments-admin','AdminController@allpayments');
 
-	Route::get('new-payment-admin/{id}','AdminController@new_payment');
+	Route::get('new-payment-admin','AdminController@create_payment');
+
+	Route::post('new-payment-admin','AdminController@insert_payment');
 
 	Route::post('new-payment-admin/{id}','AdminController@create_payment');
 
@@ -120,6 +124,11 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::post('update-expense-admin/{id}','AdminController@update_expense');
 
 	Route::get('/delete-expense-admin/{id}','AdminController@delete_expense');
+
+	
+
+	//LABWORK ROUTES
+	Route::get('all-lablist-admin','AdminController@all_lab_list');
 
 
 
@@ -293,8 +302,8 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	// Route::get('/delete-appointment/{id}','DoctorsController@delete_appointment');
 
 
-	//WAITING ROUTES (LOGIC FROM DOCTOR CONTROLLER)
-	Route::get('all-lablist','DoctorsController@all_lab_list');
+	//LABWORK ROUTES (LOGIC FROM DOCTOR CONTROLLER)
+	Route::get('all-lablist-doc','DoctorsController@all_lab_list');
 
 	// Route::get('/show-appointment/{id}','DoctorsController@show_appointment');
 

@@ -59,6 +59,8 @@
 
 		<script src="../admin/assets/demo/default/custom/components/datatables/base/datatables.bundle.js" type="text/javascript"></script>
 
+		<script src="../admin/assets/demo/default/custom/components/datatables/base/local-sort.js" type="text/javascript"></script>
+
 		<!--end::Page Snippets -->
 
 		<script>

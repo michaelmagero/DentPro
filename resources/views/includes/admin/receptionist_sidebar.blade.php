@@ -259,7 +259,7 @@
 											document.getElementById('logout-form').submit();">
 									<i class="fa fa-sign-out m-menu__link-icon "></i>
 									<span class="m-menu__link-text">
-										Sing Out
+										Sign Out
 									</span>
 								</a>
 

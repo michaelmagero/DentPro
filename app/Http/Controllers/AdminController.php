@@ -10,6 +10,7 @@ use App\Appointment;
 use App\Invoice;
 use App\Waiting;
 use App\Expense;
+use App\Labwork;
 use Hash;
 use Alert;
 use DB;
@@ -349,39 +350,45 @@ class AdminController extends Controller
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(10));
     }
 
-    public function new_payment($id) {
+    public function create_payment() {
+        return view('admin.payments.create')
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
+    }
+
+    public function create_payment_id($id) {
         $patient = Patient::findorFail($id);
         return view('admin.payments.create')
-            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
-            ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
     }
 
+    public function insert_payment(Request $request) {
 
-    
-    public function create_payment($patient_id, Request $request) {
-        
+        $payment = new Payment();
+        $payment->doctor_id = Auth::user()->id;
+        $payment->patient_id = $request->get('patient_id');
+        $payment->procedure = $request->get('procedure');
+        $payment->procedure_cost = number_format($request->get('procedure_cost'),2);
+        $payment->notes = $request->get('notes');
 
-        $date = $request->get('next_appointment');
-        $next_appointment = date_format(date_create($date), 'Y-m-d');
+        $payment->save();
 
-        
-        $amount_paid = $request->get('amount_paid');
-        
-        $amountdue = DB::select( DB::raw("SELECT amount_due FROM dms_payments WHERE patient_id = '$patient_id'") );
-        $patient = Patient::findorFail($patient_id);
-        // $amountdue = $patient->amount_due;
-        foreach ($amountdue as $patient_due) {
-            $final_due = $patient_due->amount_due;
-            $balance = (float) $final_due - $amount_paid;
-        }
-        
-    
-        $amount_due = DB::select( DB::raw("UPDATE dms_payments SET next_appointment = '$next_appointment', amount_paid = '$amount_paid', balance = '$balance' WHERE patient_id = '$patient_id'") );
+        $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $payment->patient_id "));
 
+        $labwork = new Labwork();
+        $labwork->patient_id = $request->get('patient_id');
+        $labwork->description = $request->get('description');
+        $labwork->lab_name = $request->get('lab_name');
+        $labwork->due_date = $request->get('due_date');
+        $labwork->status = 'pending';
+
+        $labwork->save();
+        
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-            return back();
-        
+        return redirect('all-lablist-admin');
     }
+
 
     public function edit_payment($patient_id) {
         //get post data by id
@@ -642,6 +649,14 @@ class AdminController extends Controller
 
         Alert::success('Expense Deleted Successfully', 'Success')->autoclose(2000);
         return back();
+    }
+
+
+    //LAB LIST
+    public function all_lab_list() {
+        return view('admin.laboratory.show')
+        ->with('labworks', Labwork::orderBy('created_at','desc')->paginate(10))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10));
     }
 
 

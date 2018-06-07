@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    All Payments
+    Laboratory List
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Payments
+                        Laboratory List
                     </h3>
                 </div>
                 <div>
@@ -40,21 +40,18 @@
 
 		<!-- END: Subheader -->
 					<div class="m-content">
-
-						
-						
 						<div class="m-portlet m-portlet--mobile">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<script src="../js/sweetalert2.all.js"></script>
 
-                                                <!-- Include this after the sweet alert js file -->
-                                                @if (Session::has('sweet_alert.alert'))
-                                                    <script>
-                                                        swal({!! Session::get('sweet_alert.alert') !!});
-                                                    </script>
-                                                @endif
+										<!-- Include this after the sweet alert js file -->
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -78,41 +75,44 @@
 											</div>
 										</div>
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-payment-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+											<!-- <a href="{{ url('new-waiting') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
 													<span>
-														New Payment
+														New Waiting Patient
 													</span>
 												</span>
-											</a>
+											</a> -->
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
 										</div>
 									</div>
 								</div>
 								<!--end: Search Form -->
-		<!--begin: Datatable -->
+								<!--begin: Datatable -->
 								<table class="m-datatable" id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
 											
-											<th title="Field #3">
+											<th title="Field #2">
 												File No
 											</th>
-											<th title="Field #4">
-												Procedure
+											<th title="Field #3">
+												Patient Name
 											</th>
 											<th title="Field #5">
-												Amount Due
+												Phone
 											</th>
 											<th title="Field #6">
-												Amount Paid
+												Description
 											</th>
 											<th title="Field #7">
-												Balance
+												Laboratory Name
 											</th>
 											<th title="Field #7">
-												Paid On
+												Due Date
+											</th>
+											<th title="Field #7">
+												Status
 											</th>
 											<th title="Field #7">
 												Action
@@ -120,39 +120,55 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($payments as $payment)
-											<tr>
-												<td>{{ $payment->patient_id }}</td>
-												<td>{{ $payment->procedure }}</td>
-												<td>{{ $payment->amount_due }}</td>
-												<td>{{ $payment->amount_paid }}</td>
-												<td>{{ $payment->balance }}</td>
-												<td>{{ $payment->created_at }}</td>
-												<td>
-													
-													<a href="{{ url('new-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
-														<i class="fa fa-plus text-primary"></i>
-													</a>
+										@foreach($labworks as $labwork)
+											@foreach($patients as $patient)
+												@if($labwork->patient_id == $patient->id)
+													<tr>
+														<td>{{ $labwork->patient_id }}</td>
+														<td>{{ $patient->firstname . " " . $patient->lastname }}</td>
+														<td>{{ $patient->phone_number }}</td>
+														<td>{{ $labwork->description }}</td>
+														<td>{{ $labwork->lab_name }}</td>
+														<td>{{ $labwork->due_date }}</td>
+														@if($labwork->status == 'pending')
+															<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $labwork->status }}</span></span></td>
+														@elseif($labwork->status == 'delivered')
+															<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $labwork->status }}</span></span></td>
+														@else
+															<td></td>
+														@endif
+														<td>
+															<a href="{{ url('show-doc-patient/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+																<i class="fa fa-eye"></i>
+															</a>
 
-													<a href="{{ url('show-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-														<i class="fa fa-eye"></i>
-													</a>
+															<a href="{{ url('patient-history-doc/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+																<i class="fa fa-user-md"></i>
+															</a>
 
-													<a href="{{ url('edit-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
-														<i class="fa fa-edit"></i>
-													</a>
-
-													<a href="{{ url('delete-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
-														<i class="fa fa-trash"></i>
-													</a>
-													
-												</button>
-												</td>
-											</tr>
+															<a href="{{ url('new-doc-payment/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear List ">
+																<i class="fa fa-trash"></i>
+															</a>
+														</button>
+														</td>
+													</tr>
+												@endif
+											@endforeach
                                    		@endforeach
 									</tbody>
 								</table>
 								<!--end: Datatable -->
+							</div>
+
+							<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+												{{ $labworks->links()}}
+										</div>
+									</div>
+										
+								</div>
 							</div>
 						</div>
 					</div>

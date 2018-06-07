@@ -8,6 +8,7 @@ use App\Payment;
 use App\User;
 use App\Appointment;
 use App\Waiting;
+use App\Labwork;
 use Alert;
 use DB;
 use Auth;
@@ -89,6 +90,7 @@ class DoctorsController extends Controller
     }
 
     public function insert_payment(Request $request) {
+
         $payment = new Payment();
         $payment->doctor_id = Auth::user()->id;
         $payment->patient_id = $request->get('patient_id');
@@ -99,9 +101,18 @@ class DoctorsController extends Controller
         $payment->save();
 
         $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $payment->patient_id "));
+
+        $labwork = new Labwork();
+        $labwork->patient_id = $request->get('patient_id');
+        $labwork->description = $request->get('description');
+        $labwork->lab_name = $request->get('lab_name');
+        $labwork->due_date = $request->get('due_date');
+        $labwork->status = 'pending';
+
+        $labwork->save();
         
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        return redirect('all-waiting');
+        return redirect('all-lablist-doc');
     }
 
 
@@ -160,8 +171,8 @@ class DoctorsController extends Controller
     //LAB LIST
     public function all_lab_list() {
         return view('doctor.laboratory.show')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10))
-        ->with('waitings', Waiting::orderBy('created_at','desc')->paginate(10));
+        ->with('labworks', Labwork::orderBy('created_at','desc')->paginate(10))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10));
     }
 
     

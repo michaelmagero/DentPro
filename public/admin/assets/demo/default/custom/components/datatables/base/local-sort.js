@@ -12,7 +12,7 @@ var DatatableLocalSortDemo = function () {
 				type: 'remote',
 				source: {
 					read: {
-						url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php'
+						url: '/all-patients'
 					}
 				},
 				pageSize: 10,
@@ -40,92 +40,32 @@ var DatatableLocalSortDemo = function () {
 
 			// columns definition
 			columns: [{
-				field: "RecordID",
-				title: "#",
+				field: "id",
+				title: "File No",
 				width: 50,
 				sortable: false, // disable sort for this column
 				selector: false,
 				textAlign: 'center'
 			}, {
-				field: "OrderID",
-				title: "Order ID",
+				field: "firstname",
+				title: "Patient Name",
 				// sortable: 'asc', // default sort
 				filterable: false, // disable or enable filtering
 				// basic templating support for column rendering,
 				template: '{{OrderID}} - {{ShipCountry}}'
-			}, {
-				field: "TotalPayment",
-				title: "Payment",
-				type: "number",
-				// custom sort callback for number
-				sortCallback: function (data, sort, column) {
-					var field = column['field'];
-					return $(data).sort(function (a, b) {
-						var aField = a[field];
-						var bField = b[field];
-						if (isNaN(parseFloat(aField)) && aField != null) {
-							aField = Number(aField.replace(/[^0-9\.-]+/g, ""));
-						}
-						if (isNaN(parseFloat(bField)) && aField != null) {
-							bField = Number(bField.replace(/[^0-9\.-]+/g, ""));
-						}
-						aField = parseFloat(aField);
-						bField = parseFloat(bField);
-						if (sort === 'asc') {
-							return aField > bField ? 1 : aField < bField ? -1 : 0;
-						} else {
-							return aField < bField ? 1 : aField > bField ? -1 : 0;
-						}
-					});
-				}
-			}, {
-				field: "ShipDate",
-				title: "Ship Date",
+			},{
+				field: "insurance_provider",
+				title: "Insurance Provider",
 				type: "date",
+				width: 100,
 				format: "MM/DD/YYYY"
 			}, {
-				field: "PaymentDate",
-				title: "Payment Date",
+				field: "amount_allocated",
+				title: "Amount Allocated",
 				width: 150,
 				type: "date",
 				format: "YYYY-MM-DD HH:mm:ss"
-			}, {
-				field: "Latitude",
-				title: "Latitude",
-				type: "number"
-			}, {
-				field: "Longitude",
-				title: "Longitude",
-				type: "number"
-			}, {
-				field: "Status",
-				title: "Status",
-				// callback function support for column rendering
-				template: function (row) {
-					var status = {
-						1: {'title': 'Pending', 'class': 'm-badge--brand'},
-						2: {'title': 'Delivered', 'class': ' m-badge--metal'},
-						3: {'title': 'Canceled', 'class': ' m-badge--primary'},
-						4: {'title': 'Success', 'class': ' m-badge--success'},
-						5: {'title': 'Info', 'class': ' m-badge--info'},
-						6: {'title': 'Danger', 'class': ' m-badge--danger'},
-						7: {'title': 'Warning', 'class': ' m-badge--warning'}
-					};
-					return '<span class="m-badge ' + status[row.Status].class + ' m-badge--wide">' + status[row.Status].title + '</span>';
-				}
-			}, {
-				field: "Type",
-				title: "Type",
-				// callback function support for column rendering
-				template: function (row) {
-					var status = {
-						1: {'title': 'Online', 'state': 'danger'},
-						2: {'title': 'Retail', 'state': 'primary'},
-						3: {'title': 'Direct', 'state': 'accent'}
-					};
-					return '<span class="m-badge m-badge--' + status[row.Type].state + ' m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-' + status[row.Type].state + '">' + status[row.Type].title + '</span>';
-				}
-			}, {
+			},{
 				field: "Actions",
 				title: "Actions",
 				sortable: false,

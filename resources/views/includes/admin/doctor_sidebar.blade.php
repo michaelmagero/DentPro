@@ -231,7 +231,7 @@
 											</span>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="{{ url('all-lablist') }}" class="m-menu__link ">
+											<a  href="{{ url('all-lablist-doc') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -267,7 +267,7 @@
 											document.getElementById('logout-form').submit();">
 									<i class="fa fa-sign-out m-menu__link-icon "></i>
 									<span class="m-menu__link-text">
-										Sing Out
+										Sign Out
 									</span>
 								</a>
 

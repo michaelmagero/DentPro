@@ -171,7 +171,7 @@
 
 								<div class="col-lg-6">
 									<label>
-										Description:
+										Lab Work Description:
 									</label>
 									<input type="text" name="description"  class="form-control m-input" ><br>
 

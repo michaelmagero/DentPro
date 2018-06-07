@@ -120,50 +120,40 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($waitings as $waiting)
-											@if($waiting->doctor == Auth::user()->name)
-												<tr>
-													<td>{{ $waiting->patient_id }}</td>
-													<td>{{ $waiting->patient_id }}</td>
-													<td>{{ $waiting->patient_id }}</td>
-													<td>{{ $waiting->firstname . " " . $waiting->lastname }}</td>
-													<td>{{ $waiting->payment_mode }}</td>
-													<td>{{ $waiting->amount_allocated }}</td>
-													@if($waiting->status == 'waiting')
-														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $waiting->status }}</span></span></td>
-													@elseif($waiting->status == 'seen')
-														<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $waiting->status }}</span></span></td>
-													@else
-														<td></td>
-													@endif
-													<td>
-														@foreach($patients as $patient)
-															@if($patient->id == $waiting->patient_id)
-																<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-																	<i class="fa fa-eye"></i>
-																</a>
+										@foreach($labworks as $labwork)
+											@foreach($patients as $patient)
+												@if($labwork->patient_id == $patient->id)
+													<tr>
+														<td>{{ $labwork->patient_id }}</td>
+														<td>{{ $patient->firstname . " " . $patient->lastname }}</td>
+														<td>{{ $patient->phone_number }}</td>
+														<td>{{ $labwork->description }}</td>
+														<td>{{ $labwork->lab_name }}</td>
+														<td>{{ $labwork->due_date }}</td>
+														@if($labwork->status == 'pending')
+															<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $labwork->status }}</span></span></td>
+														@elseif($labwork->status == 'delivered')
+															<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $labwork->status }}</span></span></td>
+														@else
+															<td></td>
+														@endif
+														<td>
+															<a href="{{ url('show-doc-patient/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+																<i class="fa fa-eye"></i>
+															</a>
 
-																<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
-																	<i class="fa fa-user-md"></i>
-																</a>
+															<a href="{{ url('patient-history-doc/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+																<i class="fa fa-user-md"></i>
+															</a>
 
-																<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
-																	<i class="fa fa-credit-card"></i>
-																</a>
-
-																<a href="{{ url('new-doc-payment/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
-																	<i class="fa fa-plus"></i>
-																</a>
-															@endif
-														@endforeach
-														
-
-														
-														
-													</button>
-													</td>
-												</tr>
-											@endif
+															<a href="{{ url('new-doc-payment/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
+																<i class="fa fa-plus"></i>
+															</a>
+														</button>
+														</td>
+													</tr>
+												@endif
+											@endforeach
                                    		@endforeach
 									</tbody>
 								</table>
@@ -174,7 +164,7 @@
 								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
 									<div class="row">
 										<div class="col-md-12">
-												{{ $waitings->links()}}
+												{{ $labworks->links()}}
 										</div>
 									</div>
 										

@@ -39,6 +39,7 @@
 		<!-- END: Subheader -->
 
 		<!-- END: Subheader -->
+
 			<div class="m-content">
 				<div class="m-portlet m-portlet--mobile">
 					<div class="m-portlet__head">
@@ -168,7 +169,7 @@
 									</div>
 										
 								</div>
-							</div>
+					</div>
 					</div>
 					
 					</div>

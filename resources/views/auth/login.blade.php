@@ -22,7 +22,7 @@
 					<div class="m-login__container">
 						<div class="m-login__logo">
 							<a href="#">
-								<img src="../admin/assets/app/media/img/logos/logo-1.png">
+								<img src="../images/logo.png" width="150" height="150">
 							</a>
 						</div>
 						<div class="m-login__signin">
@@ -35,15 +35,15 @@
                                 {{ csrf_field() }}
 
 								<div class="form-group">
-									<input class="form-control form-control-lg m-input" type="email" placeholder="Email" name="email">
+									<input class="form-control form-control-lg m-input" type="email" placeholder="Email" name="email" style="background-color:#f58220 !important;color:#000 !important;">
                                 </div><br>
                                 
 								<div class="form-group">
-									<input class="form-control form-control-lg m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
+									<input class="form-control form-control-lg m-input m-login__form-input--last" type="password" placeholder="Password" name="password" style="background-color:#f58220 !important;color:#000 !important;">
                                 </div>
                                 
 								<div class="m-login__form-action">
-									<button id="m_login_signin_submit" type="submit" class="btn btn-focus m-btn  m-btn--custom   m-login__btn">
+									<button id="m_login_signin_submit" type="submit" class="btn btn-primary m-btn  m-btn--custom   m-login__btn">
 										Sign In
 									</button>
 								</div>
