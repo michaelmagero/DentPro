@@ -46,6 +46,36 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-4">
                         <div class="m-portlet  ">
+                            <div class="m-portlet__head">
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                        <span class="m-portlet__head-icon m--hide">
+                                            <i class="la la-gear"></i>
+                                        </span>
+
+                                        <!-- <button type="button" class="btn btn-success m-btn m-btn--custom" id="m_sweetalert_demo_6">
+                                            Show me
+                                        </button> -->
+
+
+                                        
+                                        <span class="text-center">
+                                            <br>
+                                            <div class="col-md-12 ">
+                                                
+                                                <script src="../js/sweetalert2.all.js"></script>
+
+                                                <!-- Include this after the sweet alert js file -->
+                                                @if (Session::has('sweet_alert.alert'))
+                                                    <script>
+                                                        swal({!! Session::get('sweet_alert.alert') !!});
+                                                    </script>
+                                                @endif
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+					        </div>
                             <div class="m-portlet__body">
                                 <div class="m-card-profile">
                                     <div class="m-card-profile__title m--hide">
@@ -208,7 +238,7 @@
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="/update-payment/{{ $patient->id }}">
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="/update-payment-admin/{{ $patient->id }}">
                                         {{ csrf_field() }}
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
@@ -231,65 +261,16 @@
                                                     Procedure
                                                 </label>
                                                 <div class="col-7">
-                                                    <select class="form-control m-select2" id="m_select2_procedure" name="procedure" multiple="multiple">
-                                                        <option value='{{ $payment->procedure }}' selected="selected">
-                                                            {{ $payment->procedure }}
-                                                        </option>
-                                                        <optgroup >
-                                                            
-                                                            <option value="Consultation">
-                                                                Consultation
-                                                            </option>
-                                                            <option value="Full Mouth Scaling and Polishing">
-                                                                Full Mouth Scaling and Polishing
-                                                            </option>
-                                                            <option value="Root Canal">
-                                                                Root Canal
-                                                            </option>
-                                                            <option value="Permanent Filling">
-                                                                Permanent Filling
-                                                            </option>
-                                                            <option value="Open Surgical Disimpaction">
-                                                                Open Surgical Disimpaction
-                                                            </option>
-                                                            <option value="Closed Surgical Disimpaction">
-                                                                Closed Surgical Disimpaction
-                                                            </option>
-                                                            <option value="Operculectomy">
-                                                                Operculectomy
-                                                            </option>
-                                                            <option value="Curettage">
-                                                                Curettage
-                                                            </option>
-                                                            <option value="Whitening">
-                                                                Whitening
-                                                            </option>
-                                                            <option value="Masking">
-                                                                Masking
-                                                            </option>
-                                                            <option value="Dental Bridges">
-                                                                Dental Bridges
-                                                            </option>
-                                                            <option value="Dental Implants">
-                                                                Dental Implants
-                                                            </option>
-                                                            <option value="Dentures">
-                                                                Dentures
-                                                            </option>
-                                                            <option value="Braces">
-                                                                Braces
-                                                            </option>
-                                                        </optgroup>
-									                </select>
+                                                    <input class="form-control m-input"   name="procedure_cost"  type="procedure" value="{{ $payment->procedure }}" disabled="disabled">
                                                 </div>
                                             </div>
 
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
-                                                    Amount Due
+                                                    Procedure Cost
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->amount_due }}">
+                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->procedure_cost }}" disabled="disabled">
                                                 </div>
                                             </div>
 
@@ -307,7 +288,7 @@
                                                     Balance
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="balance"  type="text" value="{{ $payment->balance }}">
+                                                    <input class="form-control m-input"   name="balance"  type="text" value="{{ $payment->balance }}" disabled="disabled">
                                                 </div>
                                             </div>
 
@@ -336,7 +317,8 @@
                                                     Notes
                                                 </label>
                                                 <div class="col-7">
-                                                    <textarea name="notes" id="textarea"   readonly  class="form-control" cols="15" rows="10" required="required"  value="">{{ $payment->notes }}</textarea>
+                                                    <textarea name="notes" id="textarea"   readonly  class="form-control" cols="15" rows="10" required="required"  value=""
+                                                    disabled="disabled">{{ $payment->notes }}</textarea>
 
                                                 </div>
                                             </div>

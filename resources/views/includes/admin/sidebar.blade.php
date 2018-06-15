@@ -142,7 +142,7 @@
 												</span>
 											</a>
 										</li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+										{{--  <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 											<a  href="{{ url('new-payment-admin') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -152,12 +152,12 @@
 												</span>
 												<i class="m-menu__ver-arrow la la-angle-right"></i>
 											</a>
-										</li>
+										</li>  --}}
 									</ul>
 								</div>
 							</li>
 							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-								<a class="m-menu__link m-menu__toggle">
+								<a  href="#" class="m-menu__link m-menu__toggle">
 									<i class="m-menu__link-icon flaticon-calendar-2"></i>
 									<span class="m-menu__link-text">
 										Appointments
@@ -190,7 +190,17 @@
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Add New
+													New Appointment
+												</span>
+											</a>
+										</li>
+										<li class="m-menu__item " aria-haspopup="true" >
+											<a  href="{{ url('new-appointment-existing-admin') }}" class="m-menu__link ">
+												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="m-menu__link-text">
+													Existing Patient
 												</span>
 											</a>
 										</li>
@@ -223,6 +233,48 @@
 												</i>
 												<span class="m-menu__link-text">
 													Show List
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+
+							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+								<a  class="m-menu__link m-menu__toggle">
+									<i class="m-menu__link-icon flaticon-list-1"></i>
+									<span class="m-menu__link-text">
+										Procedures
+									</span>
+									<i class="m-menu__ver-arrow la la-angle-right"></i>
+								</a>
+								<div class="m-menu__submenu ">
+									<span class="m-menu__arrow"></span>
+									<ul class="m-menu__subnav">
+										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
+											<span class="m-menu__link">
+												<span class="m-menu__link-text">
+													Procedures
+												</span>
+											</span>
+										</li>
+										<li class="m-menu__item " aria-haspopup="true" >
+											<a  href="{{ url('all-procedures') }}" class="m-menu__link ">
+												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="m-menu__link-text">
+													All Procedures
+												</span>
+											</a>
+										</li>
+										<li class="m-menu__item " aria-haspopup="true" >
+											<a  href="{{ url('new-procedure') }}" class="m-menu__link ">
+												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="m-menu__link-text">
+													New Procedure
 												</span>
 											</a>
 										</li>
@@ -291,25 +343,25 @@
 											</span>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="{{ url('all-lablist-admin') }}" class="m-menu__link ">
+											<a  href="{{ url('all-labwork-admin') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Laboratory List
+													Labworks
 												</span>
 											</a>
 										</li>
-										<!-- <li class="m-menu__item " aria-haspopup="true" >
-											<a  href="{{ url('new-waiting') }}" class="m-menu__link ">
+										<li class="m-menu__item " aria-haspopup="true" >
+											<a  href="{{ url('new-labwork-admin') }}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Add Patient
+													Add Labwork
 												</span>
 											</a>
-										</li> -->
+										</li>
 									</ul>
 								</div>
 							</li>
@@ -342,8 +394,8 @@
 				</div>
                 <!-- END: Left Aside -->
             
-<!-- begin::Quick Sidebar -->
-		<!-- <div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light m-disabled">
+		<!-- begin::Quick Sidebar -->
+		{{-- <!-- <div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light m-disabled">
 			<div class="m-quick-sidebar__content m--hide">
 				<span id="m_quick_sidebar_close" class="m-quick-sidebar__close">
 					<i class="la la-close"></i>
@@ -943,5 +995,5 @@
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div> --> --}}
 		<!-- end::Quick Sidebar -->	

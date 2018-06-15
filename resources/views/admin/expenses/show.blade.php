@@ -77,7 +77,7 @@
 								<div class="col-xl-4 order-1 order-xl-2 m--align-right">
 									<a href="{{ url('new-expense-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 										<span>
-											<i class="la la-user"></i>
+											<i class="flaticon-business"></i>
 											<span>
 												New Expense
 											</span>
@@ -117,9 +117,9 @@
 										<td>{{ $expense->created_at }}</td>
 										<td>
 											
-											<a href="{{ url('show-expense-admin/'.$expense->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+											{{-- <a href="{{ url('show-expense-admin/'.$expense->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 												<i class="fa fa-eye"></i>
-											</a>
+											</a> --}}
 
 											<a href="{{ url('edit-expense-admin/'.$expense->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 												<i class="fa fa-edit"></i>

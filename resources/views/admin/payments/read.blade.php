@@ -208,7 +208,7 @@
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient') }}">
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient-admin') }}">
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
                                                 <div class="alert m-alert m-alert--default" role="alert">

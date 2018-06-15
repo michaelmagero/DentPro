@@ -1,5 +1,5 @@
 
-@extends('layouts.receptionist')
+@extends('layouts.admin')
 
 @section('header')
     Patient Profile
@@ -118,7 +118,7 @@
                                         </span>
                                     </li>
 
-                                    <li class="m-nav__item">
+                                    {{--  <li class="m-nav__item">
                                         <span class="m-nav__link">
                                             <span class="m-nav__link-title">
                                                 <span class="m-nav__link-wrap">
@@ -128,7 +128,7 @@
                                                 </span>
                                             </span>
                                         </a>
-                                    </li>
+                                    </li>  --}}
                                     
                                 </ul></br>
                                 <div class="m-widget1 m-widget1--paddingless">
@@ -313,6 +313,14 @@
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">
+                                                    Amount Allocated
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->amount_allocated }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
                                                     Occupation
                                                 </label>
                                                 <div class="col-7">
@@ -365,60 +373,6 @@
                                                     </select>  --}}
                                                     <input class="form-control m-input" disabled="disabled"  name="sex"  type="text" value="{{ $patient->doctor }}">
 
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Reffered by
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->referred_by }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Alcoholic
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->alcoholic }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Smoker
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->smoker }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Allergic Reactions
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->allergic_reactions }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Disease History
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->disease_history }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Cardiovascular Disease
-                                                </label>
-                                                <div class="col-7">
-                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->cardiovascular_disease }}">
                                                 </div>
                                             </div>
 

@@ -218,18 +218,6 @@ class ReceptionistController extends Controller
     
     public function create_payment($id, Request $request) {
 
-        // $balance = "GET BALANCE FROM your ACCOUNT";
-        // if ($balance < $amount_being_paid) {
-        //     charge_huge_overdraft_fees();
-        // }
-        // $balance = $balance - $amount_being paid;
-        // UPDATE your ACCOUNT SET BALANCE = $balance;
-
-        // $balance = "GET BALANCE FROM receiver ACCOUNT"
-        // charge_insane_transaction_fee();
-        // $balance = $balance + $amount_being_paid
-        // UPDATE receiver ACCOUNT SET BALANCE = $balance
-
         //get appointment date
         $date = $request->get('next_appointment');
         $next_appointment = date_format(date_create($date), 'Y-m-d');
@@ -372,13 +360,16 @@ class ReceptionistController extends Controller
     public function create_appointment_existing(Request $request) {
 
         $appointment = new Appointment();
-
+        
+        $pid = $request->get('patient_id');
+        $patient = Patient::where('id',$pid)->first();
+        
         $appointment->patient_id = $request->get('patient_id');
-        $appointment->firstname = $request->get('firstname');
-        $appointment->middlename = $request->get('middlename');
-        $appointment->lastname = $request->get('lastname');
-        $appointment->phone_number = $request->get('phone_number');
-        $appointment->doctor = $request->get('doctor');
+        $appointment->firstname = $patient->firstname;
+        $appointment->middlename = $patient->middlename;
+        $appointment->lastname = $patient->lastname;
+        $appointment->phone_number = $patient->phone_number;
+        $appointment->doctor = $patient->doctor;
 
         $date = $request->get('appointment_date');
         $appointment->appointment_date = date_format(date_create($date), 'Y-m-d');
@@ -415,7 +406,7 @@ class ReceptionistController extends Controller
         }
         else 
         {
-            return view('doctor.patients.read');
+            return view('receptionist.patients.read');
         }
     }
 

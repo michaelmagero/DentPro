@@ -11,6 +11,7 @@ use App\Invoice;
 use App\Waiting;
 use App\Expense;
 use App\Labwork;
+use App\Procedure;
 use Hash;
 use Alert;
 use DB;
@@ -205,7 +206,7 @@ class AdminController extends Controller
 
         $user->delete();
 
-        
+        Alert::success('User Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -267,9 +268,9 @@ class AdminController extends Controller
         $patient = Patient::where('id',$id)->first();
             
         //load form view
-        return view('admin.patients.edit', compact('patients'))
-        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
-        ->with('payments', Payment::orderBy('created_at','desc')->get())
+        return view('admin.patients.edit')
+        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
         ->with('users', User::orderBy('created_at','desc')->get());
     }
 
@@ -287,6 +288,29 @@ class AdminController extends Controller
         {
             return view('admin.patients.edit');
         }
+    }
+
+    public function medical_history($id) {
+        //get post data by id
+        $patient = Patient::where('id',$id)->first();
+        //$patient_doc = Patient::where('role', 'doctor')->get();
+            
+        //load form view
+        return view('admin.patients.medical_history', compact('payments'))
+        ->with('users', User::orderBy('created_at','desc')->paginate(1))
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(1))
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(1));
+    }
+
+    public function payment_history($id) {
+        //get post data by id
+        $patient = Patient::where('id',$id)->first();
+            
+        //load form view
+        return view('admin.patients.payment_history', compact('payments'))
+        ->with('users', User::orderBy('created_at','desc')->get())
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
 
     public function update_patient(Request $request, $id) {
@@ -347,46 +371,56 @@ class AdminController extends Controller
     //PAYMENTS
     public function allpayments() {
         return view('admin.payments.show')
-        ->with('payments', Payment::orderBy('created_at','desc')->paginate(10));
+        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
     }
 
-    public function create_payment() {
-        return view('admin.payments.create')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
-    }
-
-    public function create_payment_id($id) {
+    public function new_payment($id) {
         $patient = Patient::findorFail($id);
-        return view('admin.payments.create')
-        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
+
+        return view('admin.payments.create', compact('payments'))
+        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
 
-    public function insert_payment(Request $request) {
 
-        $payment = new Payment();
-        $payment->doctor_id = Auth::user()->id;
-        $payment->patient_id = $request->get('patient_id');
-        $payment->procedure = $request->get('procedure');
-        $payment->procedure_cost = number_format($request->get('procedure_cost'),2);
-        $payment->notes = $request->get('notes');
+    
+    public function create_payment($id, Request $request) {
 
-        $payment->save();
 
-        $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $payment->patient_id "));
-
-        $labwork = new Labwork();
-        $labwork->patient_id = $request->get('patient_id');
-        $labwork->description = $request->get('description');
-        $labwork->lab_name = $request->get('lab_name');
-        $labwork->due_date = $request->get('due_date');
-        $labwork->status = 'pending';
-
-        $labwork->save();
+        //get appointment date
+        $date = $request->get('next_appointment');
+        $next_appointment = date_format(date_create($date), 'Y-m-d');
         
-        Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        return redirect('all-lablist-admin');
+        //get amount paid
+        $amount_paid = number_format($request->get('amount_paid'),2);
+
+        //dd(number_format($amount_paid,2));
+
+        $patient = Patient::find($id);
+        $pid = $patient->id;
+               
+        $procedure_cost = DB::select(DB::raw("SELECT procedure_cost FROM dms_payments WHERE patient_id ='$pid' "));
+
+        $cost = $procedure_cost[0]->procedure_cost;
+
+        $balance = (double)str_replace(',','',$cost) - (double)str_replace(',','',$amount_paid);
+
+        $final_balance = number_format($balance,2);
+
+        $pay = new Payment();
+        $pay = Payment::where('patient_id',$id)->first();
+
+        $pay->amount_paid = $amount_paid;
+        $pay->balance = $final_balance;
+        $pay->next_appointment = $next_appointment;
+        $pay->save();   
+            
+        
+        Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
+        return redirect('all-payments-admin');
+        
     }
 
 
@@ -452,8 +486,10 @@ class AdminController extends Controller
 
     //APPOINTMENTS
     public function allappointments() {
+
         return view('admin.appointments.show')
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(1));
+        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(10))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1));
     }
 
     public function new_appointment() {
@@ -463,10 +499,12 @@ class AdminController extends Controller
     }
 
     public function create_appointment(Request $request) {
+        
 
         $appointment = new Appointment();
 
         $appointment->firstname = $request->get('firstname');
+        $appointment->middlename = $request->get('middlename');
         $appointment->lastname = $request->get('lastname');
         $appointment->phone_number = $request->get('phone_number');
         $appointment->doctor = $request->get('doctor');
@@ -482,22 +520,65 @@ class AdminController extends Controller
         return back();
     }
 
+    public function new_appointment_existing() {
+        return view('admin.appointments.create-existing')
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+    }
+
+    public function create_appointment_existing(Request $request) {
+
+        $appointment = new Appointment();
+        
+        $pid = $request->get('patient_id');
+        $patient = Patient::where('id',$pid)->first();
+        
+        $appointment->patient_id = $request->get('patient_id');
+        $appointment->firstname = $patient->firstname;
+        $appointment->middlename = $patient->middlename;
+        $appointment->lastname = $patient->lastname;
+        $appointment->phone_number = $patient->phone_number;
+        $appointment->doctor = $patient->doctor;
+
+        $date = $request->get('appointment_date');
+        $appointment->appointment_date = date_format(date_create($date), 'Y-m-d');
+
+        $appointment->appointment_status = $request->get('appointment_status');
+
+        $appointment->save();
+
+        Alert::success('Appointment Added Successfully', 'Success')->autoclose(2000);
+        return back();
+    }
+
+    
+
     public function edit_appointment($id) {
-            
+        //get post data by id
+        $app = Appointment::where('id',$id)->first();
+
         //load form view
         return view('admin.appointments.edit')
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(1))
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
-        ->with('payments', Payment::orderBy('created_at','desc')->get())
-        ->with('users', User::orderBy('created_at','desc')->paginate(1));
+        ->with('appointments', Appointment::where('id', $id)->orderBy('created_at','desc')->get())
+        ->with('patients', Patient::where('id', $app->patient_id)->orderBy('created_at','desc')->get())
+        ->with('payments', Payment::where('patient_id', $app->patient_id)->orderBy('created_at','desc')->get())
+        ->with('users', User::where('id', $id)->orderBy('created_at','desc')->get());
     }
 
     public function show_appointment($id) {
+        $patient = Patient::where('id',$id)->first();
 
+        if($patient)
+        {
             return view('admin.appointments.read')
-            ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
-            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(1))
-            ->with('payments', Payment::orderBy('created_at','desc')->paginate(1));   
+            ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(10))
+            ->with('users', User::orderBy('created_at','desc')->get())
+            ->with('payments', Payment::orderBy('created_at','desc')->get());   
+        }
+        else 
+        {
+            return view('admin.patients.read');
+        }
     }
 
     public function update_appointment(Request $request, $id) {
@@ -511,12 +592,13 @@ class AdminController extends Controller
 
             // process the login
             if ($validator->fails()) {
-                return Redirect::to('edit-appointment/' . $id)
+                return Redirect::to('edit-appointment-admin/' . $id)
                     ->withErrors($validator);
             } else {
                 // store
                 $appointment = Appointment::find($id);
                 $appointment->firstname = $request->get('firstname');
+                $appointment->lastname = $request->get('middlename');
                 $appointment->lastname = $request->get('lastname');
                 $appointment->phone_number = $request->get('phone_number');
                 $appointment->doctor = $request->get('doctor');
@@ -525,19 +607,18 @@ class AdminController extends Controller
                 $appointment->save();
 
                 // redirect
-                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
+                Alert::success('Update Successfull', 'Success')->autoclose(2000);
                 return back();
             }
     }
 
 
-
     public function delete_appointment($id) {
-        $appointment = Appointment::where('id',$id)->first();
+        $appointment = Appointment::findorFail($id);
 
-        $appointment->delete();
+        $app= DB::update(DB::raw("UPDATE dms_appointments set appointment_status = 'Complete' where id = $appointment->id "));
 
-        Alert::success('Appointment Deleted Successfully', 'Success')->autoclose(2000);
+        Alert::success('Appointment Cleared Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -554,6 +635,43 @@ class AdminController extends Controller
         ->with('payments', Payment::orderBy('created_at','desc')->get());
     }
 
+    //insert waiting without ID - mainly for appointments from patients not registered with the clinic
+    public function create_waiting($id) {
+        $appointment = Appointment::find($id);
+
+        $appointment = Waiting::create([
+            'patient_id' => $appointment->patient_id,
+            'firstname' => $appointment->firstname,
+            'middlename' => $appointment->middlename,
+            'lastname' => $appointment->lastname,
+            'payment_mode' => $appointment->payment_mode,
+            'amount_allocated' => $appointment->amount_allocated,
+            'doctor' => $appointment->doctor,
+            'doctor' => $appointment->doctor,
+        ]);
+        
+        Alert::success('Patient Added to Waiting List', 'Success')->autoclose(2000);
+        return back();
+    }
+
+    public function insert_waiting($id) {
+        $patient = Patient::find($id);
+
+        $patient = Waiting::create([
+            'patient_id' => $patient->id,
+            'firstname' => $patient->firstname,
+            'middlename' => $patient->middlename,
+            'lastname' => $patient->lastname,
+            'payment_mode' => $patient->payment_mode,
+            'amount_allocated' => $patient->amount_allocated,
+            'doctor' => $patient->doctor,
+            'status' => 'Waiting',
+        ]);
+        
+        Alert::success('Patient Added to Waiting List', 'Success')->autoclose(2000);
+        return back();
+    }
+
     public function delete_waiting($id) {
 
         $waiting = Waiting::find( $id );
@@ -567,15 +685,109 @@ class AdminController extends Controller
 
 
 
+    //PROCEDURES
+    public function allprocedures() {
+        return view('admin.procedures.show')
+        ->with('procedures', Procedure::orderBy('created_at','desc')->paginate(5));
+    }
 
-    //EXPENSES
+    public function create_procedure() {
+        return view('admin.procedures.create');
+    }
+    
+
+    public function insert_procedure(Request $request) {
+
+        $array = $request->get('arrayName');
+        
+        foreach ($array as $key => $value) {
+            
+            Procedure::create([
+                'procedure' => $value['procedure'],
+                'amount' => number_format($value['amount'], 2),
+            ]);
+        }
+
+        Alert::success('Procedure Added Successfully', 'Success')->autoclose(2000);
+        return redirect('all-procedures');
+    }
+
+
+    public function edit_procedure($id) {
+        //get post data by id
+        $payment = Procedure::where('id',$id)->first();
+            
+        //load form view
+        return view('admin.procedures.edit')
+        ->with('procedures', Procedure::where('id', $id)->orderBy('created_at','desc')->get());
+    }
+
+    // public function show_procedure($id) {
+    //     $patient = Patient::where('id',$id)->first();
+
+    //     if($patient)
+    //     {
+    //         return view('admin.procedures.read')
+    //         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5)) 
+    //         ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get()); 
+    //     }
+    //     else 
+    //     {
+    //         return view('admin.procedures.read');
+    //     }
+    // }
+
+
+    public function update_procedure(Request $request, $id) {
+
+        // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'procedure' => 'required',
+                'amount' => 'required'
+            );
+            $validator = Validator::make(Input::all(), $rules);
+
+            // process the login
+            if ($validator->fails()) {
+                return Redirect::to('edit-procedure/' . $id)
+                    ->withErrors($validator);
+            } else {
+                // store
+                $proc = Procedure::find($id);
+                $proc->procedure = $request->get('procedure');
+                $proc->amount = number_format($request->get('amount'),2);
+                $proc->save();
+
+                // redirect
+                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
+                return back();
+            }
+    }
+
+
+
+    public function delete_procedure($id) {
+        $proc = Procedure::where('id',$id)->first();
+
+        $proc->delete();
+
+        Alert::success('Procedure Deleted Successfully', 'Success')->autoclose(2000);
+        return back();
+    }
+
+
+
+
+
+    //laboratory
     public function allexpenses() {
         
         return view('admin.expenses.show')
         ->with('expenses', Expense::orderBy('created_at','desc')->paginate(10));
     }
 
-    //insert waiting without ID - mainly for appointments from patients not registered with the clinic
+
     public function create_expense() {
         return view('admin.expenses.create')
         ->with('users', User::orderBy('created_at','desc')->paginate(5));
@@ -595,24 +807,21 @@ class AdminController extends Controller
     }
 
     public function edit_expense($id) {
+        $expense = Expense::where('id',$id)->first();
             
         //load form view
-        return view('admin.expenses.edit', compact('expenses'))
-        ->with('expenses', Expense::orderBy('created_at','desc')->paginate(5))
-        ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::orderBy('created_at','desc')->get())
-        ->with('users', User::orderBy('created_at','desc')->paginate(5));
+        return view('admin.expenses.edit')
+        ->with('expenses', Expense::where('id', $expense->id)->orderBy('created_at','desc')->get());
     }
 
-    public function show_expense($id) {
+    // public function show_expense($id) {
 
-            return view('admin.expenses.read')
-            ->with('expenses', Expense::orderBy('created_at','desc')->paginate(5))
-            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
-            ->with('payments', Payment::orderBy('created_at','desc')->get());   
-    }
+    //         return view('admin.expenses.read')
+    //         ->with('expenses', Expense::orderBy('created_at','desc')->paginate(5))
+    //         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+    //         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+    //         ->with('payments', Payment::orderBy('created_at','desc')->get());   
+    // }
 
     public function update_expense(Request $request, $id) {
         // validate
@@ -636,7 +845,7 @@ class AdminController extends Controller
 
                 // redirect
                 Alert::success('Successfully Updated', 'Success')->autoclose(2000);
-                return back();
+                return redirect('all-expenses-admin');
             }
     }
 
@@ -652,11 +861,97 @@ class AdminController extends Controller
     }
 
 
+
+
     //LAB LIST
     public function all_lab_list() {
         return view('admin.laboratory.show')
         ->with('labworks', Labwork::orderBy('created_at','desc')->paginate(10))
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(10));
+    }
+
+
+    public function create_labwork() {
+        return view('admin.laboratory.create')
+        ->with('users', User::orderBy('created_at','desc')->paginate(5))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10));
+    }
+
+    public function insert_labwork(Request $request) {
+
+        $labwork = new Labwork();
+        $labwork->patient_id = $request->get('patient_id');
+        $labwork->description = $request->get('description');
+        $labwork->lab_name = $request->get('labname');
+        $labwork->due_date = $request->get('due_date');
+        $labwork->status = $request->get('status');
+
+        $labwork->save();
+
+        // redirect
+        Alert::success('Labwork Added Successfully', 'Success')->autoclose(2000);
+        return redirect('all-labwork-admin');
+    }
+
+    public function edit_labwork($id) {
+
+        $labwork = Labwork::where('id',$id)->first();
+            
+        //load form view
+        return view('admin.laboratory.edit')
+        ->with('labworks', Labwork::where('id', $labwork->id)->orderBy('created_at','desc')->get())
+        ->with('patients', Patient::orderBy('created_at','desc')->get());
+    }
+
+    public function show_labwork($id) {
+
+            return view('admin.laboratory.read')
+            ->with('laboratory', Expense::orderBy('created_at','desc')->paginate(5))
+            ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+            ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+            ->with('payments', Payment::orderBy('created_at','desc')->get());   
+    }
+
+    public function update_labwork(Request $request, $id) {
+        // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'description'       => 'required',
+                'labname'      => 'required'
+            );
+            $validator = Validator::make(Input::all(), $rules);
+
+            // process the login
+            if ($validator->fails()) {
+                return Redirect::to('edit-labwork-admin/' . $id)
+                    ->withErrors($validator);
+            } else {
+                // store
+                $labwork = Labwork::find($id);
+                $labwork->description = $request->get('description');
+                $labwork->lab_name = $request->get('labname');
+                $labwork->due_date = $request->get('due_date');
+                $labwork->status = $request->get('status');
+                $labwork->save();
+
+                // redirect
+                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
+                return redirect('all-labwork-admin');
+            }
+    }
+
+
+
+    public function delete_labwork($id) {
+
+        $labwork = Labwork::findorFail($id);
+
+        $wait= DB::update(DB::raw("UPDATE dms_labworks set status = 'delivered' where id = $labwork->id "));
+
+        //$waiting->delete();
+
+        Alert::success('Labwork Cleared Successfully', 'Success')->autoclose(2000);
+        return back();
     }
 
 

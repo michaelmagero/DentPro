@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    All Patients
+    All Procedures
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Patients
+                        Procedures
                     </h3>
                 </div>
                 <div>
@@ -24,7 +24,8 @@
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
                     </span>
-                </div>&nbsp;&nbsp;&nbsp;
+				</div>&nbsp;&nbsp;&nbsp;
+				
                 <div>
                     <span class="m-subheader__daterange">
                         <span class="m-subheader__daterange-label">
@@ -39,7 +40,6 @@
 		<!-- END: Subheader -->
 
 		<!-- END: Subheader -->
-
 			<div class="m-content">
 				<div class="m-portlet m-portlet--mobile">
 					<div class="m-portlet__head">
@@ -76,11 +76,11 @@
 									</div>
 								</div>
 								<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-									<a href="{{ url('new-patient-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+									<a href="{{ url('new-procedure') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 										<span>
-											<i class="flaticon-user"></i>
+											<i class="flaticon-list-1"></i>
 											<span>
-												New Patient
+												New Procedure
 											</span>
 										</span>
 									</a>
@@ -96,16 +96,13 @@
 								<tr class="m_datatable__row">
 									
 									<th class="file_no">
-										File No
+										#
 									</th>
 									<th>
-										Patient Name
+										Procedure
 									</th>
 									<th>
-										Insurance Provider
-									</th>
-									<th>
-										Amount Allocated
+										 Amount
 									</th>
 									<th>
 										Action
@@ -113,46 +110,24 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($patients as $patient)
+								@foreach($procedures as $procedure)
 									<tr>
-										<td style="width:20px !important;">{{ $patient->id }}</td>
-										<td>{{ $patient->firstname ." ".$patient->lastname  }}</td>
-										<td>
-											@if($patient->payment_mode == 'Cash')
-												{{ "N/A" }}
-											@elseif($patient->payment_mode != 'Cash')
-												{{ $patient->payment_mode }}
-											@endif
-										</td>
-										<td>{{ $patient->amount_allocated }}</td>
-										<td>
-											
-											<a href="{{ url('show-patient-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-												<i class="fa fa-eye"></i>
-											</a>
+										<td>{{ $procedure->id }}</td>
+										
+										<td>{{ $procedure->procedure }}</td>
+										<td>{{ $procedure->amount }}</td>
+										 <td>
 
-											<a href="{{ url('edit-patient-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+											<a href="{{ url('edit-procedure/'.$procedure->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 												<i class="fa fa-edit"></i>
 											</a>
-											
-											<a href="{{ url('patient-history-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
-												<i class="fa fa-user-md"></i>
-											</a>
 
-											<a href="{{ url('payment-history-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
-												<i class="fa fa-credit-card"></i>
-											</a>
-
-											<a href="{{ url('new-waiting-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">
-												<i class="fa fa-plus text-primary"></i>
-											</a>
-
-											<a href="{{ url('delete-patient-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+											<a href="{{ url('delete-procedure/'.$procedure->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 												<i class="fa fa-trash"></i>
 											</a>
 											
 										</button>
-										</td>
+										</td> 
 									</tr>
                            		@endforeach
 							</tbody>
@@ -164,12 +139,12 @@
 								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
 									<div class="row">
 										<div class="col-md-12">
-											{{ $patients->links() }}
+											{{ $procedures->links() }}
 										</div>
 									</div>
 										
 								</div>
-					</div>
+							</div>
 					</div>
 					
 					</div>

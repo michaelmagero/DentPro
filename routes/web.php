@@ -42,6 +42,9 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/delete-user/{id}','AdminController@destroy');
 
+
+
+
 	//PATIENTS (ADMIN)
 	Route::get('all-patients-admin','AdminController@allpatients');
 
@@ -51,6 +54,10 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('/show-patient-admin/{id}','AdminController@show_patient');
 
+	Route::get('/patient-history-admin/{id}','AdminController@medical_history');
+
+	Route::get('/payment-history-admin/{id}','AdminController@payment_history');
+
 	Route::get('/edit-patient-admin/{id}','AdminController@edit_patient');
 
 	Route::post('update-patient-admin/{id}','AdminController@update_patient');
@@ -59,10 +66,10 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 
 
-	//PAYMENT ROUTES (RECEPTIONIST)
+	//PAYMENT ROUTES
 	Route::get('all-payments-admin','AdminController@allpayments');
 
-	Route::get('new-payment-admin','AdminController@create_payment');
+	Route::get('new-payment-admin/{id}','AdminController@new_payment');
 
 	Route::post('new-payment-admin','AdminController@insert_payment');
 
@@ -79,12 +86,16 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	
 
 
-	//APPOINTMENT ROUTES (RECEPTIONIST)
+	//APPOINTMENT ROUTES
 	Route::get('all-appointments-admin','AdminController@allappointments');
 
 	Route::get('new-appointment-admin','AdminController@new_appointment');
 
 	Route::post('new-appointment-admin','AdminController@create_appointment');
+
+	Route::get('new-appointment-existing-admin','AdminController@new_appointment_existing');
+
+	Route::post('new-appointment-existing-admin','AdminController@create_appointment_existing');
 
 	Route::get('/show-appointment-admin/{id}','AdminController@show_appointment');
 
@@ -95,8 +106,15 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::get('/delete-appointment-admin/{id}','AdminController@delete_appointment');
 
 
-	//WAITING ROUTES (RECEPTIONIST)
+
+
+
+	//WAITING ROUTES
 	Route::get('all-waiting-admin','AdminController@allwaiting');
+
+	Route::get('new-waiting-appointment-admin/{id}','AdminController@create_waiting');
+
+	Route::get('new-waiting-admin/{id}', 'AdminController@insert_waiting');
 
 	Route::get('new-waiting-admin','AdminController@new_waiting');
 
@@ -109,6 +127,27 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::post('update-waiting-admin','AdminController@update_waiting');
 
 	Route::get('/delete-waiting-admin/{id}','AdminController@delete_waiting');
+
+
+
+
+
+	//PROCEDURES ROUTES
+	Route::get('all-procedures','AdminController@allprocedures');
+
+	Route::get('new-procedure','AdminController@create_procedure');
+
+	Route::post('create-procedure','AdminController@insert_procedure');
+
+	//Route::get('/show-waiting-admin/{id}','AdminController@show_waiting');
+
+	Route::get('/edit-procedure/{id}','AdminController@edit_procedure');
+
+	Route::post('update-procedure/{id}','AdminController@update_procedure');
+
+	Route::get('/delete-procedure/{id}','AdminController@delete_procedure');
+
+
 
 	//EXPENSES ROUTES
 	Route::get('all-expenses-admin','AdminController@allexpenses');
@@ -128,7 +167,23 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	
 
 	//LABWORK ROUTES
-	Route::get('all-lablist-admin','AdminController@all_lab_list');
+	Route::get('all-labwork-admin','AdminController@all_lab_list');
+
+	Route::get('new-labwork-admin','AdminController@create_labwork');
+
+	Route::post('new-labwork-admin','AdminController@insert_labwork');
+
+	Route::get('show-labwork-admin/{id}','AdminController@show_labwork');
+
+	Route::get('edit-labwork-admin/{id}','AdminController@edit_labwork');
+
+	Route::post('update-labwork-admin/{id}','AdminController@update_labwork');
+
+	Route::get('delete-labwork-admin/{id}','AdminController@delete_labwork');
+
+	
+
+
 
 
 
@@ -249,6 +304,11 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	// Route::post('update-patient','DoctorsController@update');
 
 	// Route::get('/delete-patient/{patient_id}','DoctorsController@delete');
+
+
+
+
+
 
 
 

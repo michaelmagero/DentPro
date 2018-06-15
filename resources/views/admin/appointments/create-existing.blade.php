@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('header')
-     New Labwork
+    Add New Appointment
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Add Labwork
+                        Add Appointment (<small>Existing patients</small>)
                     </h3>
                 </div>
                 <div>
@@ -68,12 +68,12 @@
 						</div>
 					</div>
 					<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-labwork-admin') }}">
+					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-appointment-existing-admin') }}">
 						{{ csrf_field() }}
 						<div class="m-portlet__body">
 							
 							<div class="form-group m-form__group row">
-
+								
 								<div class="col-lg-4 col-md-9 col-sm-12">
 									<label class="">
 										Patient FileNo:
@@ -89,35 +89,14 @@
 										Search user by searching File No.
 									</span>
 								</div>
-								
-								<div class="col-lg-4">
-									<label class="">
-										Description:
-									</label>
-									<input type="text" name="description"  class="form-control m-input" >
-									
-								</div>
-
-
-								<div class="col-lg-4">
+                                
+                                
+                                <div class="col-lg-4">
 									<label>
-										Lab Name:
-									</label>
-									<input type="text" name="labname"  class="form-control m-input" >
-									
-								</div>
-								
-							</div>
-
-
-							<div class="form-group m-form__group row">
-
-								<div class="col-lg-4">
-									<label>
-										Due Date:
+										Appointment Date:
 									</label>
 									<div class="input-group date" >
-										<input class="flatpickr flatpickr-input form-control input active" placeholder="Select Date..." tabindex="0" type="text" readonly="readonly" name="due_date">
+										<input class="flatpickr flatpickr-input form-control input active" placeholder="Select Date..." tabindex="0" type="text" readonly="readonly" name="appointment_date">
 		       					        <script>
 		       					            flatpickr(".flatpickr", {
 		       					                enableTime: false,
@@ -127,30 +106,25 @@
 		       					        </script>
        					    		</div>
 									
-								</div>
+                                </div>
+                                
 
 								<div class="col-lg-4">
 									<label>
-										Status:
+										Appointment Status:
 									</label>
-									<select name="status" class="form-control" id="m_notify_state">
+									<select name="appointment_status" class="form-control" id="m_notify_state">
 										<option value="">
 											Select Status
 										</option>
-										<option value="pending">
+										<option value="Pending">
 											Pending
 										</option>
-										<option value="delivered">
-											Delivered
+										<option value="Complete">
+											Complete
 										</option>
 									</select>
 								</div>
-							</div>
-
-
-							<div class="form-group m-form__group row">
-								
-
 								
 							</div>
 						</div>
@@ -160,7 +134,7 @@
 									<div class="col-lg-4"></div>
 									<div class="col-lg-8">
 										<button type="submit" class="btn btn-primary">
-											Add Labwork
+											Add Appointment
 										</button>
 										<button type="reset" class="btn btn-secondary">
 											Cancel

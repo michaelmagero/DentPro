@@ -40,9 +40,9 @@
 		
 		
 
-
+        @foreach($patients as $patient)
         <div class="m-content">
-            @foreach($patients as $patient)
+           
                 <div class="row">
                     <div class="col-xl-3 col-lg-4">
                         <div class="m-portlet  ">
@@ -194,7 +194,7 @@
                             <div class="tab-content">
                                 @foreach($appointments as $appointment)
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-appointment-admin/'.$patient->id) }}">
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-patient') }}">
                                         <div class="m-portlet__body">
                                             <div class="form-group m-form__group m--margin-top-10 m--hide">
                                                 <div class="alert m-alert m-alert--default" role="alert">
@@ -264,7 +264,7 @@
                                                 <div class="row">
                                                     <div class="col-2"></div>
                                                     <div class="col-7">
-                                                        <a href="{{ url('/edit-appointment-admin/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
+                                                        <a href="{{ url('/edit-appointment/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
                                                             Edit Appointment
                                                         </a>
                                                         &nbsp;&nbsp;
@@ -275,9 +275,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
+                                        
                                     </form>
                                 </div>
+                                @endforeach
                                 <div class="tab-pane " id="m_user_profile_tab_2"><br>
                                     <div class="col-md-12">
                                 <!--begin:: Widgets/Support Tickets -->
@@ -435,8 +436,8 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-
+            
+                @endforeach
             <!--End::Section-->
                     </div>
                 </div>

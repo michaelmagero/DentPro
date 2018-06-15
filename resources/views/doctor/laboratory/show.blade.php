@@ -138,16 +138,12 @@
 															<td></td>
 														@endif
 														<td>
-															<a href="{{ url('show-doc-patient/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+															<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 																<i class="fa fa-eye"></i>
 															</a>
 
-															<a href="{{ url('patient-history-doc/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+															<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
 																<i class="fa fa-user-md"></i>
-															</a>
-
-															<a href="{{ url('new-doc-payment/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">
-																<i class="fa fa-plus"></i>
 															</a>
 														</button>
 														</td>

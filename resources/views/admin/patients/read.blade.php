@@ -368,6 +368,60 @@
                                                 </div>
                                             </div>
 
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Reffered by
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->referred_by }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Alcoholic
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->alcoholic }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Smoker
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->smoker }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Allergic Reactions
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->allergic_reactions }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Disease History
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->disease_history }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Cardiovascular Disease
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->cardiovascular_disease }}">
+                                                </div>
+                                            </div>
+
 
                                             <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
                                             <div class="form-group m-form__group row">

@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    Laboratory List
+    Labwork List
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Laboratory List
+                        Labwork List
                     </h3>
                 </div>
                 <div>
@@ -75,14 +75,14 @@
 											</div>
 										</div>
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<!-- <a href="{{ url('new-waiting') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+											<a href="{{ url('new-labwork-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
-													<i class="la la-user"></i>
+													<i class="la la-flask"></i>
 													<span>
-														New Waiting Patient
+														New Labwork
 													</span>
 												</span>
-											</a> -->
+											</a>
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
 										</div>
 									</div>
@@ -138,17 +138,18 @@
 															<td></td>
 														@endif
 														<td>
-															<a href="{{ url('show-doc-patient/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+															<a href="{{ url('show-patient-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Patient Profile ">
 																<i class="fa fa-eye"></i>
 															</a>
 
-															<a href="{{ url('patient-history-doc/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
-																<i class="fa fa-user-md"></i>
+															<a href="{{ url('edit-labwork-admin/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Labwork ">
+																<i class="fa fa-edit"></i>
 															</a>
 
-															<a href="{{ url('new-doc-payment/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear List ">
-																<i class="fa fa-trash"></i>
+															<a href="{{ url('delete-labwork-admin/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Labwork ">
+																<i class="flaticon-circle"></i>
 															</a>
+
 														</button>
 														</td>
 													</tr>

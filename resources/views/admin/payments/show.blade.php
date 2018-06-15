@@ -49,12 +49,12 @@
 									<div class="m-portlet__head-title">
 										<script src="../js/sweetalert2.all.js"></script>
 
-                                                <!-- Include this after the sweet alert js file -->
-                                                @if (Session::has('sweet_alert.alert'))
-                                                    <script>
-                                                        swal({!! Session::get('sweet_alert.alert') !!});
-                                                    </script>
-                                                @endif
+										<!-- Include this after the sweet alert js file -->
+										@if (Session::has('sweet_alert.alert'))
+											<script>
+												swal({!! Session::get('sweet_alert.alert') !!});
+											</script>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -77,8 +77,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-payment-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+										{{-- <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+											<a href="{{ url('new-payment') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
 													<i class="la la-user"></i>
 													<span>
@@ -87,11 +87,11 @@
 												</span>
 											</a>
 											<div class="m-separator m-separator--dashed d-xl-none"></div>
-										</div>
+										</div> --}}
 									</div>
 								</div>
 								<!--end: Search Form -->
-		<!--begin: Datatable -->
+								<!--begin: Datatable -->
 								<table class="m-datatable" id="html_table" width="100%">
 									<thead>
 										<tr class="m_datatable__row">
@@ -103,7 +103,7 @@
 												Procedure
 											</th>
 											<th title="Field #5">
-												Amount Due
+												Procedure Cost
 											</th>
 											<th title="Field #6">
 												Amount Paid
@@ -124,7 +124,7 @@
 											<tr>
 												<td>{{ $payment->patient_id }}</td>
 												<td>{{ $payment->procedure }}</td>
-												<td>{{ $payment->amount_due }}</td>
+												<td>{{ $payment->procedure_cost }}</td>
 												<td>{{ $payment->amount_paid }}</td>
 												<td>{{ $payment->balance }}</td>
 												<td>{{ $payment->created_at }}</td>
@@ -134,17 +134,23 @@
 														<i class="fa fa-plus text-primary"></i>
 													</a>
 
-													<a href="{{ url('show-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+													{{--  <a href="{{ url('show-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 														<i class="fa fa-eye"></i>
-													</a>
+													</a>  --}}
 
 													<a href="{{ url('edit-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 														<i class="fa fa-edit"></i>
 													</a>
 
-													<a href="{{ url('delete-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
-														<i class="fa fa-trash"></i>
+													<a href="{{ url('payment-history-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
+														<i class="fa fa-credit-card"></i>
 													</a>
+
+													
+
+													{{--  <a href="{{ url('delete-payment/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+														<i class="fa fa-trash"></i>
+													</a>  --}}
 													
 												</button>
 												</td>
@@ -153,6 +159,16 @@
 									</tbody>
 								</table>
 								<!--end: Datatable -->
+							</div>
+							<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+											{{ $payments->links() }}
+										</div>
+									</div>
+										
+								</div>
 							</div>
 						</div>
 					</div>
