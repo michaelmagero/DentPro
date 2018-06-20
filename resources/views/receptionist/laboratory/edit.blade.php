@@ -2,7 +2,7 @@
 @extends('layouts.receptionist')
 
 @section('header')
-    Medical History
+    Edit Labwork
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Medical History
+                        Labwork
                     </h3>
                 </div>
                 <div>
@@ -42,130 +42,11 @@
 
 
         <div class="m-content">
-            @foreach($patients as $patient)
+            @foreach($labworks as $labwork)
                 <div class="row">
-                    <div class="col-xl-3 col-lg-4">
-                        <div class="m-portlet  ">
-                            <div class="m-portlet__body">
-                                <div class="m-card-profile">
-                                    <div class="m-card-profile__title m--hide">
-                                        Your Profile
-                                    </div>
-                                    <div class="m-card-profile__pic">
-                                        <div class="m-card-profile__pic-wrapper">
-                                            <img src="../images/avatar.png" alt=""/ width="60" height="60">
-                                        </div>
-                                    </div>
-                                    <div class="m-card-profile__details">
-                                        <span class="m-card-profile__name">
-                                            {{ $patient->firstname }} {{ $patient->lastname }}
-                                        </span>
-                                        <a href="" class="m-card-profile__email m-link">
-                                            {{ $patient->email }}
-                                        </a>
-                                    </div>
-                                </div>
-                                <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
-                                    <li class="m-nav__separator m-nav__separator--fit"></li>
-                                    <li class="m-nav__section m--hide">
-                                        <span class="m-nav__section-text">
-                                            Section
-                                        </span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
-                                            <i class="m-nav__link-icon flaticon-edit"></i>
-                                            <span class="m-nav__link-title">
-                                                <span class="m-nav__link-wrap">
-                                                    <span class="m-nav__link-text">
-                                                        File No - <span class="text-primary">{{ $patient->id }}</span>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
-                                            <i class="m-nav__link-icon flaticon-share"></i>
-                                            <span class="m-nav__link-text">
-                                                Date of Birth - <span class="text-primary">{{ $patient->dob }}</span>
-                                            </span>
-                                        </span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
-                                            <i class="m-nav__link-icon flaticon-support"></i>
-                                            <span class="m-nav__link-text">
-                                                Phone No. - <span class="text-primary">{{ $patient->phone_number }}</span>
-                                            </span>
-                                        </span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
-                                            <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                            <span class="m-nav__link-text">
-                                                Email - <span class="text-primary">{{ $patient->email }}</span>
-                                            </span>
-                                        </span>
-                                    </li>
-                                </ul>
-
-                                <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
-                                    <li class="m-nav__separator m-nav__separator--fit"></li>
-                                    <li class="m-nav__section m--hide">
-                                        <span class="m-nav__section-text">
-                                            Section
-                                        </span>
-                                    </li>
-
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
-                                            <span class="m-nav__link-title">
-                                                <span class="m-nav__link-wrap">
-                                                    <span class="m-nav__link-text">
-                                                        Payment History 
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    
-                                </ul></br>
-                                <div class="m-widget1 m-widget1--paddingless">
-                                    <div class="m-widget1__item">
-                                        <div class="row m-row--no-padding align-items-center">
-                                            <div class="col">
-                                                <h3 class="m-widget1__title">
-                                                    Balance
-                                                </h3>
-                                            </div>
-                                            <div class="col m--align-right">
-                                                @foreach($payments as $payment)
-                                                    <span class="m-widget1__number m--font-brand">
-                                                        {{$payment->balance}}
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides">
-                                    
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
-                                            <div id="m_repeater_1">
-											
-										</div>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                                 
                                 
-                    <div class="col-xl-9 col-lg-8">
+                    <div class="col-xl-12 col-lg-8">
                         <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-tools">
@@ -188,57 +69,138 @@
                                             </a>
                                         </li>
                                     </ul>  --}}
+
+                                    <span class="text-center">
+                                            <br>
+                                            <div class="col-md-12 ">
+                                                
+                                                <script src="../js/sweetalert2.all.js"></script>
+
+                                                <!-- Include this after the sweet alert js file -->
+                                                @if (Session::has('sweet_alert.alert'))
+                                                    <script>
+                                                        swal({!! Session::get('sweet_alert.alert') !!});
+                                                    </script>
+                                                @endif
+                                            </div>
+                                        </span>
                                 </div>
                                 
                             </div>
-                            @foreach($payments as $payment)
                             <div class="tab-content">
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
-                                    <div class="col-md-12">
-                                    <!--begin:: Widgets/Support Tickets -->
-                                    <div class=" ">
-                                        <div class="">
-                                            <div class="m-portlet__body">
-                                                <div class="m-widget3">
-                                                    <div class="m-widget3__item">
-                                                        <div class="m-widget3__header">
-                                                            <div class="m-widget3__user-img">
-                                                                <img class="m-widget3__img" src="../images/avatar.png" alt="">
-                                                            </div>
-                                                            <div class="m-widget3__info">
-                                                                @foreach($users as $user)
-                                                                    <span class="m-widget3__username">
-                                                                        @if($patient->doctor)
-                                                                            Dr {{ $patient->doctor }}
-                                                                        @endif
-                                                                    </span>
-                                                                @endforeach
-                                                                <br>
-                                                                <span class="m-widget3__time">
-                                                                    {{ $payment->created_at }}
-                                                                </span>
-                                                            </div>
-                                                            <span class="m-widget3__status m--font-info">
-                                                                <div class="m-widget4__ext">
-															        <a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-																        Payment History
-															        </a>
-														        </div>
-                                                            </span>
-                                                        </div>
-                                                        <div class="m-widget3__body mb-0">
-                                                            <p class="m-widget3__text">
-                                                                {{ $payment->notes }}
-                                                            </p>
-                                                        </div>
+                                    <form class="m-form m-form--fit m-form--label-align-right" method="POST" action="{{ url('update-labwork-admin/'.$labwork->id) }}">
+                                        {{ csrf_field() }}
+                                        <div class="m-portlet__body">
+                                            <div class="form-group m-form__group m--margin-top-10 m--hide">
+                                                <div class="alert m-alert m-alert--default" role="alert">
+                                                    The example form below demonstrates common HTML form elements that receive updated styles from Bootstrap with additional classes.
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <div class="col-10 ml-auto">
+                                                    <h3 class="m-form__section">
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Description
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" name="description"  type="text" value="{{ $labwork->description }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Lab Name
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" name="labname"  type="text" value="{{ $labwork->lab_name }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Due Date
+                                                </label>
+                                                <div class="col-7">
+                                                    <div class="input-group date" >
+                                                        <input class="flatpickr flatpickr-input form-control input active" placeholder="Select Date..." tabindex="0" type="text" readonly="readonly" name="due_date" value="{{ $labwork->due_date }}">
+                                                        <script>
+                                                            flatpickr(".flatpickr", {
+                                                                enableTime: false,
+                                                                altInput: true,
+                                                                altFormat: "Y-m-d",
+                                                            });
+                                                        </script>
+       					    		                </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Status
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" name="status"  type="text" value="{{ $labwork->status }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="m-portlet__foot m-portlet__foot--fit">
+                                            <div class="m-form__actions">
+                                                <div class="row">
+                                                    <div class="col-2"></div>
+                                                    <div class="col-7">
+                                                        <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                                            Save changes
+                                                        </button>
+                                                        &nbsp;&nbsp;
+                                                        <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+                                                            Cancel
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-								        </div>
-                                    </div>
-                                    <!--end:: Widgets/Support Tickets -->
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane " id="m_user_profile_tab_2"><br>
+                                    <div class="col-md-12">
+                                <!--begin:: Widgets/Support Tickets -->
+                                <div class=" ">
+                                    <div class="m-portlet__body">
+                                        <div class="m-widget3">
+                                            <div class="m-widget3__item">
+                                                <div class="m-widget3__header">
+                                                    <div class="m-widget3__user-img">
+                                                        <img class="m-widget3__img" src="../admin/assets/app/media/img/users/user1.jpg" alt="">
+                                                    </div>
+                                                    <div class="m-widget3__info">
+                                                        <span class="m-widget3__username">
+                                                            Dr 
+                                                        </span>
+                                                        <br>
+                                                        <span class="m-widget3__time">
+                                                            {{ $labwork->created_at }}
+                                                        </span>
+                                                    </div>
+                                                    <span class="m-widget3__status m--font-info">
+                                                        Pending
+                                                    </span>
+                                                </div>
+                                                <div class="m-widget3__body">
+                                                    <p class="m-widget3__text">
+                                                        Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <!--end:: Widgets/Support Tickets -->
+                            </div>
+							    </div>
 
 
 
@@ -356,7 +318,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+                            
                         </div>
                     </div>
                 </div>

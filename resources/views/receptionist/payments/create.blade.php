@@ -167,9 +167,11 @@
 								<div class="row">
 									<div class="col-lg-4"></div>
 									<div class="col-lg-8">
+										
 										<button type="submit" class="btn btn-primary m-btn m-btn--custom" id="m_sweetalert_demo_6_2">
 											Add Payment
 										</button>
+										
 										<button type="reset" class="btn btn-secondary">
 											Cancel
 										</button>

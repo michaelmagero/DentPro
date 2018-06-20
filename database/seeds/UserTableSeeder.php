@@ -18,6 +18,6 @@ class UserTableSeeder extends Seeder
         	'email'=>'managingdirector@dms.com',
         	'password'=>Hash::make('dmsadmin@_001'),
             'role'=>'admin',
-          ));
+        ));
     }
 }

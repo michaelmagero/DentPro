@@ -14,9 +14,10 @@
 		<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-		
+		<link href="../admin/assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<!--end::Web font -->
-        <!--begin::Base Styles -->  
+		<!--begin::Base Styles -->  
+		<link href="../css/invoice.min.css" rel="stylesheet" type="text/css">
         <!--begin::Page Vendors -->
 		<link href="../admin/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendors -->

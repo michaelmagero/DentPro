@@ -1,8 +1,8 @@
 
-@extends('layouts.doctor')
+@extends('layouts.receptionist')
 
 @section('header')
-    Add New Payment
+     New Labwork
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Add Payment
+                        Add Labwork
                     </h3>
                 </div>
                 <div>
@@ -40,7 +40,7 @@
 		
 		
 
-		@foreach($patients as $patient)
+
         <div class="m-content">
 			<!--begin::Portlet-->
 				<div class="m-portlet">
@@ -62,87 +62,57 @@
 												swal({!! Session::get('sweet_alert.alert') !!});
 											</script>
 										@endif
-										
 									</div>
 								</span>
 							</div>
 						</div>
 					</div>
 					<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-doc-payment') }}">
+					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" method="POST" action="{{ url('new-labwork-admin') }}">
 						{{ csrf_field() }}
-						<div class="m-portlet__body">							
+						<div class="m-portlet__body">
+							
 							<div class="form-group m-form__group row">
+
 								<div class="col-lg-4 col-md-9 col-sm-12">
 									<label class="">
 										Patient FileNo:
 									</label>
 										<select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
-											
+											@foreach($patients as $patient)
 											<option value='{{ $patient->id }}'>
 												{{ $patient->id }}
 											</option>
+											@endforeach
 										</select>
 									<span class="m-form__help">
 										Search user by searching File No.
 									</span>
 								</div>
-
-								<div class="col-lg-4">
-									<label>
-										Payment For
-									</label>
-									<select class="form-control m-select2" id="m_select2_procedure" name="procedure" multiple="multiple">
-                                        @foreach($procedures as $procedure)
-										<optgroup >
-											<option value='{{ $procedure->amount }}'>
-                                                {{ $procedure->procedure }}
-                                            </option>
-											
-                                        </optgroup>
-                                        @endforeach
-									</select>
-									
-								</div>
-
-
-								<div class="col-lg-4">
-									<label>
-										Amount:
-									</label>
-									<input type="text" name="procedure_cost"  class="form-control m-input" >
-									
-								</div>
-
-
-							</div>
-							
-
-							<div class="form-group m-form__group row">
 								
-
-								<div class="col-lg-6">
-									<label>
-										Notes
+								<div class="col-lg-4">
+									<label class="">
+										Description:
 									</label>
-									<div>
-										<textarea name="notes" id="textarea" class="form-control" cols="15" rows="10"></textarea>
-									</div>
+									<input type="text" name="description"  class="form-control m-input" >
 									
 								</div>
 
-								<div class="col-lg-6">
-									<label>
-										Lab Work Description:
-									</label>
-									<input type="text" name="description"  class="form-control m-input" ><br>
 
-
+								<div class="col-lg-4">
 									<label>
 										Lab Name:
 									</label>
-									<input type="text" name="lab_name"  class="form-control m-input" ><br>
+									<input type="text" name="labname"  class="form-control m-input" >
+									
+								</div>
+								
+							</div>
 
+
+							<div class="form-group m-form__group row">
+
+								<div class="col-lg-4">
 									<label>
 										Due Date:
 									</label>
@@ -159,17 +129,38 @@
 									
 								</div>
 
-								
+								<div class="col-lg-4">
+									<label>
+										Status:
+									</label>
+									<select name="status" class="form-control" id="m_notify_state">
+										<option value="">
+											Select Status
+										</option>
+										<option value="pending">
+											Pending
+										</option>
+										<option value="delivered">
+											Delivered
+										</option>
+									</select>
+								</div>
 							</div>
 
+
+							<div class="form-group m-form__group row">
+								
+
+								
+							</div>
 						</div>
 						<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 							<div class="m-form__actions m-form__actions--solid">
 								<div class="row">
 									<div class="col-lg-4"></div>
 									<div class="col-lg-8">
-										<button type="submit" class="btn btn-primary m-btn m-btn--custom">
-											Add Payment
+										<button type="submit" class="btn btn-primary">
+											Add Labwork
 										</button>
 										<button type="reset" class="btn btn-secondary">
 											Cancel
@@ -188,8 +179,7 @@
 						
 						
 						<!--End::Section-->
-					</div>
-					@endforeach
+                    </div>
                 </div>
 			</div>
             <!-- end:: Body -->

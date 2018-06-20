@@ -20,6 +20,8 @@
 		</div>
 		<!-- end:: Page -->
 
+		
+
 
 
 		<!-- begin::Quick Nav -->	
@@ -63,11 +65,23 @@
 
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/form-repeater.js" type="text/javascript"></script>
 
+		<script src="../admin/assets/demo/default/custom/components/forms/widgets/summernote.js" type="text/javascript"></script>
+
 		<!--end::Page Snippets -->
 
 		<script>
 			$('div.alert').not('.alert-important').delay(2000).fadeOut(350);
 		</script>
+
+		<script>
+			var select = document.getElementById('m_select2_procedure');
+			var input = document.getElementById('procedure_cost');
+			select.onchange = function() {
+				input.value = select.value
+			}
+		</script>
+
+
 
 		
 	</body>

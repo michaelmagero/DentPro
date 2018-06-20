@@ -9,6 +9,7 @@ use App\User;
 use App\Appointment;
 use App\Waiting;
 use App\Labwork;
+use App\Procedure;
 use Alert;
 use DB;
 use Auth;
@@ -77,16 +78,18 @@ class DoctorsController extends Controller
     }
 
     public function create_payment() {
-        return view('doctor.payments.create')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::orderBy('created_at','desc')->paginate(5));
+        return view('doctor.payments.create_new')
+        ->with('patients', Patient::orderBy('created_at','desc')->get())
+        ->with('payments', Payment::orderBy('created_at','desc')->get())
+        ->with('procedures', Procedure::orderBy('created_at','desc')->get());
     }
 
     public function create_payment_id($id) {
         $patient = Patient::findorFail($id);
         return view('doctor.payments.create')
-        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->paginate(5))
-        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->get())
+        ->with('payments', Payment::where('patient_id', $id)->orderBy('created_at','desc')->get())
+        ->with('procedures', Procedure::orderBy('created_at','desc')->get());
     }
 
     public function insert_payment(Request $request) {
@@ -95,24 +98,33 @@ class DoctorsController extends Controller
         $payment->doctor_id = Auth::user()->id;
         $payment->patient_id = $request->get('patient_id');
         $payment->procedure = $request->get('procedure');
-        $payment->procedure_cost = number_format($request->get('procedure_cost'),2);
+        $payment->procedure_cost = $request->get('procedure_cost');
         $payment->notes = $request->get('notes');
 
         $payment->save();
-
-        $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $payment->patient_id "));
-
-        $labwork = new Labwork();
-        $labwork->patient_id = $request->get('patient_id');
-        $labwork->description = $request->get('description');
-        $labwork->lab_name = $request->get('lab_name');
-        $labwork->due_date = $request->get('due_date');
-        $labwork->status = 'pending';
-
-        $labwork->save();
-        
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        return redirect('all-lablist-doc');
+        return redirect('all-payments-doc');
+
+        // $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $payment->patient_id "));
+
+        if (empty($request->get('description')) && empty($request->get('lab_name')) && empty($request->get('due_date'))) {
+            return back();
+        }else {
+            $labwork = new Labwork();
+            $labwork->patient_id = $request->get('patient_id');
+            $labwork->description = $request->get('description');
+            $labwork->lab_name = $request->get('lab_name');
+            $labwork->due_date = $request->get('due_date');
+            $labwork->status = 'pending';
+
+            $labwork->save();
+            Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
+            return redirect('all-lablist-doc');
+            
+            
+        }
+
+        
     }
 
 

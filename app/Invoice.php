@@ -13,7 +13,7 @@ class Invoice extends Model
      *
      * @var string
      */
-    protected $table = 'dms_payments';
+    protected $table = 'dms_invoices';
 
     public function payment()
     {

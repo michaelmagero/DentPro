@@ -16,11 +16,11 @@ class CreateDmsInsuranceProvidersTable extends Migration
         Schema::create('dms_insurance_providers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('phone_number_one');
-            $table->string('phone_number_two');
-            $table->string('phone_number_three');
+            $table->string('phone_one');
+            $table->string('phone_two');
+            $table->string('phone_three');
             $table->string('postal_address');
-            $table->string('supplier_email');
+            $table->string('email');
             $table->string('physical_location');
             $table->timestamps();
         });

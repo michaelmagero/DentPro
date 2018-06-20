@@ -9,6 +9,9 @@ use App\Payment;
 use App\Appointment;
 use App\Waiting;
 use App\Expense;
+use App\Labwork;
+use App\Invoice;
+use App\Receipt;
 use Hash;
 use DB;
 use Alert;
@@ -214,6 +217,25 @@ class ReceptionistController extends Controller
         ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
 
+    public function new_receipt($id) {
+        $patient = Patient::findorFail($id);
+
+        return view('receptionist.payments.receipt')
+        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
+    }
+
+
+    public function new_invoice($id) {
+        $patient = Patient::findorFail($id);
+
+        return view('receptionist.payments.invoice')
+        ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
+    }
+
 
     
     public function create_payment($id, Request $request) {
@@ -229,6 +251,7 @@ class ReceptionistController extends Controller
 
         $patient = Patient::find($id);
         $pid = $patient->id;
+        $paymode = $patient->payment_mode;
                
         $procedure_cost = DB::select(DB::raw("SELECT procedure_cost FROM dms_payments WHERE patient_id ='$pid' "));
 
@@ -238,19 +261,30 @@ class ReceptionistController extends Controller
 
         $final_balance = number_format($balance,2);
 
-        $pay = new Payment();
-        $pay = Payment::where('patient_id',$id)->first();
+        //dd($paymode);
+        if ($paymode == "Cash") {
+            return redirect('new-receipt/'.$pid);
+        }elseif($paymode != "Cash"){
+            return redirect('new-invoice/'.$pid);
+        }else {
+            return back();
+        }
 
-        $pay->amount_paid = $amount_paid;
-        $pay->balance = $final_balance;
-        $pay->next_appointment = $next_appointment;
-        $pay->save();   
+        // $pay = new Payment();
+        // $pay = Payment::where('patient_id',$id)->first();
+
+        // $pay->amount_paid = $amount_paid;
+        // $pay->balance = $final_balance;
+        // $pay->next_appointment = $next_appointment;
+        // $pay->save();   
             
         
-        Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);
-        return redirect('all-payments');
+        // Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
+        // return redirect('all-payments');
         
     }
+
+    
 
     public function edit_payment($patient_id) {
         //get post data by id
@@ -513,6 +547,9 @@ class ReceptionistController extends Controller
     }
 
 
+    
+
+
     //EXPENSES
     public function allexpenses() {
         return view('receptionist.expenses.show')
@@ -535,6 +572,99 @@ class ReceptionistController extends Controller
         $expense->save();
         
         Alert::success('Expense Added Successfully', 'Success')->autoclose(2000);
+        return back();
+    }
+
+
+
+    //LAB LIST
+    public function all_lab_list() {
+        return view('receptionist.laboratory.show')
+        ->with('labworks', Labwork::orderBy('created_at','desc')->paginate(10))
+        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10));
+    }
+
+
+    // public function create_labwork() {
+    //     return view('receptionist.laboratory.create')
+    //     ->with('users', User::orderBy('created_at','desc')->paginate(5))
+    //     ->with('patients', Patient::orderBy('created_at','desc')->paginate(10));
+    // }
+
+    // public function insert_labwork(Request $request) {
+
+    //     $labwork = new Labwork();
+    //     $labwork->patient_id = $request->get('patient_id');
+    //     $labwork->description = $request->get('description');
+    //     $labwork->lab_name = $request->get('labname');
+    //     $labwork->due_date = $request->get('due_date');
+    //     $labwork->status = $request->get('status');
+
+    //     $labwork->save();
+
+    //     // redirect
+    //     Alert::success('Labwork Added Successfully', 'Success')->autoclose(2000);
+    //     return redirect('all-labwork');
+    // }
+
+    // public function edit_labwork($id) {
+
+    //     $labwork = Labwork::where('id',$id)->first();
+            
+    //     //load form view
+    //     return view('receptionist.laboratory.edit')
+    //     ->with('labworks', Labwork::where('id', $labwork->id)->orderBy('created_at','desc')->get())
+    //     ->with('patients', Patient::orderBy('created_at','desc')->get());
+    // }
+
+    // public function show_labwork($id) {
+
+    //         return view('receptionist.laboratory.read')
+    //         ->with('laboratory', Expense::orderBy('created_at','desc')->paginate(5))
+    //         ->with('patients', Patient::orderBy('created_at','desc')->paginate(5))
+    //         ->with('appointments', Appointment::orderBy('created_at','desc')->paginate(5))
+    //         ->with('payments', Payment::orderBy('created_at','desc')->get());   
+    // }
+
+    // public function update_labwork(Request $request, $id) {
+    //     // validate
+    //         // read more on validation at http://laravel.com/docs/validation
+    //         $rules = array(
+    //             'description'       => 'required',
+    //             'labname'      => 'required'
+    //         );
+    //         $validator = Validator::make(Input::all(), $rules);
+
+    //         // process the login
+    //         if ($validator->fails()) {
+    //             return Redirect::to('edit-labwork/' . $id)
+    //                 ->withErrors($validator);
+    //         } else {
+    //             // store
+    //             $labwork = Labwork::find($id);
+    //             $labwork->description = $request->get('description');
+    //             $labwork->lab_name = $request->get('labname');
+    //             $labwork->due_date = $request->get('due_date');
+    //             $labwork->status = $request->get('status');
+    //             $labwork->save();
+
+    //             // redirect
+    //             Alert::success('Successfully Updated', 'Success')->autoclose(2000);
+    //             return redirect('all-labwork');
+    //         }
+    // }
+
+
+
+    public function delete_labwork($id) {
+
+        $labwork = Labwork::findorFail($id);
+
+        $wait= DB::update(DB::raw("UPDATE dms_labworks set status = 'delivered' where id = $labwork->id "));
+
+        //$waiting->delete();
+
+        Alert::success('Labwork Cleared Successfully', 'Success')->autoclose(2000);
         return back();
     }
 

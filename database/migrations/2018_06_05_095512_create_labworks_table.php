@@ -19,10 +19,10 @@ class CreateLabworksTable extends Migration
             $table->foreign('patient_id')
                     ->references('id')->on('dms_patients')
                     ->onDelete('cascade');
-            $table->string('description');
-            $table->string('lab_name');
-            $table->string('due_date');
-            $table->string('status');
+            $table->string('description')->nullable();
+            $table->string('lab_name')->nullable();
+            $table->string('due_date')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

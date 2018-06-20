@@ -12,6 +12,7 @@ use App\Waiting;
 use App\Expense;
 use App\Labwork;
 use App\Procedure;
+use App\Provider;
 use Hash;
 use Alert;
 use DB;
@@ -227,25 +228,31 @@ class AdminController extends Controller
 
     public function insert_patient(Request $request) {
 
-        $patient = Patient::create([
-
-        'firstname' => $request->get('firstname'),
-        'middlename' => $request->get('middlename'),
-        'lastname' => $request->get('lastname'),
-        'sex' => $request->get('sex'),
-        'dob' => $request->get('dob'),
-        'payment_mode' => $request->get('payment_mode'),
-        'amount_allocated' => $request->get('amount_allocated'),
-        'occupation' => $request->get('occupation'),
-        'postal_address' => $request->get('postal_address'),
-        'email' => $request->get('email'),
-        'phone_number' => $request->get('phone_number'),
-        'emergency_contact_name' => $request->get('emergency_contact_name'),
-        'emergency_contact_phone_number' => $request->get('emergency_contact_phone_number'),
-        'emergency_contact_relationship' => $request->get('emergency_contact_relationship'),
-        'doctor' => $request->get('doctor'),
+        $patient = new Patient();
             
-        ]);
+        $patient->firstname = $request->get('firstname');
+        $patient->middlename = $request->get('middlename');
+        $patient->lastname = $request->get('lastname');
+        $patient->sex = $request->get('sex');
+        $patient->dob = $request->get('dob');
+        $patient->payment_mode = $request->get('payment_mode');
+        $patient->amount_allocated = $request->get('amount_allocated');
+        $patient->occupation = $request->get('occupation');
+        $patient->postal_address = $request->get('postal_address');
+        $patient->email = $request->get('email');
+        $patient->phone_number = $request->get('phone_number');
+        $patient->emergency_contact_name = $request->get('emergency_contact_name');
+        $patient->emergency_contact_phone_number = $request->get('emergency_contact_phone_number');
+        $patient->emergency_contact_relationship = $request->get('emergency_contact_relationship');
+        $patient->doctor = $request->get('doctor');
+        $patient->referred_by = $request->get('referred_by');
+        $patient->alcoholic = $request->get('alcoholic');
+        $patient->smoker = $request->get('smoker');
+        $patient->allergic_reactions = $request->get('allergic_reactions');
+        $patient->disease_history = $request->get('disease_history');
+        $patient->cardiovascular_disease = $request->get('cardiovascular_diseas;');
+            
+        $patient->save();
 
         Waiting::create([
             'patient_id' => $patient->id,
@@ -685,10 +692,429 @@ class AdminController extends Controller
 
 
 
+    //INSURANCE PROVIDERS
+    public function allproviders() {
+        return view('admin.insurance_providers.show')
+        ->with('procedures', Provider::orderBy('created_at','desc')->paginate(10));
+    }
+
+    public function create_provider() {
+        return view('admin.insurance_providers.create');
+    }
+    
+
+    public function insert_provider(Request $request) {
+        $array = $request->get('insurance_provider');
+
+        //dd($array);
+            foreach ($array as $key => $value) {
+                //echo $key . " =  " . $value . "<br>";
+                switch ($value) {
+
+                    case $value == "Jubilee Insurance":
+                        $provider = new Provider();
+                        $provider->name = 'Jubilee Insurance';
+                        $provider->phone_one = '0718573435';
+                        $provider->phone_two = '0718573435';
+                        $provider->phone_three = '0718573435';
+                        $provider->postal_address = '68117-00200 Nairobi';
+                        $provider->email = 'jubileeinsurance@gmail.com';
+                        $provider->physical_location = 'Jubilee Plaza Moi Avenue Nairobi';
+                        $provider->save();
+
+                        Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+                        return back();
+                        
+
+                    case $value == "UAP Insurance":
+
+                        $provider = new Provider();
+                        $provider->name = 'UAP Insurance';
+                        $provider->phone_one = '0718573435';
+                        $provider->phone_two = '0718573435';
+                        $provider->phone_three = '0718573435';
+                        $provider->postal_address = '68117-00200 Nairobi';
+                        $provider->email = 'uapinsurance@gmail.com';
+                        $provider->physical_location = 'UAP Plaza Kenyatta Avenue Nairobi';
+                        $provider->save();
+
+                        Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+                        return back();
+                        break;
+                    
+                    default:
+                        Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+                        return back();
+                        break;
+                }
+            }
+
+
+
+        
+        // foreach ($array as $key => $value) {
+        //     switch ($value) {
+            
+        //     case 'Jubilee Insurance':
+
+        //         
+        //         break;
+            
+        //     case 'UAP Insurance':   
+
+        //         Provider::create([
+        //             'name' => 'UAP Insurance',
+        //             'phone_one' => '0718573435',
+        //             'phone_two' => '0718573435',
+        //             'phone_three' => '0718573435',
+        //             'postal_address' => '68117-00200 Nairobi',
+        //             'email' => "uapinsurance@gmail.com",
+        //             'physical_location' => 'UAP Plaza Kenyatta Avenue Nairobi',
+        //         ]);
+                
+        //         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+        //         return back();
+        //         break;
+
+        //     default:
+        //         Alert::error('No InsuranceProvider Selected', 'Error')->autoclose(2000);
+        //         return back();
+        //         break;
+            
+        // }
+
+        // Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+        // return back();
+        // $provider = $request->get('insurance_provider');
+        
+        // switch ($provider) {
+            
+        //     case 'Jubilee Insurance':
+
+        //         Provider::create([
+        //             'name' => 'Jubilee Insurance',
+        //             'phone_one' => '0718573435',
+        //             'phone_two' => '0718573435',
+        //             'phone_three' => '0718573435',
+        //             'postal_address' => '68117-00200 Nairobi',
+        //             'email' => 'jubileeinsurance@gmail.com',
+        //             'physical_location' => 'Jubilee Plaza Moi Avenue Nairobi',
+        //         ]);
+                
+        //         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+        //         return back();
+        //         break;
+            
+        //     case 'UAP Insurance':   
+
+        //         Provider::create([
+        //             'name' => 'UAP Insurance',
+        //             'phone_one' => '0718573435',
+        //             'phone_two' => '0718573435',
+        //             'phone_three' => '0718573435',
+        //             'postal_address' => '68117-00200 Nairobi',
+        //             'email' => "uapinsurance@gmail.com",
+        //             'physical_location' => 'UAP Plaza Kenyatta Avenue Nairobi',
+        //         ]);
+                
+        //         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+        //         return back();
+        //         break;
+
+        //     case 'Madison Insurance':
+
+        //         Provider::create([
+        //             'name' => 'Madison Insurance',
+        //             'phone_one' => '0718573435',
+        //             'phone_two' => '0718573435',
+        //             'phone_three' => '0718573435',
+        //             'postal_address' => '68117-00200 Nairobi',
+        //             'email' => 'madisoninsurance@gmail.com',
+        //             'physical_location' => 'Madison Plaza Kenyatta Avenue Nairobi',
+        //         ]);
+                
+        //         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+        //         return back();
+        //         break;
+
+            // case 'AON Insurance':
+            //     $provider = new Provider();
+            //     $provider->name = "AON Insurance";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "aoninsurance@gmail.com";
+            //     $provider->physical_location = "AON Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Sanlam':
+            //     $provider = new Provider();
+            //     $provider->name = "Sanlam Insurance";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "sanlaminsurance@gmail.com";
+            //     $provider->physical_location = "Sanlam Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Pacific Insurance':
+            //     $provider = new Provider();
+            //     $provider->name = "Pacific Insurance";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "pacificinsurance@gmail.com";
+            //     $provider->physical_location = "Pacific Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Saham':
+            //     $provider = new Provider();
+            //     $provider->name = "Saham";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "sahaminsurance@gmail.com";
+            //     $provider->physical_location = "Saham Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Resolution Insurance':
+            //     $provider = new Provider();
+            //     $provider->name = "Resolution Insurance";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "resolutioninsurance@gmail.com";
+            //     $provider->physical_location = "Resolution Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'AAR':
+            //     $provider = new Provider();
+            //     $provider->name = "AAR";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "aarinsurance@gmail.com";
+            //     $provider->physical_location = "AAR Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'APA Insurance':
+            //     $provider = new Provider();
+            //     $provider->name = "APA Insurance";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "apainsurance@gmail.com";
+            //     $provider->physical_location = "APA Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Liaison Insurance':
+            //     $provider = new Provider();
+            //     $provider->name = "Liaison Insurance";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "liaisoninsurance@gmail.com";
+            //     $provider->physical_location = "APA Plaza Kenyatta Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'KCB':
+            //     $provider = new Provider();
+            //     $provider->name = "KCB";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "kencominsurance@gmail.com";
+            //     $provider->physical_location = "Kencom Moi Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Co-operative':
+            //     $provider = new Provider();
+            //     $provider->name = "Co-operative";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "coopinsurance@gmail.com";
+            //     $provider->physical_location = "Kencom Moi Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'First Assurance':
+            //     $provider = new Provider();
+            //     $provider->name = "First Assurance";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "firstinsurance@gmail.com";
+            //     $provider->physical_location = "Kencom Moi Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Eagle Africa':
+            //     $provider = new Provider();
+            //     $provider->name = "Eagle Africa";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "eagleinsurance@gmail.com";
+            //     $provider->physical_location = "Kencom Moi Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+
+            // case 'Sedgwick':
+            //     $provider = new Provider();
+            //     $provider->name = "Sedgwick";
+            //     $provider->phone_one = "0718573435";
+            //     $provider->phone_two = "0718573435";
+            //     $provider->phone_three = "0718573435";
+            //     $provider->postal_address = "68117-00200 Nairobi";
+            //     $provider->email = "sedgwickinsurance@gmail.com";
+            //     $provider->physical_location = "Kencom Moi Avenue Nairobi";
+            //     $provider->save();
+
+            //     Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
+            //     return back();
+            //     break;
+            
+            // default:
+            //     Alert::error('No InsuranceProvider Selected', 'Error')->autoclose(2000);
+            //     return back();
+            //     break;
+        //}
+
+}
+
+
+    public function edit_provider($id) {
+        //get post data by id
+        $payment = Provider::where('id',$id)->first();
+            
+        //load form view
+        return view('admin.insurance_providers.edit')
+        ->with('procedures', Provider::where('id', $id)->orderBy('created_at','desc')->get());
+    }
+
+    // public function show_procedure($id) {
+    //     $patient = Patient::where('id',$id)->first();
+
+    //     if($patient)
+    //     {
+    //         return view('admin.procedures.read')
+    //         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5)) 
+    //         ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get()); 
+    //     }
+    //     else 
+    //     {
+    //         return view('admin.procedures.read');
+    //     }
+    // }
+
+
+    public function update_provider(Request $request, $id) {
+
+        // validate
+            // read more on validation at http://laravel.com/docs/validation
+            $rules = array(
+                'procedure' => 'required',
+                'amount' => 'required'
+            );
+            $validator = Validator::make(Input::all(), $rules);
+
+            // process the login
+            if ($validator->fails()) {
+                return Redirect::to('edit-provider/' . $id)
+                    ->withErrors($validator);
+            } else {
+                // store
+                $proc = Provider::find($id);
+                $proc->procedure = $request->get('procedure');
+                $proc->amount = number_format($request->get('amount'),2);
+                $proc->save();
+
+                // redirect
+                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
+                return back();
+            }
+    }
+
+
+
+    public function delete_provider($id) {
+        $proc = Provider::where('id',$id)->first();
+
+        $proc->delete();
+
+        Alert::success('Procedure Deleted Successfully', 'Success')->autoclose(2000);
+        return back();
+    }
+
+
+
+
+
+
+
+
     //PROCEDURES
     public function allprocedures() {
         return view('admin.procedures.show')
-        ->with('procedures', Procedure::orderBy('created_at','desc')->paginate(5));
+        ->with('procedures', Procedure::orderBy('created_at','desc')->paginate(10));
     }
 
     public function create_procedure() {
@@ -708,7 +1134,7 @@ class AdminController extends Controller
             ]);
         }
 
-        Alert::success('Procedure Added Successfully', 'Success')->autoclose(2000);
+        Alert::success('Procedures Added Successfully', 'Success')->autoclose(2000);
         return redirect('all-procedures');
     }
 
@@ -780,7 +1206,21 @@ class AdminController extends Controller
 
 
 
-    //laboratory
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //LABORATORY
     public function allexpenses() {
         
         return view('admin.expenses.show')

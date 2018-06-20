@@ -79,7 +79,7 @@
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
 											<a href="{{ url('new-appointment') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
-													<i class="la la-user"></i>
+													<i class="flaticon-calendar-2"></i>
 													<span>
 														New Appointment
 													</span>
@@ -133,7 +133,7 @@
 												<td>
 													@foreach($patients as $patient)
 														@if($patient->id == $appointment->patient_id)
-															{{ $patient->id }}
+															{{ $patient->firstname . " " . $patient->lastname }}
 														@else
 															{{ $appointment->firstname . " " . $appointment->lastname }}
 														@endif

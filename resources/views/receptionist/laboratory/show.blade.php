@@ -1,8 +1,8 @@
 
-@extends('layouts.admin')
+@extends('layouts.receptionist')
 
 @section('header')
-    All Appointments
+    Labwork List
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
                     <h3 class="m-subheader__title ">
-                        Appointments
+                        Labwork List
                     </h3>
                 </div>
                 <div>
@@ -40,9 +40,6 @@
 
 		<!-- END: Subheader -->
 					<div class="m-content">
-
-						
-						
 						<div class="m-portlet m-portlet--mobile">
 							<div class="m-portlet__head">
 								<div class="m-portlet__head-caption">
@@ -59,6 +56,7 @@
 								</div>
 							</div>
 							<div class="m-portlet__body">
+								
 								<!--begin: Search Form -->
 								<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
 									<div class="row align-items-center">
@@ -77,11 +75,11 @@
 											</div>
 										</div>
 										<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-											<a href="{{ url('new-appointment-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+											<a href="{{ url('new-labwork-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 												<span>
-													<i class="flaticon-calendar-2"></i>
+													<i class="la la-flask"></i>
 													<span>
-														New Appointment
+														New Labwork
 													</span>
 												</span>
 											</a>
@@ -101,84 +99,77 @@
 											<th title="Field #3">
 												Patient Name
 											</th>
+											<th title="Field #5">
+												Phone
+											</th>
 											<th title="Field #6">
-												Doctor
+												Description
 											</th>
 											<th title="Field #7">
-												Date
+												Laboratory Name
 											</th>
-											<th title="Field #8">
-												Phone Number
+											<th title="Field #7">
+												Due Date
 											</th>
-											<th title="Field #8">
-												Appointment Status
+											<th title="Field #7">
+												Status
 											</th>
-											<th>
+											<th title="Field #7">
 												Action
 											</th>
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($appointments as $appointment)
-											<tr>
-												<td>
-													@if($appointment->patient_id == " ")
-														{{ $appointment->id }}
-													@elseif($appointment->patient_id != " ")
-														{{ $appointment->patient_id }}
-													@else()
-
-													@endif
-												</td>
-												<td>
-													@foreach($patients as $patient)
-														@if($patient->id == $appointment->patient_id)
-															{{ $patient->firstname . " " . $patient->lastname }}
+										@foreach($labworks as $labwork)
+											@foreach($patients as $patient)
+												@if($labwork->patient_id == $patient->id)
+													<tr>
+														<td>{{ $labwork->patient_id }}</td>
+														<td>{{ $patient->firstname . " " . $patient->lastname }}</td>
+														<td>{{ $patient->phone_number }}</td>
+														<td>{{ $labwork->description }}</td>
+														<td>{{ $labwork->lab_name }}</td>
+														<td>{{ $labwork->due_date }}</td>
+														@if($labwork->status == 'pending')
+															<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $labwork->status }}</span></span></td>
+														@elseif($labwork->status == 'delivered')
+															<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $labwork->status }}</span></span></td>
 														@else
-															{{ $appointment->firstname . " " . $appointment->lastname }}
+															<td></td>
 														@endif
-													@endforeach
-												</td>
-												
-												<td>{{ $appointment->doctor }}</td>
-												<td>{{ $appointment->appointment_date }}</td>
-												<td>{{ $appointment->phone_number }}</td>
-												@if($appointment->appointment_status == 'Pending')
-													<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge m-badge--warning m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
-												@elseif($appointment->appointment_status == 'Complete')
-													<td data-field="Status" class="m-datatable__cell"><span style="width: 110px;"><span class="m-badge  m-badge--success m-badge--wide">{{ $appointment->appointment_status }}</span></span></td>
-												@else
-													<td></td>
+														<td>
+															{{--  <a href="{{ url('show-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Patient Profile ">
+																<i class="fa fa-eye"></i>
+															</a>
+
+															<a href="{{ url('edit-labwork/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Labwork ">
+																<i class="fa fa-edit"></i>
+															</a>  --}}
+
+															<a href="{{ url('delete-labwork/'.$labwork->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Labwork ">
+																<i class="flaticon-circle"></i>
+															</a>
+
+														</button>
+														</td>
+													</tr>
 												@endif
-												 <td>
-
-													{{-- <a href="{{ url('new-waiting-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">
-														<i class="fa fa-plus text-primary"></i>
-													</a>
-													
-													<a href="{{ url('show-appointment/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-														<i class="fa fa-eye"></i>
-													</a>--}}
-
-													<a href="{{ url('new-patient') }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add new Patient ">
-														<i class="fa fa-plus"></i>
-													</a>
-
-													<a href="{{ url('edit-appointment-admin/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
-														<i class="fa fa-edit"></i>
-													</a> 
-
-													<a href="{{ url('delete-appointment-admin/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear Appointments ">
-														<i class="flaticon-circle"></i>
-													</a>
-													
-												</button>
-												</td> 
-											</tr>
+											@endforeach
                                    		@endforeach
 									</tbody>
 								</table>
 								<!--end: Datatable -->
+							</div>
+
+							<div class="m-portlet__foot">
+								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
+									<div class="row">
+										<div class="col-md-12">
+												{{ $labworks->links()}}
+										</div>
+									</div>
+										
+								</div>
 							</div>
 						</div>
 					</div>

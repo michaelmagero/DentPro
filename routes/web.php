@@ -149,6 +149,27 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 
 
+
+	//INSURANCE PROVIDER
+	Route::get('all-providers','AdminController@allproviders');
+
+	Route::get('new-provider','AdminController@create_provider');
+
+	Route::post('create-provider','AdminController@insert_provider');
+
+	//Route::get('/show-waiting-admin/{id}','AdminController@show_waiting');
+
+	Route::get('/edit-provider/{id}','AdminController@edit_provider');
+
+	Route::post('update-provider/{id}','AdminController@update_provider');
+
+	Route::get('/delete-provider/{id}','AdminController@delete_provider');
+
+
+
+
+
+
 	//EXPENSES ROUTES
 	Route::get('all-expenses-admin','AdminController@allexpenses');
 
@@ -223,6 +244,12 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::get('new-payment/{id}','ReceptionistController@new_payment');
 
 	Route::post('new-payment/{id}','ReceptionistController@create_payment');
+		//INVOICE AND RECEIPTS [BEGIN]
+	Route::get('new-receipt/{id}','ReceptionistController@new_receipt');
+
+	Route::get('new-invoice/{id}','ReceptionistController@new_invoice');
+
+		//INVOICE AND RECEIPTS [END]
 
 	Route::get('show-payment/{id}','ReceptionistController@show_payment');
 
@@ -277,6 +304,24 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::get('new-expense','ReceptionistController@create_expense');
 
 	Route::post('new-expense','ReceptionistController@insert_expense');
+
+
+	//LABWORK ROUTES
+	Route::get('all-labwork','ReceptionistController@all_lab_list');
+
+	// Route::get('new-labwork','ReceptionistController@create_labwork');
+
+	// Route::post('new-labwork','ReceptionistController@insert_labwork');
+
+	Route::get('show-labwork/{id}','ReceptionistController@show_labwork');
+
+	Route::get('edit-labwork/{id}','ReceptionistController@edit_labwork');
+
+	Route::post('update-labwork/{id}','ReceptionistController@update_labwork');
+
+	Route::get('delete-labwork/{id}','ReceptionistController@delete_labwork');
+
+
 
 
 

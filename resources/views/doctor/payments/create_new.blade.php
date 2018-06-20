@@ -40,7 +40,7 @@
 		
 		
 
-		@foreach($patients as $patient)
+		
         <div class="m-content">
 			<!--begin::Portlet-->
 				<div class="m-portlet">
@@ -78,11 +78,13 @@
 										Patient FileNo:
 									</label>
 										<select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="patient_id">
-											
-											<option value='{{ $patient->id }}'>
-												{{ $patient->id }}
-											</option>
-										</select>
+											@foreach($patients as $patient)
+                                                <option value='{{ $patient->id }}'>
+                                                    {{ $patient->id }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        
 									<span class="m-form__help">
 										Search user by searching File No.
 									</span>
@@ -108,9 +110,9 @@
 
 								<div class="col-lg-4">
 									<label>
-										Amount:
+										Procedure Cost:
 									</label>
-									<input type="text" name="procedure_cost"  class="form-control m-input" >
+									<input type="text" name="procedure_cost" id="procedure_cost"  class="form-control m-input" >
 									
 								</div>
 
@@ -126,7 +128,7 @@
 										Notes
 									</label>
 									<div>
-										<textarea name="notes" id="textarea" class="form-control" cols="15" rows="10"></textarea>
+										<textarea name="notes" id="textarea" class="form-control" cols="15" rows="10" ></textarea>
 									</div>
 									
 								</div>
@@ -189,7 +191,7 @@
 						
 						<!--End::Section-->
 					</div>
-					@endforeach
+					
                 </div>
 			</div>
             <!-- end:: Body -->
