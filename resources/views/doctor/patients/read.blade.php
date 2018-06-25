@@ -368,6 +368,60 @@
                                                 </div>
                                             </div>
 
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Reffered by
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->referred_by }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Alcoholic
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->alcoholic }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Smoker
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->smoker }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Allergic Reactions
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->allergic_reactions }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Disease History
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->disease_history }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row">
+                                                <label for="example-text-input" class="col-2 col-form-label">
+                                                    Cardiovascular Disease
+                                                </label>
+                                                <div class="col-7">
+                                                    <input class="form-control m-input" disabled="disabled"  name="email"  type="text" value="{{ $patient->cardiovascular_disease }}">
+                                                </div>
+                                            </div>
+
 
                                             <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
                                             <div class="form-group m-form__group row">
@@ -417,10 +471,10 @@
                                                 <div class="row">
                                                     <div class="col-2"></div>
                                                     <div class="col-7">
-                                                        {{-- <a href="{{ url('/edit-patient/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
+                                                        <a href="{{ url('/edit-patient/'.$patient->id) }}" type="reset" class="btn btn-primary m-btn m-btn--air m-btn--custom">
                                                             Edit Patient
                                                         </a>
-                                                        &nbsp;&nbsp; --}}
+                                                        &nbsp;&nbsp;
                                                         {{--  <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
                                                             Cancel
                                                         </button>  --}}
@@ -466,6 +520,122 @@
                                 <!--end:: Widgets/Support Tickets -->
                             </div>
 							    </div>
+
+
+
+
+
+                                <div class="tab-pane " id="m_user_profile_tab_3">
+                                    <div class="col-md-12">
+                                        <!--begin:: Widgets/Sale Reports-->
+                                        <div class="">
+                                            <div class="m-portlet__head">
+                                                <div class="m-portlet__head-caption">
+                                                    <div class="m-portlet__head-title">
+                                                        <h3 class="m-portlet__head-text">
+                                                            Payment Reports
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="m-portlet__head-tools">
+                                                    <ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
+                                                        <li class="nav-item m-tabs__item">
+                                                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_widget11_tab1_content" role="tab">
+                                                                Last Month
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item m-tabs__item">
+                                                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget11_tab2_content" role="tab">
+                                                                All Time
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__body">
+                                                <!--Begin::Tab Content-->
+                                                <div class="tab-content">
+                                                    <!--begin::tab 1 content-->
+                                                    <div class="tab-pane active" id="m_widget11_tab1_content">
+                                                        <!--begin::Widget 11-->
+                                                        <div class="m-widget11">
+                                                            <div class="table-responsive">
+                                                                <!--begin::Table-->
+                                                                <table class="table">
+                                                                    <!--begin::Thead-->
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td class="m-widget11__label">
+                                                                                #
+                                                                            </td>
+                                                                            <td class="m-widget11__app">
+                                                                                Application
+                                                                            </td>
+                                                                            <td class="m-widget11__sales">
+                                                                                Sales
+                                                                            </td>
+                                                                            <td class="m-widget11__price">
+                                                                                Avg Price
+                                                                            </td>
+                                                                            <td class="m-widget11__total m--align-right">
+                                                                                Total
+                                                                            </td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <!--end::Thead-->
+                                                                    <!--begin::Tbody-->
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <label class="m-checkbox m-checkbox--solid m-checkbox--single m-checkbox--brand">
+                                                                                    <input type="checkbox">
+                                                                                    <span></span>
+                                                                                </label>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="m-widget11__title">
+                                                                                    Vertex 2.0
+                                                                                </span>
+                                                                                <span class="m-widget11__sub">
+                                                                                    Vertex To By Again
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                19,200
+                                                                            </td>
+                                                                            <td>
+                                                                                $63
+                                                                            </td>
+                                                                            <td class="m--align-right m--font-brand">
+                                                                                $14,740
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                    <!--end::Tbody-->
+                                                                </table>
+                                                                <!--end::Table-->
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <!--end::Widget 11-->
+                                                    </div>
+                                                    <!--end::tab 1 content-->
+                                                    <!--begin::tab 2 content-->
+                                                    
+                                                    <!--end::tab 2 content-->
+                                                    <!--begin::tab 3 content-->
+                                                    <div class="tab-pane" id="m_widget11_tab3_content"></div>
+                                                    <!--end::tab 3 content-->
+                                                </div>
+                                                <!--End::Tab Content-->
+                                            </div>
+                                            <div class="m-portlet__foot">
+                                                
+                                            </div>
+                                        </div>
+                                        <!--end:: Widgets/Sale Reports-->
+                                    </div>
+                                </div>
                             </div>
                             
                         </div>

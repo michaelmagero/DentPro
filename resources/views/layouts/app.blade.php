@@ -25,6 +25,9 @@
 		<link href="../admin/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
 		<link rel="shortcut icon" href="../admin/assets/demo/default/media/img/logo/favicon.ico" />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -41,11 +44,17 @@
 		</div>
 		<!-- end:: Page -->
     	<!--begin::Base Scripts -->
-		<script src="../../../assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-		<script src="../../../assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+		<script src="../admin/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+		<script src="../admin/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
 		<!--end::Base Scripts -->   
         <!--begin::Page Snippets -->
-		<script src="../../../assets/snippets/pages/user/login.js" type="text/javascript"></script>
+
+		<script src="../admin/assets/demo/default/custom/components/base/sweetalert2.js" type="text/javascript"></script>
+
+		<script>
+			$('div.alert').not('.alert-important').delay(2000).fadeOut(350);
+		</script>
+
 		<!--end::Page Snippets -->
 	</body>
 	<!-- end::Body -->

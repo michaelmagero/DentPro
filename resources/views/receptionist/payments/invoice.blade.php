@@ -40,36 +40,44 @@
 		
 		
 
-
+        @foreach($payments as $payment)
         <div class="m-content">
 			<!--begin::Portlet-->
+				
 				<div class="m-portlet">
 					<div class="row">
                     <div class="col-md-12">
-                        <div class="white-box printableArea">
-                            <h3><b>INVOICE</b> <span class="pull-right">#5669626</span></h3>
+                        <form m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed method="POST" action="{{ url('new-invoice/'.$payment->patient_id) }}">
+                            <div class="white-box printableArea">
+                            <h3><b>Invoice</b> <span class="pull-right">#5669626</span></h3>
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-left">
                                         <address>
-                                            <h3> &nbsp;<b class="text-danger">Elite Admin</b></h3>
-                                            <p class="text-muted m-l-5">E 104, Dharti-2,
-                                                <br> Nr' Viswakarma Temple,
-                                                <br> Talaja Road,
-                                                <br> Bhavnagar - 364002</p>
+                                            <h3> &nbsp;<b class="text-danger">Dental Access</b></h3>
+                                            <p class="text-muted m-l-5">Access Plaza 2nd Floor,
+                                                <br> Moi Avenue Nairobi,
+                                                <br> access@gmail.com,
+                                                <br> 0718573435</p>
                                         </address>
                                     </div>
                                     <div class="pull-right text-right">
                                         <address>
-                                            <h3>To,</h3>
-                                            <h4 class="font-bold">Gaala &amp; Sons,</h4>
-                                            <p class="text-muted m-l-30">E 104, Dharti-2,
-                                                <br> Nr' Viswakarma Temple,
-                                                <br> Talaja Road,
-                                                <br> Bhavnagar - 364002</p>
-                                            <p class="m-t-30"><b>Invoice Date :</b> <i class="fa fa-calendar"></i> 23rd Jan 2016</p>
-                                            <p><b>Due Date :</b> <i class="fa fa-calendar"></i> 25th Jan 2016</p>
+                                            <h3>For,</h3>
+                                                @foreach($patients as $patient)
+                                                    @if($patient->id == $payment->patient_id)
+                                                        <h4 name="patient_id">{{ $patient->firstname . " " . $patient->lastname }}</h4>
+                                                    @endif
+                                                
+
+                                                    <p class="text-muted m-l-30">{{ $patient->postal_address }},
+                                                    <br> {{ $patient->phone_number }},
+                                                    <br> {{ $patient->email }}</p>
+                                                @endforeach
+                                                    <p class="m-t-30"><b>Invoice Date :</b> <i class="fa fa-calendar"></i> {{ $payment->created_at }}</p>
+                                                    <p><b>Due Date :</b> <i class="fa fa-calendar"></i> {{ $payment->created_at }}</p>
+                                                
                                         </address>
                                     </div>
                                 </div>
@@ -79,7 +87,8 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">#</th>
-                                                    <th>Description</th>
+                                                    <th>Procedure</th>
+                                                    <th>Insurance Provider</th>
                                                     <th class="text-right">Quantity</th>
                                                     <th class="text-right">Unit Cost</th>
                                                     <th class="text-right">Total</th>
@@ -87,32 +96,12 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>Milk Powder</td>
-                                                    <td class="text-right">2 </td>
-                                                    <td class="text-right"> $24 </td>
-                                                    <td class="text-right"> $48 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td>Air Conditioner</td>
-                                                    <td class="text-right"> 3 </td>
-                                                    <td class="text-right"> $500 </td>
-                                                    <td class="text-right"> $1500 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">3</td>
-                                                    <td>RC Cars</td>
-                                                    <td class="text-right"> 20 </td>
-                                                    <td class="text-right"> %600 </td>
-                                                    <td class="text-right"> $12000 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">4</td>
-                                                    <td>Down Coat</td>
-                                                    <td class="text-right"> 60 </td>
-                                                    <td class="text-right">$5 </td>
-                                                    <td class="text-right"> $300 </td>
+                                                    <td name="invoice_no" class="text-center">{{ $payment->id }}</td>
+                                                    <td name="procedure">{{ $payment->procedure }}</td>
+                                                    <td name="insurance_provider">{{ $patient->payment_mode }}</td>
+                                                    <td class="text-right">{{ $payment->quantity }} </td>
+                                                    <td class="text-right"> {{ $payment->procedure_cost }} </td>
+                                                    <td class="text-right"> {{ $payment->procedure_cost }} </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -120,33 +109,31 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="pull-right m-t-30 text-right">
-                                        <p>Sub - Total amount: $13,848</p>
-                                        <p>vat (10%) : $138 </p>
+                                        <p>Sub - Total amount: {{ $payment->procedure_cost }}</p>
+                                        <p>vat (16%) : {{ ($payment->procedure_cost) * 0.16 }} </p>
                                         <hr>
-                                        <h3><b>Total :</b> $13,986</h3> </div>
+                                        <h3 name="total"><b>Total :</b> Ksh {{ $payment->procedure_cost }}</h3> </div>
                                     <div class="clearfix"></div>
                                     <hr>
                                     <div class="text-right">
-                                        <button class="btn btn-danger" type="submit"> Proceed to payment </button>
+                                        <button class="btn btn-danger" type="submit"> Process Invoice </button>
                                         <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        </form>
+                        
                     </div>
-                </div>
+                    </div>
 				</div>
 				<!--end::Portlet-->
-
-						
-						
-						
-				
-						<!--End::Section-->
-                    </div>
-                </div>
-			</div>
-            <!-- end:: Body -->
+			<!--End::Section-->
+        </div>
+        @endforeach
+    </div>
+</div>
+<!-- end:: Body -->
 
 
 

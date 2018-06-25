@@ -77,7 +77,8 @@
 			var select = document.getElementById('m_select2_procedure');
 			var input = document.getElementById('procedure_cost');
 			select.onchange = function() {
-				input.value = select.value
+				input.value = select.value.amount
+
 			}
 		</script>
 

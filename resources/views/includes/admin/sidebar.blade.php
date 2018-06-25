@@ -142,17 +142,17 @@
 												</span>
 											</a>
 										</li>
-										{{--  <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
 											<a  href="{{ url('new-payment-admin') }}" class="m-menu__link m-menu__toggle">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
-													Add New
+													Add New Payment
 												</span>
 												<i class="m-menu__ver-arrow la la-angle-right"></i>
 											</a>
-										</li>  --}}
+										</li> 
 									</ul>
 								</div>
 							</li>

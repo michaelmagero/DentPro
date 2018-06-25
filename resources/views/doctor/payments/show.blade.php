@@ -126,11 +126,22 @@
 												<td>{{ $payment->patient_id }}</td>
 												<td>
 													@foreach($patients as $patient)
-														@if($patient->id == $payment->patient_id)
-															{{ $patient->firstname . " " . $patient->lastname  }}
+														@if($patient->id === $payment->patient_id)
+															{{ $patient->firstname . " " . $patient->lastname }}
 														@endif
 													@endforeach
 												</td>
+
+												{{-- <td>
+													@foreach($procedures as $procedure)
+														@if($procedure->amount == $payment->procedure_cost)
+															{{ $procedure->procedure }}
+														@else
+															{{ $procedure->procedure }}
+														@endif
+													@endforeach
+												</td> --}}
+
 												<td>{{ $payment->procedure }}</td>
 												<td>{{ $payment->procedure_cost }}</td>
 												<td>{{ $payment->amount_paid }}</td>

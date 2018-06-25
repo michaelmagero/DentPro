@@ -121,8 +121,11 @@
 										@foreach($patients as $patient)
 											<tr>
 												<td>{{ $patient->id }}</td>
+
 												<td>{{ $patient->firstname }}</td>
+
 												<td>{{ $patient->lastname }}</td>
+
 												<td>
 													@if($patient->payment_mode == 'Cash')
 														{{ "N/A" }}
@@ -130,7 +133,15 @@
 														{{ $patient->payment_mode }}
 													@endif
 												</td>
-												<td>{{ $patient->amount_allocated }}</td>
+
+												<td>
+													@if($patient->amount_allocated == '')
+														{{ "N/A" }}
+													@elseif($patient->amount_allocated != '')
+														{{ $patient->amount_allocated }}
+													@endif
+												</td>
+												
 												<td>
 													
 													

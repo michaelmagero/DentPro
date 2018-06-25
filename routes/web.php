@@ -71,6 +71,8 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::get('new-payment-admin/{id}','AdminController@new_payment');
 
+	Route::get('new-payment-admin','AdminController@new_pay');
+
 	Route::post('new-payment-admin','AdminController@insert_payment');
 
 	Route::post('new-payment-admin/{id}','AdminController@create_payment');
@@ -248,6 +250,10 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::get('new-receipt/{id}','ReceptionistController@new_receipt');
 
 	Route::get('new-invoice/{id}','ReceptionistController@new_invoice');
+
+	Route::post('new-invoice/{id}','ReceptionistController@insert_invoice');
+
+	Route::post('new-receipt/{id}','ReceptionistController@insert_receipt');
 
 		//INVOICE AND RECEIPTS [END]
 

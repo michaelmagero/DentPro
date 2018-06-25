@@ -71,8 +71,9 @@ class DoctorsController extends Controller
     public function allpayments() {
         $user_doc = Auth::user()->id;
 
-        return view('doctor.payments.show', compact('payments'))
+        return view('doctor.payments.show')
             ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
+            ->with('procedures', Procedure::orderBy('created_at','desc')->paginate(1))
             ->with('payments', Payment::where('doctor_id', $user_doc)->orderBy('created_at','desc')->paginate(10));
 
     }
@@ -94,18 +95,28 @@ class DoctorsController extends Controller
 
     public function insert_payment(Request $request) {
 
+        
+
+        $selected_procedure = $request->get('procedure');
+        $procedure = Procedure::where('procedure',$selected_procedure)->first();
+        //dd($procedure->amount);
+
+        if ($selected_procedure > 1) {
+            $payment->procedure . " ," .$payment->procedure;
+        }
+        
+
         $payment = new Payment();
         $payment->doctor_id = Auth::user()->id;
         $payment->patient_id = $request->get('patient_id');
         $payment->procedure = $request->get('procedure');
-        $payment->procedure_cost = $request->get('procedure_cost');
+
+        $payment->procedure_cost = $procedure->amount;
         $payment->notes = $request->get('notes');
 
         $payment->save();
         Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
         return redirect('all-payments-doc');
-
-        // $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $payment->patient_id "));
 
         if (empty($request->get('description')) && empty($request->get('lab_name')) && empty($request->get('due_date'))) {
             return back();

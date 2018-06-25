@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Http\Request;
+use Alert;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -27,20 +29,27 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin-dash';
+    
 
 
 
     public function authenticated()
     {
-        if(auth()->user()->role == 'admin')
-        {
+        if(Auth::user()){
+            Alert::success('Login Successfull!', 'Success')->autoclose(2500);
             return redirect('/admin-dash');
+            
+        }elseif(Auth::user() != Auth::user()){
+            Alert::error('Wrong credentials! check username and password and try again', 'Error')->autoclose(2500);
+            return redirect('/login');
+        }else{
             
         }
 
-        return redirect('/login');
+        
     }
+
+    protected $redirectTo = '/admin-dash';
 
     /**
      * Create a new controller instance.

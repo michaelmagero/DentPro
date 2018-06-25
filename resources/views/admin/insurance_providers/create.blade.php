@@ -73,7 +73,7 @@
 										<div class="m--margin-bottom-10"></div>
 										<div class="form-group m-form__group row">
 											<div class="col-lg-1"></div>
-											<div class="col-lg-3">
+											<div class="col-lg-5">
 												<label for="">
 													Select Your Clinics Insurance Providers
 												</label>
@@ -105,13 +105,6 @@
 														Britam
 														<span></span>
 													</label>
-												</div>
-											
-											</div>
-											<div class="col-lg-3">
-												<div class="m--margin-bottom-70"></div>
-												
-												<div class="m-checkbox-list">
 													<label class="m-checkbox">
 														<input type="checkbox" name="insurance_provider[]" value="Sanlam">
 														Sanlam
@@ -140,7 +133,8 @@
 												</div>
 											
 											</div>
-											<div class="col-lg-3">
+
+											<div class="col-lg-5">
 												<div class="m--margin-bottom-70"></div>
 												<div class="m-checkbox-list">
 													<label class="m-checkbox">
@@ -168,12 +162,6 @@
 														First Assurance
 														<span></span>
 													</label>
-												</div>
-											
-											</div>
-											<div class="col-lg-2">
-												<div class="m--margin-bottom-70"></div>
-												<div class="m-checkbox-list">
 													<label class="m-checkbox">
 														<input type="checkbox" name="insurance_provider[]" value="Eagle Africa">
 														Eagle Africa

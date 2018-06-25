@@ -27,10 +27,8 @@ class CreateInvoicesTable extends Migration
                     ->onDelete('cascade');
 
             $table -> integer('provider_id')->nullable()->unsigned()->default(0);
-            $table->foreign('provider_id')
-                    ->references('id')->on('dms_insurance_providers')
-                    ->onDelete('cascade');
-
+            
+            $table->string('insurance_provider');
             $table->string('procedure');
             $table->string('amount');
             $table->string('total');

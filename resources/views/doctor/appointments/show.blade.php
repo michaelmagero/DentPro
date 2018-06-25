@@ -145,25 +145,50 @@
 														<td></td>
 													@endif
 													
-													@foreach($patients as $patient)
-													<td>
-														<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
-															<i class="fa fa-eye"></i>
-														</a>
+													
 
-														<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
-															<i class="fa fa-user-md"></i>
-														</a>
+													@if($appointment->patient_id == "")
+														@foreach($patients as $patient)
+														<td>
+															{{-- <a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+																<i class="fa fa-eye"></i>
+															</a>
 
-														<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
-															<i class="fa fa-credit-card"></i>
-														</a>
+															<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+																<i class="fa fa-user-md"></i>
+															</a>
 
-														<a href="{{ url('delete-waiting/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
-															<i class="flaticon-circle"></i>
-														</a>
-													</td>
-													@endforeach
+															<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
+																<i class="fa fa-credit-card"></i>
+															</a>
+
+															<a href="{{ url('delete-waiting/'.$appointment->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
+																<i class="flaticon-circle"></i>
+															</a> --}}
+														</td>
+														@endforeach
+													@elseif($appointment->patient_id != "")
+														@foreach($patients as $patient)
+															<td>
+																<a href="{{ url('show-doc-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+																	<i class="fa fa-eye"></i>
+																</a>
+
+																<a href="{{ url('patient-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+																	<i class="fa fa-user-md"></i>
+																</a>
+
+																<a href="{{ url('payment-history-doc/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
+																	<i class="fa fa-credit-card"></i>
+																</a>
+
+																<a href="{{ url('delete-waiting/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Clear from List ">
+																	<i class="flaticon-circle"></i>
+																</a>
+															</td>
+														@endforeach
+													@else
+													@endif
 
 												</tr>
 											@endif

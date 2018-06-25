@@ -11,19 +11,22 @@
 
 
     <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
-			<script src="../js/sweetalert2.all.js"></script>
-
-			<!-- Include this after the sweet alert js file -->
-			@if (Session::has('sweet_alert.alert'))
-				<script>
-					swal({!! Session::get('sweet_alert.alert') !!});
-				</script>
-			@endif
+						
 					<div class="m-login__container">
 						<div class="m-login__logo">
 							<a href="#">
 								<img src="../images/logo.png" width="150" height="150">
 							</a>
+
+
+							<script src="../js/sweetalert2.all.js"></script>
+
+							<!-- Include this after the sweet alert js file -->
+							@if (Session::has('sweet_alert.alert'))
+								<script>
+									swal({!! Session::get('sweet_alert.alert') !!});
+								</script>
+							@endif
 						</div>
 						<div class="m-login__signin">
 							<div class="m-login__head">

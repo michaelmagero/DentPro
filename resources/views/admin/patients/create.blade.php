@@ -151,60 +151,15 @@
 											</option>
 										</optgroup>
 
+										
 										<optgroup label="Insurance Providers">
-											<option value="Jubilee">
-												Jubilee
+											@foreach($providers as $provider)
+											<option value="{{ $provider->name }}">
+												{{ $provider->name }}
 											</option>
-											<option value="UAP">
-												UAP
-											</option>
-											<option value="Madison">
-												Madison
-											</option>
-											<option value="AON">
-												AON
-											</option>
-											<option value="Britam">
-												Britam
-											</option>
-											<option value="Sanlam">
-												Sanlam
-											</option>
-											<option value="Pacific">
-												Pacific
-											</option>
-											<option value="Saham">
-												Saham
-											</option>
-											<option value="Resolution">
-												Resolution
-											</option>
-											<option value="AAR">
-												AAR
-											</option>
-											<option value="APA">
-												APA
-											</option>
-											<option value="Liaison">
-												Liaison
-											</option>
-											<option value="KCB">
-												KCB
-											</option>
-											<option value="Co-operative">
-												Co-operative
-											</option>
-											<option value="First Assurance">
-												First Assurance
-											</option>
-											<option value="Eagle Africa">
-												Eagle Africa
-											</option>
-											<option value="Sedwick">
-												Sedwick
-											</option>
-
+											@endforeach
 										</optgroup>
+										
 										
 									</select>
 									

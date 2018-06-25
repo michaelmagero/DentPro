@@ -31,7 +31,17 @@
                             <span class="m-subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
-                    </span>
+					</span>
+					
+
+					<script src="../js/sweetalert2.all.js"></script>
+
+						<!-- Include this after the sweet alert js file -->
+						@if (Session::has('sweet_alert.alert'))
+							<script>
+								swal({!! Session::get('sweet_alert.alert') !!});
+							</script>
+						@endif
                 </div>
             </div>
         </div>

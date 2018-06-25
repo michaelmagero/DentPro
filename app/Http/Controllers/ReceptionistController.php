@@ -12,6 +12,7 @@ use App\Expense;
 use App\Labwork;
 use App\Invoice;
 use App\Receipt;
+use App\Provider;
 use Hash;
 use DB;
 use Alert;
@@ -32,7 +33,8 @@ class ReceptionistController extends Controller
 
     public function create() {
         return view('receptionist.patients.create')
-        ->with('users', User::orderBy('created_at','desc')->get());
+        ->with('users', User::orderBy('created_at','desc')->get())
+        ->with('providers', Provider::orderBy('created_at','desc')->get());
     }
     
     public function create_patient(Request $request) {
@@ -211,7 +213,7 @@ class ReceptionistController extends Controller
     public function new_payment($id) {
         $patient = Patient::findorFail($id);
 
-        return view('receptionist.payments.create', compact('payments'))
+        return view('receptionist.payments.create')
         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
         ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
         ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
@@ -261,27 +263,71 @@ class ReceptionistController extends Controller
 
         $final_balance = number_format($balance,2);
 
-        //dd($paymode);
+        //dd($paymode)
         if ($paymode == "Cash") {
+            $pay = new Payment();
+            $pay = Payment::where('patient_id',$id)->first();
+
+            $pay->amount_paid = $amount_paid;
+            $pay->balance = $final_balance;
+            $pay->next_appointment = $next_appointment;
+            $pay->save(); 
+
+
+            $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $pay->patient_id "));
+            Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
             return redirect('new-receipt/'.$pid);
+
+            
+
+
+            
         }elseif($paymode != "Cash"){
+            $pay = new Payment();
+            $pay = Payment::where('patient_id',$id)->first();
+
+            $pay->amount_paid = $amount_paid;
+            $pay->balance = $final_balance;
+            $pay->next_appointment = $next_appointment;
+            Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
+
+            $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $pay->patient_id "));
+            $pay->save(); 
             return redirect('new-invoice/'.$pid);
+
         }else {
             return back();
         }
-
-        // $pay = new Payment();
-        // $pay = Payment::where('patient_id',$id)->first();
-
-        // $pay->amount_paid = $amount_paid;
-        // $pay->balance = $final_balance;
-        // $pay->next_appointment = $next_appointment;
-        // $pay->save();   
-            
         
-        // Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
-        // return redirect('all-payments');
         
+    }
+
+
+    public function insert_invoice(Request $request) {
+        $invoice = new invoice();
+        $receipt->invoice_no = rand(1000, 100000);
+        $invoice->payment_id = $request->get('');
+        $invoice->patient_id = $request->get('');
+        $invoice->provider_id =  $request->get('');
+        $invoice->insurance_provider = $request->get('');
+        $invoice->procedure = $request->get('');
+        $invoice->amount = $request->get('');
+    }
+
+    public function insert_receipt(Request $request, $id) {
+
+        $payment = Payment::where('id',$id)->first();
+
+        $receipt = new Receipt();
+        $receipt->receipt_no = rand(1000, 100000);
+        $receipt->payment_id = $payment;
+        $receipt->patient_id = $payment;
+        $receipt->procedure = $request->get('procedure');
+        $receipt->amount = $request->get('total');
+        $receipt->save();
+        Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
+        return back();
+
     }
 
     
