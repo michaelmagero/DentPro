@@ -90,32 +90,22 @@
 									</span>
 								</div>
 
-								<div class="col-lg-4">
+								<div class="col-lg-8">
 									<label>
 										Payment For
 									</label>
-									<select class="form-control m-select2" id="m_select2_procedure" name="procedure" multiple="multiple">
+									<select class="form-control m-select2" id="m_select2_procedure" name="procedure[]" multiple="multiple">
                                         @foreach($procedures as $procedure)
-										<optgroup >
-											<option value="{{ $procedure->procedure }}">
-                                                {{ $procedure->procedure }}
-                                            </option>
-											
-
-                                        </optgroup>
+											<optgroup >
+												<option value="{{ $procedure->procedure }}">
+													{{ $procedure->procedure }}
+												</option>
+											</optgroup>
                                         @endforeach
 									</select>
 									
 								</div>
 
-
-								<div class="col-lg-4">
-									<label>
-										Procedure Cost:
-									</label>
-									<input type="text" name="procedure_cost" id="procedure_cost"  class="form-control m-input" >
-									
-								</div>
 
 
 							</div>

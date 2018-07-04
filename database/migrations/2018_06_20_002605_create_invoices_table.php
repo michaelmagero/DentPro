@@ -25,8 +25,6 @@ class CreateInvoicesTable extends Migration
             $table->foreign('patient_id')
                     ->references('id')->on('dms_patients')
                     ->onDelete('cascade');
-
-            $table -> integer('provider_id')->nullable()->unsigned()->default(0);
             
             $table->string('insurance_provider');
             $table->string('procedure');

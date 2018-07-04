@@ -77,16 +77,14 @@ class AdminController extends Controller
     }
 
     //USER MANAGEMENT
-    public function users(Request $request)
-    {   
+    public function users(Request $request){   
           
         return View('admin.users.show')
         ->with('users', User::orderBy('created_at','desc')->paginate(5));
         
     }
 
-    public function create(Request $request)
-    {
+    public function create(Request $request){
         // 
         if($request->user()->is_admin())
         {   
@@ -379,7 +377,7 @@ class AdminController extends Controller
     public function allpayments() {
         return view('admin.payments.show')
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(5))
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(5));
+        ->with('patients', Patient::orderBy('created_at','desc')->get());
     }
 
     public function new_payment($id) {
@@ -456,29 +454,35 @@ class AdminController extends Controller
         $payment->patient_id = $request->get('patient_id');
         $payment->procedure = $request->get('procedure');
 
-        // $payment->procedure_cost = $procedure->amount;
-        $payment->notes = $request->get('notes');
+        $procedures = $payment->procedure;
 
-        $payment->save();
-        Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        return redirect('all-payments-admin');
-
-        if (empty($request->get('description')) && empty($request->get('lab_name')) && empty($request->get('due_date'))) {
-            return back();
-        }else {
-            $labwork = new Labwork();
-            $labwork->patient_id = $request->get('patient_id');
-            $labwork->description = $request->get('description');
-            $labwork->lab_name = $request->get('lab_name');
-            $labwork->due_date = $request->get('due_date');
-            $labwork->status = 'pending';
-
-            $labwork->save();
-            Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-            return redirect('all-lablist-admin');
-            
-            
+        for ($i=0; $i < $procedures; $i++) {
+            dd($procedures[$i]);
         }
+
+        // $payment->procedure = $procedures . "<br>";
+        // $payment->notes = $request->get('notes');
+
+        // $payment->save();
+        // Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
+        // return redirect('all-payments-admin');
+
+        // if (empty($request->get('description')) && empty($request->get('lab_name')) && empty($request->get('due_date'))) {
+        //     return back();
+        // }else {
+        //     $labwork = new Labwork();
+        //     $labwork->patient_id = $request->get('patient_id');
+        //     $labwork->description = $request->get('description');
+        //     $labwork->lab_name = $request->get('lab_name');
+        //     $labwork->due_date = $request->get('due_date');
+        //     $labwork->status = 'pending';
+
+        //     $labwork->save();
+        //     Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
+        //     return redirect('all-lablist-admin');
+            
+            
+        // }
 
         
     }
@@ -748,7 +752,7 @@ class AdminController extends Controller
     //INSURANCE PROVIDERS
     public function allproviders() {
         return view('admin.insurance_providers.show')
-        ->with('procedures', Provider::orderBy('created_at','desc')->paginate(10));
+        ->with('providers', Provider::orderBy('created_at','desc')->paginate(10));
     }
 
     public function create_provider() {
@@ -764,7 +768,7 @@ class AdminController extends Controller
         
                 switch ($value) {
                     
-                    case 'Jubilee Insurance':
+                    case "Jubilee Insurance":
                         $provider = new Provider();
                         $provider->name = 'Jubilee Insurance';
                         $provider->phone_one = '0718573435';
@@ -775,11 +779,11 @@ class AdminController extends Controller
                         $provider->physical_location = 'Jubilee Plaza Moi Avenue Nairobi';
                         $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
                         
                         
-                    case 'UAP Insurance':
+                        
+                    case "UAP Insurance":
 
                         $provider = new Provider();
                         $provider->name = 'UAP Insurance';
@@ -791,11 +795,11 @@ class AdminController extends Controller
                         $provider->physical_location = 'UAP Plaza Kenyatta Avenue Nairobi';
                         $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
                         
+                        
 
-                    case 'Madison Insurance':
+                    case "Madison Insurance":
 
                         $provider = new Provider();
                         $provider->name = 'Madison Insurance';
@@ -807,12 +811,11 @@ class AdminController extends Controller
                         $provider->physical_location = 'UAP Plaza Kenyatta Avenue Nairobi';
                         $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
                         
                         
 
-                    case 'AON Insurance':
+                    case "AON Insurance":
                         $provider = new Provider();
                         $provider->name = "AON Insurance";
                         $provider->phone_one = "0718573435";
@@ -823,12 +826,11 @@ class AdminController extends Controller
                         $provider->physical_location = "AON Plaza Kenyatta Avenue Nairobi";
                         $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
                         
                         
 
-                    case 'Britam':
+                    case "Britam":
                         $provider = new Provider();
                         $provider->name = "Britam";
                         $provider->phone_one = "0718573435";
@@ -839,11 +841,10 @@ class AdminController extends Controller
                         $provider->physical_location = "Britam Plaza Kenyatta Avenue Nairobi";
                         $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
                         
 
-                    case 'Sanlam':
+                    case "Sanlam":
                         $provider = new Provider();
                         $provider->name = "Sanlam Insurance";
                         $provider->phone_one = "0718573435";
@@ -854,10 +855,9 @@ class AdminController extends Controller
                         $provider->physical_location = "Sanlam Plaza Kenyatta Avenue Nairobi";
                         $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'Pacific Insurance':
+                    case "Pacific Insurance":
                         $provider = new Provider();
                         $provider->name = "Pacific Insurance";
                         $provider->phone_one = "0718573435";
@@ -866,12 +866,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "pacificinsurance@gmail.com";
                         $provider->physical_location = "Pacific Plaza Kenyatta Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'Saham':
+                    case "Saham":
                         $provider = new Provider();
                         $provider->name = "Saham";
                         $provider->phone_one = "0718573435";
@@ -880,12 +879,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "sahaminsurance@gmail.com";
                         $provider->physical_location = "Saham Plaza Kenyatta Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'Resolution Insurance':
+                    case "Resolution Insurance":
                         $provider = new Provider();
                         $provider->name = "Resolution Insurance";
                         $provider->phone_one = "0718573435";
@@ -894,12 +892,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "resolutioninsurance@gmail.com";
                         $provider->physical_location = "Resolution Plaza Kenyatta Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'AAR':
+                    case "AAR":
                         $provider = new Provider();
                         $provider->name = "AAR";
                         $provider->phone_one = "0718573435";
@@ -908,12 +905,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "aarinsurance@gmail.com";
                         $provider->physical_location = "AAR Plaza Kenyatta Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'APA Insurance':
+                    case "APA Insurance":
                         $provider = new Provider();
                         $provider->name = "APA Insurance";
                         $provider->phone_one = "0718573435";
@@ -922,12 +918,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "apainsurance@gmail.com";
                         $provider->physical_location = "APA Plaza Kenyatta Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'Liaison Insurance':
+                    case "Liaison Insurance":
                         $provider = new Provider();
                         $provider->name = "Liaison Insurance";
                         $provider->phone_one = "0718573435";
@@ -936,12 +931,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "liaisoninsurance@gmail.com";
                         $provider->physical_location = "APA Plaza Kenyatta Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'KCB':
+                    case "KCB":
                         $provider = new Provider();
                         $provider->name = "KCB";
                         $provider->phone_one = "0718573435";
@@ -950,12 +944,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "kencominsurance@gmail.com";
                         $provider->physical_location = "Kencom Moi Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'Co-operative':
+                    case "Co-operative":
                         $provider = new Provider();
                         $provider->name = "Co-operative";
                         $provider->phone_one = "0718573435";
@@ -964,12 +957,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "coopinsurance@gmail.com";
                         $provider->physical_location = "Kencom Moi Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'First Assurance':
+                    case "First Assurance":
                         $provider = new Provider();
                         $provider->name = "First Assurance";
                         $provider->phone_one = "0718573435";
@@ -978,12 +970,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "firstinsurance@gmail.com";
                         $provider->physical_location = "Kencom Moi Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'Eagle Africa':
+                    case "Eagle Africa":
                         $provider = new Provider();
                         $provider->name = "Eagle Africa";
                         $provider->phone_one = "0718573435";
@@ -992,12 +983,11 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "eagleinsurance@gmail.com";
                         $provider->physical_location = "Kencom Moi Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
                         break;
 
-                    case 'Sedgwick':
+                    case "Sedgwick":
                         $provider = new Provider();
                         $provider->name = "Sedgwick";
                         $provider->phone_one = "0718573435";
@@ -1006,7 +996,7 @@ class AdminController extends Controller
                         $provider->postal_address = "68117-00200 Nairobi";
                         $provider->email = "sedgwickinsurance@gmail.com";
                         $provider->physical_location = "Kencom Moi Avenue Nairobi";
-                        $provider->save();;
+                        $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
                         return back();
                         break;
@@ -1020,67 +1010,12 @@ class AdminController extends Controller
             }
     }
 
-
-    public function edit_provider($id) {
-        //get post data by id
-        $payment = Provider::where('id',$id)->first();
-            
-        //load form view
-        return view('admin.insurance_providers.edit')
-        ->with('procedures', Provider::where('id', $id)->orderBy('created_at','desc')->get());
-    }
-
-    // public function show_procedure($id) {
-    //     $patient = Patient::where('id',$id)->first();
-
-    //     if($patient)
-    //     {
-    //         return view('admin.procedures.read')
-    //         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->paginate(5)) 
-    //         ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get()); 
-    //     }
-    //     else 
-    //     {
-    //         return view('admin.procedures.read');
-    //     }
-    // }
-
-
-    public function update_provider(Request $request, $id) {
-
-        // validate
-            // read more on validation at http://laravel.com/docs/validation
-            $rules = array(
-                'procedure' => 'required',
-                'amount' => 'required'
-            );
-            $validator = Validator::make(Input::all(), $rules);
-
-            // process the login
-            if ($validator->fails()) {
-                return Redirect::to('edit-provider/' . $id)
-                    ->withErrors($validator);
-            } else {
-                // store
-                $proc = Provider::find($id);
-                $proc->procedure = $request->get('procedure');
-                $proc->amount = number_format($request->get('amount'),2);
-                $proc->save();
-
-                // redirect
-                Alert::success('Successfully Updated', 'Success')->autoclose(2000);
-                return back();
-            }
-    }
-
-
-
     public function delete_provider($id) {
         $proc = Provider::where('id',$id)->first();
 
         $proc->delete();
 
-        Alert::success('Procedure Deleted Successfully', 'Success')->autoclose(2000);
+        Alert::success('Provider Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
 
@@ -1181,20 +1116,6 @@ class AdminController extends Controller
         Alert::success('Procedure Deleted Successfully', 'Success')->autoclose(2000);
         return back();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

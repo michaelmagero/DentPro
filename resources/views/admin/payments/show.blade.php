@@ -100,6 +100,9 @@
 												File No
 											</th>
 											<th title="Field #4">
+												Patient Name
+											</th>
+											<th title="Field #4">
 												Procedure
 											</th>
 											<th title="Field #5">
@@ -123,11 +126,25 @@
 										@foreach($payments as $payment)
 											<tr>
 												<td>{{ $payment->patient_id }}</td>
+
+												<td>
+													@foreach($patients as $patient)
+														@if($patient->id == $payment->patient_id)
+															{{ $patient->firstname . " " . $patient->lastname }}
+														@endif
+													@endforeach
+												</td>
+
 												<td>{{ $payment->procedure }}</td>
+
 												<td>{{ $payment->procedure_cost }}</td>
+
 												<td>{{ $payment->amount_paid }}</td>
+
 												<td>{{ $payment->balance }}</td>
+
 												<td>{{ $payment->created_at }}</td>
+
 												<td>
 													
 													<a href="{{ url('new-payment-admin/'.$payment->patient_id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add Payment ">

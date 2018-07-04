@@ -70,17 +70,21 @@ class DoctorsController extends Controller
     //PAYMENTS
     public function allpayments() {
         $user_doc = Auth::user()->id;
+        $user_doc_name = Auth::user()->name;
 
         return view('doctor.payments.show')
-            ->with('patients', Patient::orderBy('created_at','desc')->paginate(1))
+            ->with('patients', Patient::where('doctor', $user_doc_name)->orderBy('created_at','desc')->get())
             ->with('procedures', Procedure::orderBy('created_at','desc')->paginate(1))
             ->with('payments', Payment::where('doctor_id', $user_doc)->orderBy('created_at','desc')->paginate(10));
 
     }
 
     public function create_payment() {
+        $user_doc_name = Auth::user()->name;
+
+
         return view('doctor.payments.create_new')
-        ->with('patients', Patient::orderBy('created_at','desc')->get())
+        ->with('patients', Patient::where('doctor', $user_doc_name)->orderBy('created_at','desc')->get())
         ->with('payments', Payment::orderBy('created_at','desc')->get())
         ->with('procedures', Procedure::orderBy('created_at','desc')->get());
     }

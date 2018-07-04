@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Alert;
 use Auth;
@@ -30,26 +30,63 @@ class LoginController extends Controller
      * @var string
      */
     
+    protected $redirectTo = '/admin-dash';
 
 
-
-    public function authenticated()
-    {
-        if(Auth::user()){
-            Alert::success('Login Successfull!', 'Success')->autoclose(2500);
-            return redirect('/admin-dash');
+    // public function authenticated()
+    // {
+    //     if(Auth::user()){
+    //         Alert::success('Login Successfull!', 'Success')->autoclose(2500);
+    //         return redirect('/admin-dash');
             
-        }elseif(Auth::user() != Auth::user()){
-            Alert::error('Wrong credentials! check username and password and try again', 'Error')->autoclose(2500);
-            return redirect('/login');
-        }else{
+    //     }elseif(Auth::user() != Auth::user()){
+    //         Alert::error('Wrong credentials! check username and password and try again', 'Error')->autoclose(2500);
+    //         return redirect('/login');
+    //     }else{
             
-        }
+    //     }
 
         
+    // }
+
+    public function login(Request $request)
+    {
+        //Error messages
+        $messages = [
+            'email.required' => "Email is required",
+            'email.email' => "Email is not valid",
+            'email.exists' => "Email doesn't exists",
+            'password.required' => "Password is required",
+            'password.min' => "Password must be at least 6 characters"
+        ];
+
+        // validate the form data
+        $validator = Validator::make($request->all(), [
+                'email' => 'required|email|exists:users,email',
+                'password' => 'required|min:6'
+            ], $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+            // attempt to log
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password ], $request->remember)) {
+                // if successful -> redirect forward
+                Alert::success('Login Successfull!', 'Success')->autoclose(2500);
+                return redirect()->intended(url('/admin-dash'));
+            }
+
+            // if unsuccessful -> redirect back
+            return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors([
+                Alert::error('Wrong credentials! check username and password and try again', 'Error')->autoclose(2500)
+            
+            ]);
+        }
     }
 
-    protected $redirectTo = '/admin-dash';
+    
+
+    
 
     /**
      * Create a new controller instance.

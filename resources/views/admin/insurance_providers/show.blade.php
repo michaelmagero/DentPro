@@ -99,10 +99,16 @@
 										#
 									</th>
 									<th>
-										Procedure
+										Provider
 									</th>
 									<th>
-										 Amount
+										 Email
+									</th>
+									<th>
+										Phone 1
+									</th>
+									<th>
+										Phone 2
 									</th>
 									<th>
 										Action
@@ -110,19 +116,25 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($procedures as $procedure)
+								@foreach($providers as $provider)
 									<tr>
-										<td>{{ $procedure->id }}</td>
+										<td>{{ $provider->id }}</td>
 										
-										<td>{{ $procedure->procedure }}</td>
-										<td>{{ $procedure->amount }}</td>
+										<td>{{ $provider->name }}</td>
+										
+										<td>{{ $provider->email }}</td>
+										
+										<td>{{ $provider->phone_one }}</td>
+										
+										<td>{{ $provider->phone_two }}</td>
+										
 										 <td>
 
-											<a href="{{ url('edit-procedure/'.$procedure->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+											{{-- <a href="{{ url('edit-provider/'.$provider->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 												<i class="fa fa-edit"></i>
-											</a>
+											</a> --}}
 
-											<a href="{{ url('delete-procedure/'.$procedure->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+											<a href="{{ url('delete-provider/'.$provider->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 												<i class="fa fa-trash"></i>
 											</a>
 											
@@ -139,7 +151,7 @@
 								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
 									<div class="row">
 										<div class="col-md-12">
-											{{ $procedures->links() }}
+											{{ $providers->links() }}
 										</div>
 									</div>
 										

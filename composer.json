@@ -11,6 +11,8 @@
         "laravel/tinker": "~1.0",
         "nesbot/carbon": "^1.27",
         "softon/sweetalert": "^1.0",
+        "spatie/laravel-backup": "^3.0.0",
+        "spatie/laravel-permission": "^2.12",
         "uxweb/sweet-alert": "^1.4"
     },
     "require-dev": {

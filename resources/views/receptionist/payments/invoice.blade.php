@@ -2,7 +2,7 @@
 @extends('layouts.receptionist')
 
 @section('header')
-    Invoice
+    Receipt
 @endsection
 
 @section('content')
@@ -40,95 +40,104 @@
 		
 		
 
-        @foreach($payments as $payment)
+        @foreach($invoices as $invoice)
         <div class="m-content">
-			<!--begin::Portlet-->
-				
-				<div class="m-portlet">
-					<div class="row">
-                    <div class="col-md-12">
-                        <form m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed method="POST" action="{{ url('new-invoice/'.$payment->patient_id) }}">
-                            <div class="white-box printableArea">
-                            <h3><b>Invoice</b> <span class="pull-right">#5669626</span></h3>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-left">
-                                        <address>
-                                            <h3> &nbsp;<b class="text-danger">Dental Access</b></h3>
-                                            <p class="text-muted m-l-5">Access Plaza 2nd Floor,
-                                                <br> Moi Avenue Nairobi,
-                                                <br> access@gmail.com,
-                                                <br> 0718573435</p>
-                                        </address>
-                                    </div>
-                                    <div class="pull-right text-right">
-                                        <address>
-                                            <h3>For,</h3>
-                                                @foreach($patients as $patient)
-                                                    @if($patient->id == $payment->patient_id)
-                                                        <h4 name="patient_id">{{ $patient->firstname . " " . $patient->lastname }}</h4>
-                                                    @endif
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="m-portlet">
+                            <div class="m-portlet__body m-portlet__body--no-padding">
+                                <div class="m-invoice-2">
+                                    <div class="m-invoice__wrapper">
+                                        <div class="m-invoice__head" style="background-image: url(./assets/app/media/img//logos/bg-6.jpg);">
+                                            <div class="m-invoice__container m-invoice__container--centered">
+                                                <div class="m-invoice__logo">
+                                                    <a href="#">
+                                                        <h1>INVOICE</h1>
+                                                    </a>
+                                                    <a href="#">
+                                                        <img src="../images/logo.png" style="width:100px; height:100px;">
+                                                    </a>
+                                                </div>
+                                                <span class="m-invoice__desc">
+                                                <span>3rd Floor Cardinal Otunga Plaza. Cardinal Otunga Street</span>
+                                                <span>P.O BOX 51215-00100 Nairobi Kenya</span>
+                                                <span>info@danc.co.ke</span>
+                                                <span>0798 040 111</span>
                                                 
+                                                </span>
+                                                <div class="m-invoice__items">
+                                                    <div class="m-invoice__item">
+                                                        <span class="m-invoice__subtitle">DATE</span>
+                                                        <span class="m-invoice__text">{{ $invoice->created_at->format('F j, Y') }}</span>
+                                                    </div>
+                                                    <div class="m-invoice__item">
+                                                        <span class="m-invoice__subtitle">RECEIPT NO.</span>
+                                                        <span class="m-invoice__text">{{ $invoice->id }}</span>
+                                                    </div>
+                                                    <div class="m-invoice__item">
+                                                        <span class="m-invoice__subtitle">INVOICE TO.</span>
+                                                        <span class="m-invoice__text">
+                                                            @foreach($patients as $patient)
+                                                                @if($patient->id == $invoice->patient_id)
+                                                                    {{ $patient->payment_mode}}
+                                                                @endif
+                                                            @endforeach
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-invoice__body m-invoice__body--centered" >
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>PROCEDURE</th>
+                                                            <th>TOTAL PRICE</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{ $invoice->procedure }}</td>
+                                                            <td class="m--font-danger">{{ $invoice->amount }}</td>
+                                                        </tr><br><br>
 
-                                                    <p class="text-muted m-l-30">{{ $patient->postal_address }},
-                                                    <br> {{ $patient->phone_number }},
-                                                    <br> {{ $patient->email }}</p>
-                                                @endforeach
-                                                    <p class="m-t-30"><b>Invoice Date :</b> <i class="fa fa-calendar"></i> {{ $payment->created_at }}</p>
-                                                    <p><b>Due Date :</b> <i class="fa fa-calendar"></i> {{ $payment->created_at }}</p>
-                                                
-                                        </address>
+
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Amount Paid &nbsp;&nbsp; {{ $invoice->amount }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Balance &nbsp;&nbsp; {{ $invoice->amount }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><strong>Total </strong> &nbsp;&nbsp; {{ $invoice->total }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="m-invoice__footer" style="padding:40px 0 40px 100px !important;">
+                                            <div class="row">
+                                                <div class="col-md-8"></div>
+                                                <div class="col-md-4">
+                                                    <a href="{{ url('/all-payments') }}" class="btn m-btn--square  btn-primary"> Back </a>
+
+                                                    <button type="button" class="btn m-btn--square  btn-danger"> <i class="fa fa-print"></i> &nbsp; Print </button>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="table-responsive m-t-40" style="clear: both;">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th>Procedure</th>
-                                                    <th>Insurance Provider</th>
-                                                    <th class="text-right">Quantity</th>
-                                                    <th class="text-right">Unit Cost</th>
-                                                    <th class="text-right">Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td name="invoice_no" class="text-center">{{ $payment->id }}</td>
-                                                    <td name="procedure">{{ $payment->procedure }}</td>
-                                                    <td name="insurance_provider">{{ $patient->payment_mode }}</td>
-                                                    <td class="text-right">{{ $payment->quantity }} </td>
-                                                    <td class="text-right"> {{ $payment->procedure_cost }} </td>
-                                                    <td class="text-right"> {{ $payment->procedure_cost }} </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="pull-right m-t-30 text-right">
-                                        <p>Sub - Total amount: {{ $payment->procedure_cost }}</p>
-                                        <p>vat (16%) : {{ ($payment->procedure_cost) * 0.16 }} </p>
-                                        <hr>
-                                        <h3 name="total"><b>Total :</b> Ksh {{ $payment->procedure_cost }}</h3> </div>
-                                    <div class="clearfix"></div>
-                                    <hr>
-                                    <div class="text-right">
-                                        <button class="btn btn-danger" type="submit"> Process Invoice </button>
-                                        <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        </form>
-                        
                     </div>
-                    </div>
-				</div>
-				<!--end::Portlet-->
-			<!--End::Section-->
+                </div>
+            </div>
         </div>
         @endforeach
     </div>

@@ -28,6 +28,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(['/middleware' => ['auth', 'web']], function() {
 	//USER ROUTES (ADMIN)
+	
 	Route::get('all-users','AdminController@users');
 
 	Route::get('new-user','AdminController@create');
@@ -246,14 +247,16 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 	Route::get('new-payment/{id}','ReceptionistController@new_payment');
 
 	Route::post('new-payment/{id}','ReceptionistController@create_payment');
+	
 		//INVOICE AND RECEIPTS [BEGIN]
 	Route::get('new-receipt/{id}','ReceptionistController@new_receipt');
+
+	Route::post('new-receipt/{id}','ReceptionistController@insert_receipt');
 
 	Route::get('new-invoice/{id}','ReceptionistController@new_invoice');
 
 	Route::post('new-invoice/{id}','ReceptionistController@insert_invoice');
 
-	Route::post('new-receipt/{id}','ReceptionistController@insert_receipt');
 
 		//INVOICE AND RECEIPTS [END]
 

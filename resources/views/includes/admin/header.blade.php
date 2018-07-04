@@ -12,9 +12,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!--begin::Web font -->
 		<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-		<link href="../admin/assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<!--end::Web font -->
 		<!--begin::Base Styles -->  
 		<link href="../css/invoice.min.css" rel="stylesheet" type="text/css">
@@ -33,7 +30,7 @@
 		<link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
 		<script src="https://unpkg.com/flatpickr"></script>
 		
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->

@@ -207,7 +207,7 @@ class ReceptionistController extends Controller
     public function allpayments() {
         return view('receptionist.payments.show')
         ->with('payments', Payment::orderBy('created_at','desc')->paginate(10))
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(1));
+        ->with('patients', Patient::orderBy('created_at','desc')->get());
     }
 
     public function new_payment($id) {
@@ -215,6 +215,7 @@ class ReceptionistController extends Controller
 
         return view('receptionist.payments.create')
         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('receipts', Receipt::orderBy('created_at','desc')->get())
         ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
         ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
@@ -224,6 +225,9 @@ class ReceptionistController extends Controller
 
         return view('receptionist.payments.receipt')
         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('receipts', Receipt::orderBy('created_at','desc')->get())
+        ->with('invoices', Invoice::orderBy('created_at','desc')->get())
+        ->with('providers', Provider::orderBy('created_at','desc')->get())
         ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
         ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
@@ -234,6 +238,9 @@ class ReceptionistController extends Controller
 
         return view('receptionist.payments.invoice')
         ->with('patients', Patient::where('id', $patient->id)->orderBy('created_at','desc')->get())
+        ->with('receipts', Receipt::orderBy('created_at','desc')->get())
+        ->with('invoices', Invoice::orderBy('created_at','desc')->get())
+        ->with('providers', Provider::orderBy('created_at','desc')->get())
         ->with('payments', Payment::where('patient_id', $patient->id)->orderBy('created_at','desc')->get())
         ->with('waitings', Waiting::where('patient_id', $patient->id)->orderBy('created_at','desc')->get());
     }
@@ -272,27 +279,53 @@ class ReceptionistController extends Controller
             $pay->balance = $final_balance;
             $pay->next_appointment = $next_appointment;
             $pay->save(); 
+            Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
 
 
             $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $pay->patient_id "));
-            Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
-            return redirect('new-receipt/'.$pid);
 
+            Receipt::create([
+
+                'receipt_no' => rand(1000, 100000),
+                'payment_id' => $pay->id,
+                'patient_id' => $pid,
+                'procedure' =>$pay->procedure,
+                'amount' => $pay->procedure_cost,
+                'total' => $pay->procedure_cost,
+
+            ]);
             
-
+            return redirect('new-receipt/'.$pid);
 
             
         }elseif($paymode != "Cash"){
             $pay = new Payment();
             $pay = Payment::where('patient_id',$id)->first();
+            $patient = Patient::where('id', $pay->id)->first();
 
             $pay->amount_paid = $amount_paid;
             $pay->balance = $final_balance;
             $pay->next_appointment = $next_appointment;
+            $pay->save();
             Alert::success('Payment Added Successfully!', 'Success')->autoclose(2500);
 
+
             $wait= DB::update(DB::raw("UPDATE dms_waitings set status = 'seen' where patient_id = $pay->patient_id "));
-            $pay->save(); 
+
+
+            Invoice::create([
+
+                'invoice_no' => rand(1000, 100000),
+                'payment_id' => $pay->id,
+                'patient_id' => $pid,
+                'insurance_provider' => $patient->payment_mode,
+                'procedure' =>$pay->procedure,
+                'amount' => $pay->procedure_cost,
+                'total' => $pay->procedure_cost,
+
+            ]);
+
+
             return redirect('new-invoice/'.$pid);
 
         }else {
@@ -300,18 +333,6 @@ class ReceptionistController extends Controller
         }
         
         
-    }
-
-
-    public function insert_invoice(Request $request) {
-        $invoice = new invoice();
-        $receipt->invoice_no = rand(1000, 100000);
-        $invoice->payment_id = $request->get('');
-        $invoice->patient_id = $request->get('');
-        $invoice->provider_id =  $request->get('');
-        $invoice->insurance_provider = $request->get('');
-        $invoice->procedure = $request->get('');
-        $invoice->amount = $request->get('');
     }
 
     public function insert_receipt(Request $request, $id) {
@@ -360,8 +381,6 @@ class ReceptionistController extends Controller
 
     public function update_payment(Request $request, $id) {
 
-
-        
         $procedure = $request->get('procedure');
         $amount_due = $request->get('amount_due');
         $amount_paid = $request->get('amount_paid');

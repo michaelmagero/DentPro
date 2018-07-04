@@ -15,6 +15,8 @@ class Invoice extends Model
      */
     protected $table = 'dms_invoices';
 
+    protected $fillable = ['invoice_no', 'payment_id', 'patient_id', 'insurance_provider', 'procedure', 'amount', 'total'];
+
     public function payment()
     {
         return $this->belongsTo('App\Payment');
