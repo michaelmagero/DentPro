@@ -23,7 +23,10 @@
 	
 
 		<!-- begin::Quick Nav -->	
-    	<!--begin::Base Scripts -->
+		<!--begin::Base Scripts -->
+		<script src="//code.jquery.com/jquery.js"></script>
+		<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
 		<script src="../admin/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
 		<script src="../admin/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
 		<!--end::Base Scripts -->   
@@ -65,6 +68,9 @@
 
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/summernote.js" type="text/javascript"></script>
 
+		<script src="../admin/assets/demo/default/custom/components/forms/widgets/bootstrap-datepicker.js" type="text/javascript"></script>
+
+
 		
 		<!--end::Page Snippets -->
 
@@ -80,6 +86,24 @@
 
 			}
 		</script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				oTable = $('#users-table').DataTable({
+					"processing": true,
+					"serverSide": true,
+					"ajax": "{{ url('all-patients-admin') }}",
+					"columns": [
+						{data: 'id', name: 'id'},
+						{data: 'firstname', name: 'firstname'},
+						{data: 'lastname', name: 'lastname'},
+						{data: 'payment_mode', name: 'payment_mode'},
+						{data: 'amount_allocated', name: 'amount_allocated'},
+						{data: 'action', name: 'action'}
+					]
+				});
+			});
+        </script>
 		
 	</body>
 	<!-- end::Body -->

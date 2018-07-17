@@ -13,6 +13,7 @@ use App\Expense;
 use App\Labwork;
 use App\Procedure;
 use App\Provider;
+use Yajra\Datatables\Datatables;
 use Hash;
 use Alert;
 use DB;
@@ -188,8 +189,6 @@ class AdminController extends Controller
         
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      *
@@ -211,12 +210,22 @@ class AdminController extends Controller
 
 
 
+
+
+
     //PATIENTS
+
     public function allpatients() {
         return view('admin.patients.show')
         ->with('patients', Patient::orderBy('created_at','desc')->paginate(10))
         ->with('users', User::orderBy('created_at','desc')->paginate(10));
     }
+
+    public function getpatients() {
+        return Datatables::of(Patient::query())->make(true);
+    }
+
+
 
     public function create_patient() {
         return view('admin.patients.create')

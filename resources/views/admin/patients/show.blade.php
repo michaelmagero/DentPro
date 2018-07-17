@@ -20,7 +20,7 @@
                     <span class="m-subheader__daterange" >
                         <span class="m-subheader__daterange-label">
 							<strong> Hello {{ Auth::user()->name }} </strong>
-                            <span class="m-subheader__daterange-title"></span>
+                            <span class="m-	subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
                     </span>
@@ -61,9 +61,9 @@
 						<!--begin: Search Form -->
 						<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
 							<div class="row align-items-center">
-								<div class="col-xl-8 order-2 order-xl-1">
+								<div class="col-md-4 order-2 order-xl-1">
 									<div class="form-group m-form__group row align-items-center">
-										<div class="col-md-4">
+										<div class="col-md-10">
 											<div class="m-input-icon m-input-icon--left">
 												<input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
 												<span class="m-input-icon__icon m-input-icon__icon--left">
@@ -75,7 +75,22 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-xl-4 order-1 order-xl-2 m--align-right">
+								<div class="col-md-4 order-2 order-xl-1">
+									<div class="form-group m-form__group row">
+										<div class="col-md-10">
+											<div class="input-daterange input-group" id="m_datepicker_5">
+												<input type="text" class="form-control m-input" name="start" placeholder="From"/>
+												<div class="input-group-append">
+													<span class="input-group-text">
+														<i class="la la-ellipsis-h"></i>
+													</span>
+												</div>
+												<input type="text" class="form-control" name="end" placeholder="To"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 order-1 order-xl-2 m--align-right">
 									<a href="{{ url('new-patient-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 										<span>
 											<i class="flaticon-user"></i>
@@ -91,11 +106,10 @@
 						<!--end: Search Form -->
 
 						<!--begin: Datatable -->
-						<table class="m-datatable" id="html_table">
+						<table class="table table-bordered" id="users-table">
 							<thead>
-								<tr class="m_datatable__row">
-									
-									<th class="file_no">
+								<tr>
+									<th>
 										File No
 									</th>
 									<th>
@@ -112,7 +126,7 @@
 									</th>
 								</tr>
 							</thead>
-							<tbody>
+							{{--  <tbody>
 								@foreach($patients as $patient)
 									<tr>
 										<td style="width:20px !important;">{{ $patient->id }}</td>
@@ -155,7 +169,7 @@
 										</td>
 									</tr>
                            		@endforeach
-							</tbody>
+							</tbody>  --}}
 						</table>
 						<!--end: Datatable -->
 					</div>
@@ -174,7 +188,7 @@
 					
 					</div>
 
-					
+				
 				</div>
 			</div>
 
@@ -183,8 +197,6 @@
 					
 
 @endsection
-
-
 
 
 

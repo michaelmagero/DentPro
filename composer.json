@@ -13,7 +13,8 @@
         "softon/sweetalert": "^1.0",
         "spatie/laravel-backup": "^3.0.0",
         "spatie/laravel-permission": "^2.12",
-        "uxweb/sweet-alert": "^1.4"
+        "uxweb/sweet-alert": "^1.4",
+        "yajra/laravel-datatables-oracle": "^8.7"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
