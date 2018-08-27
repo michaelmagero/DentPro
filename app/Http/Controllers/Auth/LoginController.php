@@ -73,7 +73,7 @@ class LoginController extends Controller
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password ], $request->remember)) {
                 // if successful -> redirect forward
                 Alert::success('Login Successfull!', 'Success')->autoclose(2500);
-                return redirect()->intended(url('/admin-dash'));
+                return redirect('/admin-dash');
             }
 
             // if unsuccessful -> redirect back

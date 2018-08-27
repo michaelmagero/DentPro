@@ -15,7 +15,9 @@
 		<!--end::Web font -->
 		<!--begin::Base Styles -->  
 		<link href="../css/invoice.min.css" rel="stylesheet" type="text/css">
+		
 		<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
         <!--begin::Page Vendors -->
 		<link href="../admin/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendors -->

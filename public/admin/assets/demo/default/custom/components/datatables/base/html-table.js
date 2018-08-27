@@ -1,14 +1,14 @@
 //== Class definition
 
-var DatatableHtmlTableDemo = function() {
+var DatatableHtmlTableDemo = function () {
   //== Private functions
 
   // demo initializer
-  var demo = function() {
+  var demo = function () {
 
     var datatable = $('.m-datatable').mDatatable({
       data: {
-        saveState: {cookie: false},
+        saveState: { cookie: false },
       },
       search: {
         input: $('#generalSearch'),
@@ -29,13 +29,13 @@ var DatatableHtmlTableDemo = function() {
 
   return {
     //== Public functions
-    init: function() {
+    init: function () {
       // init dmeo
       demo();
     },
   };
 }();
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
   DatatableHtmlTableDemo.init();
 });

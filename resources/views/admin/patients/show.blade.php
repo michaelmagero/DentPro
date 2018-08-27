@@ -20,7 +20,7 @@
                     <span class="m-subheader__daterange" >
                         <span class="m-subheader__daterange-label">
 							<strong> Hello {{ Auth::user()->name }} </strong>
-                            <span class="m-	subheader__daterange-title"></span>
+                            <span class="m-subheader__daterange-title"></span>
                             <span class="m-subheader__daterange-date  m--font-brand"></span>
                         </span>
                     </span>
@@ -61,9 +61,9 @@
 						<!--begin: Search Form -->
 						<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
 							<div class="row align-items-center">
-								<div class="col-md-4 order-2 order-xl-1">
+								<div class="col-xl-4 order-2 order-xl-1">
 									<div class="form-group m-form__group row align-items-center">
-										<div class="col-md-10">
+										<div class="col-md-12">
 											<div class="m-input-icon m-input-icon--left">
 												<input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="generalSearch">
 												<span class="m-input-icon__icon m-input-icon__icon--left">
@@ -75,22 +75,24 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-4 order-2 order-xl-1">
-									<div class="form-group m-form__group row">
-										<div class="col-md-10">
-											<div class="input-daterange input-group" id="m_datepicker_5">
-												<input type="text" class="form-control m-input" name="start" placeholder="From"/>
+
+
+								<div class="col-xl-4 order-2 order-xl-1">
+									<div class="input-group" id="m_daterangepicker_6">
+											<div class="input-group" id="m_daterangepicker_1_validate">
+												<input type="text" class="form-control m-input" readonly="" name="datarangepicker" placeholder="Select date range" id="daterangepicker">
 												<div class="input-group-append">
-													<span class="input-group-text">
-														<i class="la la-ellipsis-h"></i>
+													<span class="input-group-text" style="padding:18px;">
+														<i class="la la-calendar-check-o"></i>
 													</span>
 												</div>
-												<input type="text" class="form-control" name="end" placeholder="To"/>
 											</div>
-										</div>
 									</div>
 								</div>
-								<div class="col-md-4 order-1 order-xl-2 m--align-right">
+
+
+
+								<div class="col-xl-4 order-1 order-xl-2 m--align-right">
 									<a href="{{ url('new-patient-admin') }}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 										<span>
 											<i class="flaticon-user"></i>
@@ -106,10 +108,11 @@
 						<!--end: Search Form -->
 
 						<!--begin: Datatable -->
-						<table class="table table-bordered" id="users-table">
+						<table class="m-datatable" id="html_table">
 							<thead>
-								<tr>
-									<th>
+								<tr class="m_datatable__row">
+									
+									<th class="file_no">
 										File No
 									</th>
 									<th>
@@ -126,7 +129,7 @@
 									</th>
 								</tr>
 							</thead>
-							{{--  <tbody>
+							<tbody>
 								@foreach($patients as $patient)
 									<tr>
 										<td style="width:20px !important;">{{ $patient->id }}</td>
@@ -141,27 +144,27 @@
 										<td>{{ $patient->amount_allocated }}</td>
 										<td>
 											
-											<a href="{{ url('show-patient-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
+											<a href="{{ url('show-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">
 												<i class="fa fa-eye"></i>
 											</a>
 
-											<a href="{{ url('edit-patient-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
+											<a href="{{ url('edit-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit ">
 												<i class="fa fa-edit"></i>
 											</a>
 											
-											<a href="{{ url('patient-history-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
+											<a href="{{ url('patient-history/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Medical History ">
 												<i class="fa fa-user-md"></i>
 											</a>
 
-											<a href="{{ url('payment-history-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
+											<a href="{{ url('payment-history/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Payment History ">
 												<i class="fa fa-credit-card"></i>
 											</a>
 
-											<a href="{{ url('new-waiting-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">
+											<a href="{{ url('new-waiting/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Add To Waiting List ">
 												<i class="fa fa-plus text-primary"></i>
 											</a>
 
-											<a href="{{ url('delete-patient-admin/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
+											<a href="{{ url('delete-patient/'.$patient->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Delete ">
 												<i class="fa fa-trash"></i>
 											</a>
 											
@@ -169,7 +172,7 @@
 										</td>
 									</tr>
                            		@endforeach
-							</tbody>  --}}
+							</tbody>
 						</table>
 						<!--end: Datatable -->
 					</div>
@@ -178,7 +181,7 @@
 								<div class="m-datatable__pager m-datatable--paging-loaded clearfix ">
 									<div class="row">
 										<div class="col-md-12">
-											{{ $patients->links() }}
+											{{-- {{ $patients->links() }} --}}
 										</div>
 									</div>
 										
@@ -188,7 +191,7 @@
 					
 					</div>
 
-				
+					
 				</div>
 			</div>
 
@@ -197,6 +200,9 @@
 					
 
 @endsection
+
+
+
 
 
 

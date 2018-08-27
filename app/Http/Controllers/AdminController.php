@@ -13,7 +13,7 @@ use App\Expense;
 use App\Labwork;
 use App\Procedure;
 use App\Provider;
-use Yajra\Datatables\Datatables;
+use DataTables;
 use Hash;
 use Alert;
 use DB;
@@ -210,21 +210,15 @@ class AdminController extends Controller
 
 
 
-
-
-
     //PATIENTS
 
-    public function allpatients() {
+    public function allpatients(Request $request) {
+
         return view('admin.patients.show')
-        ->with('patients', Patient::orderBy('created_at','desc')->paginate(10))
+        ->with('patients', Patient::orderBy('created_at','desc')->get())
         ->with('users', User::orderBy('created_at','desc')->paginate(10));
-    }
 
-    public function getpatients() {
-        return Datatables::of(Patient::query())->make(true);
     }
-
 
 
     public function create_patient() {

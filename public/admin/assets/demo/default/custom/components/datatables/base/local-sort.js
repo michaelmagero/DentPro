@@ -9,10 +9,10 @@ var DatatableLocalSortDemo = function () {
 		var datatable = $('.m_datatable').mDatatable({
 			// datasource definition
 			data: {
-				type: 'remote',
+				type: 'local',
 				source: {
 					read: {
-						url: '/all-patients'
+						url: '/all-patients-admin'
 					}
 				},
 				pageSize: 10,
@@ -38,6 +38,10 @@ var DatatableLocalSortDemo = function () {
 				input: $('#generalSearch')
 			},
 
+			Date: {
+				input: $('#daterangepicker')
+			},
+
 			// columns definition
 			columns: [{
 				field: "id",
@@ -52,7 +56,7 @@ var DatatableLocalSortDemo = function () {
 				// sortable: 'asc', // default sort
 				filterable: false, // disable or enable filtering
 				// basic templating support for column rendering,
-				template: '{{OrderID}} - {{ShipCountry}}'
+				// template: '{{OrderID}} - {{ShipCountry}}'
 			},{
 				field: "insurance_provider",
 				title: "Insurance Provider",
@@ -94,27 +98,6 @@ var DatatableLocalSortDemo = function () {
 			}]
 		});
 
-		var query = datatable.getDataSourceQuery();
-
-		$('#m_form_status').on('change', function () {
-			// shortcode to datatable.getDataSourceParam('query');
-			var query = datatable.getDataSourceQuery();
-			query.Status = $(this).val().toLowerCase();
-			// shortcode to datatable.setDataSourceParam('query', query);
-			datatable.setDataSourceQuery(query);
-			datatable.load();
-		}).val(typeof query.Status !== 'undefined' ? query.Status : '');
-
-		$('#m_form_type').on('change', function () {
-			// shortcode to datatable.getDataSourceParam('query');
-			var query = datatable.getDataSourceQuery();
-			query.Type = $(this).val().toLowerCase();
-			// shortcode to datatable.setDataSourceParam('query', query);
-			datatable.setDataSourceQuery(query);
-			datatable.load();
-		}).val(typeof query.Type !== 'undefined' ? query.Type : '');
-
-		$('#m_form_status, #m_form_type').selectpicker();
 
 	};
 

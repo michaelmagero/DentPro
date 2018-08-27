@@ -47,13 +47,7 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 
 	//PATIENTS (ADMIN)
-	//Route::get('all-patients-admin','AdminController@allpatients');
-
-    Route::get('all-patients-admin', 'AdminController@allpatients');
-
-
-
-
+	Route::get('all-patients-admin','AdminController@allpatients');
 
 	Route::get('new-patient-admin','AdminController@create_patient');
 

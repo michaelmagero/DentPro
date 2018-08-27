@@ -9,6 +9,7 @@
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "lavela/phpjasper": "^3.0",
         "nesbot/carbon": "^1.27",
         "softon/sweetalert": "^1.0",
         "spatie/laravel-backup": "^3.0.0",
