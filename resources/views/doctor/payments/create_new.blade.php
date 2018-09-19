@@ -94,7 +94,7 @@
 									<label>
 										Payment For
 									</label>
-									<select class="form-control m-select2" id="m_select2_procedure" name="procedure" multiple="multiple">
+									<select class="form-control m-select2" id="m_select2_procedure" name="procedure[]" multiple="multiple">
                                         @foreach($procedures as $procedure)
 										<optgroup >
 											<option value="{{ $procedure->procedure }}">

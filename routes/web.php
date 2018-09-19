@@ -160,8 +160,6 @@ Route::group(['/middleware' => ['auth', 'web']], function() {
 
 	Route::post('create-provider','AdminController@insert_provider');
 
-	//Route::get('/show-waiting-admin/{id}','AdminController@show_waiting');
-
 	Route::get('/edit-provider/{id}','AdminController@edit_provider');
 
 	Route::post('update-provider/{id}','AdminController@update_provider');

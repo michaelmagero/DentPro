@@ -82,7 +82,6 @@ class DoctorsController extends Controller
     public function create_payment() {
         $user_doc_name = Auth::user()->name;
 
-
         return view('doctor.payments.create_new')
         ->with('patients', Patient::where('doctor', $user_doc_name)->orderBy('created_at','desc')->get())
         ->with('payments', Payment::orderBy('created_at','desc')->get())
@@ -90,6 +89,7 @@ class DoctorsController extends Controller
     }
 
     public function create_payment_id($id) {
+
         $patient = Patient::findorFail($id);
         return view('doctor.payments.create')
         ->with('patients', Patient::where('id', $id)->orderBy('created_at','desc')->get())
@@ -101,43 +101,46 @@ class DoctorsController extends Controller
 
         
 
+        $user = DB::table('users')
+                            ->select(DB::raw('count(*) as user_count, status'))
+                            ->where('status', '<>', 1)
+                            ->groupBy('status')
+                            ->get();
+
         $selected_procedure = $request->get('procedure');
-        $procedure = Procedure::where('procedure',$selected_procedure)->first();
-        //dd($procedure->amount);
 
-        if ($selected_procedure > 1) {
-            $payment->procedure . " ," .$payment->procedure;
-        }
-        
+        $procedures = Procedure::where('procedure', $selected_procedure);
 
-        $payment = new Payment();
-        $payment->doctor_id = Auth::user()->id;
-        $payment->patient_id = $request->get('patient_id');
-        $payment->procedure = $request->get('procedure');
+        dd($procedures);
 
-        $payment->procedure_cost = $procedure->amount;
-        $payment->notes = $request->get('notes');
+        // $payment = new Payment();
+        // $payment->doctor_id = Auth::user()->id;
+        // $payment->patient_id = $request->get('patient_id');
+        // $payment->procedure = $request->get('procedure');
 
-        $payment->save();
-        Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-        return redirect('all-payments-doc');
+        // $payment->procedure_cost = $procedure->amount;
+        // $payment->notes = $request->get('notes');
 
-        if (empty($request->get('description')) && empty($request->get('lab_name')) && empty($request->get('due_date'))) {
-            return back();
-        }else {
-            $labwork = new Labwork();
-            $labwork->patient_id = $request->get('patient_id');
-            $labwork->description = $request->get('description');
-            $labwork->lab_name = $request->get('lab_name');
-            $labwork->due_date = $request->get('due_date');
-            $labwork->status = 'pending';
+        // $payment->save();
+        // Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
+        // return redirect('all-payments-doc');
 
-            $labwork->save();
-            Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
-            return redirect('all-lablist-doc');
+        // if (empty($request->get('description')) && empty($request->get('lab_name')) && empty($request->get('due_date'))) {
+        //     return back();
+        // }else {
+        //     $labwork = new Labwork();
+        //     $labwork->patient_id = $request->get('patient_id');
+        //     $labwork->description = $request->get('description');
+        //     $labwork->lab_name = $request->get('lab_name');
+        //     $labwork->due_date = $request->get('due_date');
+        //     $labwork->status = 'pending';
+
+        //     $labwork->save();
+        //     Alert::success('Payment Added Successfully', 'Success')->autoclose(2000);
+        //     return redirect('all-lablist-doc');
             
             
-        }
+        // }
 
         
     }

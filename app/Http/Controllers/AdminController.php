@@ -114,7 +114,7 @@ class AdminController extends Controller
        } else {
           $user->save();
           Alert::success('User Registered Successfully!', 'Success')->autoclose(2500);
-          return back();
+          return redirect('all-users');
        }
 
        
@@ -176,8 +176,16 @@ class AdminController extends Controller
                 $user->lastname = $request->get('lastname');
                 $user->email = $request->get('email');
                 $user->role = $request->get('role');
-                $user->password = bcrypt($request->get('password'));
+                
+                $password = $request->get('password');
+                $confirm_password = $request->get('password_confirmation');
 
+                if ($password != $confirm_password) {
+                    Alert::error('Passwords Dont Match! Check passwords and try again', 'Error')->autoclose(2500);
+                    return back();
+                } else {
+                    $user->password = Hash::make($request->get('password'));
+                }
 
                 $user->role = $request->get('role');
                 $user->save();
@@ -266,7 +274,7 @@ class AdminController extends Controller
         ]);
         
         Alert::success('Patient Added Successfully!', 'Success')->autoclose(2500);
-        return back();
+        return redirect('all-patients-admin');
     }
 
     
@@ -522,15 +530,15 @@ class AdminController extends Controller
 
         
         $procedure = $request->get('procedure');
-        $amount_due = $request->get('amount_due');
+        $procedure_cost = $request->get('procedure_cost');
         $amount_paid = $request->get('amount_paid');
         
-        $balance = (float) $amount_due - $amount_paid;
+        $balance = (float) $procedure_cost - $amount_paid;
 
         $next_appointment = $request->get('next_appointment');
         $notes = $request->get('notes');
 
-        Payment::where('patient_id', $id)->update(array('procedure' => $procedure, 'amount_due' => $amount_due,'amount_paid' => $amount_paid, 'balance' => $balance, 'next_appointment' => $next_appointment, 'notes' => $notes ));
+        Payment::where('patient_id', $id)->update(array('procedure' => $procedure, 'procedure_cost' => $procedure_cost,'amount_paid' => $amount_paid, 'balance' => $balance, 'next_appointment' => $next_appointment, 'notes' => $notes ));
 
         // redirect
         Alert::success('Successfully Updated', 'Success')->autoclose(2000);
@@ -765,8 +773,6 @@ class AdminController extends Controller
 
     public function insert_provider(Request $request) {
         $array = $request->get('insurance_provider');
-
-        
             foreach ($array as $key => $value) {
         
                 switch ($value) {
@@ -1001,7 +1007,7 @@ class AdminController extends Controller
                         $provider->physical_location = "Kencom Moi Avenue Nairobi";
                         $provider->save();
                         Alert::success('InsuranceProviders Added Successfully', 'Success')->autoclose(2000);
-                        return back();
+                        return redirect('all-providers');
                         break;
                     
                     default:
@@ -1011,6 +1017,7 @@ class AdminController extends Controller
             
                 }
             }
+        
     }
 
     public function delete_provider($id) {

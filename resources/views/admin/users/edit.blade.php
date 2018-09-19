@@ -116,22 +116,6 @@
                                     </li>
                                     <li class="m-nav__item">
                                         <span class="m-nav__link">
-                                            <i class="m-nav__link-icon flaticon-share"></i>
-                                            <span class="m-nav__link-text">
-                                                Date of Birth - <span class="text-primary">{{ $user->dob }}</span>
-                                            </span>
-                                        </span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
-                                            <i class="m-nav__link-icon flaticon-support"></i>
-                                            <span class="m-nav__link-text">
-                                                Phone No. - <span class="text-primary">{{ $user->phone_number }}</span>
-                                            </span>
-                                        </span>
-                                    </li>
-                                    <li class="m-nav__item">
-                                        <span class="m-nav__link">
                                             <i class="m-nav__link-icon flaticon-chat-1"></i>
                                             <span class="m-nav__link-text">
                                                 Email - <span class="text-primary">{{ $user->email }}</span>
@@ -281,7 +265,7 @@
                                                 </label>
 
                                                 <div class="col-md-7">
-                                                    <input id="password" type="password" class="form-control" name="password">
+                                                    <input id="password" type="password" value="{{ $user->password }}" class="form-control" name="password">
 
                                                     @if ($errors->has('password'))
                                                         <span class="help-block">
@@ -291,13 +275,16 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group m-form__group row">
-                                                <label for="example-text-input" class="col-2 col-form-label">
-                                                    Confirm Password
-                                                </label>
-
+                                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }} m-form__group row">
+                                                <label for="password-confirm" class="col-2 col-form-label">Confirm Password</label>
                                                 <div class="col-md-7">
-                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
+                                                    <input id="password-confirm" type="password" value="{{ $user->password }}" class="form-control" name="password_confirmation">
+
+                                                    @if ($errors->has('password_confirmation'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
 

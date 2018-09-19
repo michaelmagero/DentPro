@@ -7,11 +7,11 @@
 
 @section('content')
 
-	
+
 
 
     <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
-						
+
 					<div class="m-login__container">
 						<div class="m-login__logo">
 							<a href="#">
@@ -40,11 +40,11 @@
 								<div class="form-group">
 									<input class="form-control form-control-lg m-input" type="email" placeholder="Email" name="email" style="background-color:#f58220 !important;color:#000 !important;">
                                 </div><br>
-                                
+
 								<div class="form-group">
 									<input class="form-control form-control-lg m-input m-login__form-input--last" type="password" placeholder="Password" name="password" style="background-color:#f58220 !important;color:#000 !important;">
                                 </div>
-                                
+
 								<div class="m-login__form-action">
 									<button id="m_login_signin_submit" type="submit" class="btn btn-primary m-btn  m-btn--custom   m-login__btn">
 										Sign In
@@ -54,5 +54,5 @@
 						</div>
 					</div>
                 </div>
-                
+
 @endsection

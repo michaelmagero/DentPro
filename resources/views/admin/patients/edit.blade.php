@@ -788,7 +788,54 @@
                                                     Cardiovascular Disease
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input" name="cardiovascular_disease"  type="text" value="{{ $patient->cardiovascular_disease }}">
+                                                        <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" name="cardiovascular_disease">
+                                            
+                                                                <option value='{{ $patient->payment_mode }}' selected="selected">
+                                                                    {{ $patient->cardiovascular_disease }}
+                                                                </option>
+        
+                                                                <optgroup label="Insurance Providers">
+                                                                    <option value="Angina Recurrent infections">
+                                                                        Angina Recurrent infections
+                                                                    </option>
+                                                                    <option value="Arteriosclerosis">
+                                                                        Arteriosclerosis
+                                                                    </option>
+                                                                    <option value="Artificial Heart Valves">
+                                                                        Artificial Heart Valves
+                                                                    </option>
+                                                                    <option value="Coronary insufficiency">
+                                                                        Coronary insufficiency
+                                                                    </option>
+                                                                    <option value="Coronary occlusion">
+                                                                        Coronary occlusion
+                                                                    </option>
+                                                                    <option value="Damaged heart valves">
+                                                                        Damaged heart valves
+                                                                    </option>
+                                                                    <option value="Heart Attack">
+                                                                        Heart Attack
+                                                                    </option>
+                                                                    <option value="Heart murmur">
+                                                                        Heart murmur
+                                                                    </option>
+                                                                    <option value="High blood pressure">
+                                                                        High blood pressure
+                                                                    </option>
+                                                                    <option value="Inborn heart defects">
+                                                                        Inborn heart defects
+                                                                    </option>
+                                                                    <option value="Mitral valve prolapses">
+                                                                        Mitral valve prolapses
+                                                                    </option>
+                                                                    <option value="Pacemaker">
+                                                                        Pacemaker
+                                                                    </option>
+                                                                    <option value="Rhumatic heart disease">
+                                                                        Rhumatic heart disease
+                                                                    </option>
+                                                                </optgroup>
+                                                            </select>
 
                                                 </div>
                                             </div>

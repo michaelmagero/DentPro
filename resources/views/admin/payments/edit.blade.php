@@ -261,7 +261,7 @@
                                                     Procedure
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="procedure_cost"  type="procedure" value="{{ $payment->procedure }}" disabled="disabled">
+                                                    <input class="form-control m-input"   name="procedure"  type="procedure" value="{{ $payment->procedure }}" disabled="disabled">
                                                 </div>
                                             </div>
 
@@ -270,7 +270,7 @@
                                                     Procedure Cost
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_due"  type="text" value="{{ $payment->procedure_cost }}" disabled="disabled">
+                                                    <input class="form-control m-input" name="procedure_cost"  type="text" value="{{ $payment->procedure_cost }}" disabled="disabled">
                                                 </div>
                                             </div>
 
@@ -279,7 +279,7 @@
                                                     Amount Paid
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="amount_paid"  type="text" value="{{ $payment->amount_paid }}">
+                                                    <input class="form-control m-input" name="amount_paid"  type="text" value="{{ $payment->amount_paid }}">
                                                 </div>
                                             </div>
 
@@ -288,7 +288,7 @@
                                                     Balance
                                                 </label>
                                                 <div class="col-7">
-                                                    <input class="form-control m-input"   name="balance"  type="text" value="{{ $payment->balance }}" disabled="disabled">
+                                                    <input class="form-control m-input" name="balance"  type="text" value="{{ $payment->balance }}" disabled="disabled">
                                                 </div>
                                             </div>
 

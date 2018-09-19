@@ -42,6 +42,8 @@
 
 		 <script src="../admin/assets/demo/default/custom/components/datatables/base/html-table.js" type="text/javascript"></script>
 
+		{{--  <script src="../admin/assets/demo/default/custom/components/datatables/base/column-rendering.js" type="text/javascript"></script>  --}}
+
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/form-repeater.js" type="text/javascript"></script>
 
 		<script src="../admin/assets/demo/default/custom/components/forms/widgets/bootstrap-datetimepicker.js" type="text/javascript"></script>
